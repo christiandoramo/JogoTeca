@@ -5,7 +5,7 @@
 - Caio Fontes de Melo - caiofontes183@gmail.com
 - Christian Oliveira do Ramo - christiandoramo@gmail.com
 - Giovanni Lima do Nascimento - giovanni.lima.nascimento@gmail.com
-- Lucas
+- Lucas Gabriel Albuquerque do Nascimento - lucas.gabrieln@ufrpe.br
 
 ## Descrição geral do projeto
 
