@@ -1,0 +1,5 @@
+package projeto2va;
+
+public enum Genero {
+	RPG, AVENTURA, SHOOTER, RACING, SPORT, ACTION, STRATEGY, ARCADE, FIGHTING, DESCONHECIDO;
+}
