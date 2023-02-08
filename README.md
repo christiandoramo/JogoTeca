@@ -30,5 +30,3 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 - - **REQ15**- O sistema deve permitir ao usuário a opção de favoritar jogos de seu interesse.
 - - **REQ16**- O sistema deve disponibilizar para que o usuário escolha entre cliente, funcionario e administrador.
 - - **REQ17**- O Sistema deve permirtir que o cliente possa consultar as suas informações cadatradas.Caso alguma alteração seja necessária, o cliente deverá contatar algum funcionário.
-
-<img src="Diagrama de classes em UML\Class Diagram.png" alt="UML">
