@@ -30,3 +30,48 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 - - **REQ15**- O sistema deve permitir ao usuário a opção de favoritar jogos de seu interesse.
 - - **REQ16**- O sistema deve disponibilizar para que o usuário escolha entre cliente, funcionario e administrador.
 - - **REQ17**- O Sistema deve permirtir que o cliente possa consultar as suas informações cadatradas.Caso alguma alteração seja necessária, o cliente deverá contatar algum funcionário.
+
+<br><hr><hr>
+
+<div align="center">
+
+# Dicas de Acesso aos colaboradores
+
+### Versões usadas
+
+javafx 17.0.6
+<br>
+javaSE 8 ( jdk 8u211 - jre 1.8)
+<br>
+Eclipse IDE Oxygen 2 for Java Developers
+
+obter recursos aqui: [Google Drive - Jogoteca](https://drive.google.com/drive/folders/17cEQQ40nq47XDg6v99tujSVtjEZ549l5?usp=share_link)
+
+Exemplos/Templates para estudo: <br> [Sistemas Bancários - Leandro Marques](https://github.com/lmarques7/sistema_bancario) <br> [JavaFX CRUD MVC - Rafael Mesquita](https://www.youtube.com/playlist?list=PL-mvLy2ws8ILNrs8jtEAwaZMxDZvlMj48)
+
+</div>
+
+## Habilitando JavaFX com eclipse IDE 🚀
+
+## _Atenção!_
+
+Use uma versão do eclipse anterior as de 2022 (como 2021-03), pois as mais recentes podem bugar na criação de arquivos fxml necessarios para o javafx </mark> <br>
+
+Clickar na aba HELP -> install new software. Na janela já aberta coloque em add "e(fx)clipse" (se o link não estiver disponivel tente esse https://download.eclipse.org/efxclipse/updates-released/3.5.0/site/ ou https://download.eclipse.org/efxclipse/updates-released/3.5.0/site/).<br><br>
+Agora baixe o arquivo do javafx no site Gluon em uma pasta que voce se lembre.
+
+No eclipse, clique no seu projeto e abra as propriedadess. Na aba library e depois selecione modulepath, crie uma biblioteca adicionando "external Jars", adicionando todos os jars que estão na pasta lib da pasta do javafx baixado. Agora basta selecionar essa livraria criada e dar o apply and close.
+
+Caso ainda não funcione a execução de uma GUI do javafx no eclipse e apareça o erro
+
+> "Error: Could not find or load main class application.Main
+> Caused by: java.lang.NoClassDefFoundError: javafx/application/Application"
+
+é necessario ir em run configurations do main do seu projeto (também na setinha ao lado do icone de run/play), e aplicar na aba arguments em VM arguments o seguinte: --module-path "O seu caminho absoluto até a pasta lib do javafx" --add-modules=javafx.fxml,javafx.controls
+
+### Extra:
+
+### para vizualizar as provas passadas do github do prof de IP2 Leandro<br>
+
+<p>Para passar do erro com janela de alerta relativo a "...UTF16..." (<kbd>ou 'boolean com.ibm.icu.text.UTF16.isSurrogate(char)' não lembro no momento</kbd>)basta ir no eclipse em janela/window > prefecias/preferences > java > Editor > mark occurrences e desabilitar: mark occurrences<p>
+
