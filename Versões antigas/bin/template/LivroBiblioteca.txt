@@ -1,0 +1,95 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class LivroBiblioteca extends Livro {
+	
+	private List<String> nomeUsuarios;
+	private List<LivroBiblioteca> livros;
+	
+	public LivroBiblioteca(){
+		nomeUsuarios = new ArrayList<String>();
+	 }    
+	public LivroBiblioteca(boolean bool){   // quando for passado o parametro true ele cria uma lista, vai ser usado na primeira vez
+	        this();
+	        if(bool == true) {
+	            livros = new ArrayList<LivroBiblioteca>();
+	        	//nomeUsuarios = new ArrayList<String>();
+	        }
+	    }
+	
+
+	public void MostraUmLivro(String titulo){ /// esta classe procura um livro pelo titulo e devolve todas as informações dele incluindo para quais pessoas ele foi emprestado
+	        String disponivel;
+	        for(LivroBiblioteca li : livros) {
+	            if(li.getTitulo().equals(titulo)){
+	                if(disponibilidade(li.getTitulo()))
+	                     disponivel = "disponivel";
+	                else disponivel = "indisponivel";
+	                System.out.println("Titulo: " + li.getTitulo() + "\n"+
+	                "Autor: " + li.getAutor() + "\n" + "Editora: " + li.getEditora() + "\n" +
+	                "Ano: " + li.getAno() + " Valor: " + li.getValor() + "\n" +
+	                "Status: "+ disponivel+ "\n");
+	                
+	                System.out.println("Emprestado Para: ");
+	                for(String li2 : li.nomeUsuarios)
+	                	System.out.println(li2);
+	                return;
+	            }
+	        }  System.out.println("Indisponivel");     
+	    }
+	    
+	//emprestar livro pega o titulo do livro e o nome de quem está pegando emprestado para salvar em "nomeUsuarios"   
+    public boolean emprestarLivro(String titulo, String nomeDevedor){
+	      if(disponibilidade(titulo)){  
+	         for(int i = 0; i < livros.size(); i++){
+	             if(livros.get(i).getTitulo().equals(titulo)){
+	                int quant = livros.get(i).getQuantidade() - 1;
+	                livros.get(i).setQuantidade(quant);
+	                livros.get(i).nomeUsuarios.add(nomeDevedor);
+	                return true;
+	              }
+	          }
+	      }return false;
+	  }	
+    
+    //add um novo livro
+    public void addLivros(LivroBiblioteca book){
+        livros.add(book);
+    }
+    
+    //pega o nome do livro e de quem o pegou emprestado incremente a quantidade disponivel do livro e remove "nomeUsuarios"
+    public void DevolveLivro(String titulo, String usuario) {
+    	for(int i = 0; i < livros.size(); i++) {
+    		 if(livros.get(i).getTitulo().equals(titulo)){
+    			livros.get(i).setQuantidade(getQuantidade()+1);
+    			livros.get(i).nomeUsuarios.remove(usuario);
+    		}
+    	}
+    }
+    
+	@Override
+	protected boolean disponibilidade(String titulo) {
+        for(LivroBiblioteca li : livros){
+            if(li.getTitulo().equals(titulo) && li.getQuantidade() > 0){ // == não funciona direito com string, apenas com tipo primitivos
+               return true;
+            }            
+        }return false;
+	}
+	
+	
+	@Override
+	protected void ShowLivros() {
+        String disponivel;
+
+        for(LivroBiblioteca li : livros){
+            if(disponibilidade(li.getTitulo()))
+                disponivel = "disponivel";
+            else disponivel = "indisponivel";
+
+            System.out.println(li.getTitulo() + " -Preço: " +li.getValor() + " " + disponivel + " " + li.getQuantidade() );
+        }
+		
+	}	
+	
+	
+}

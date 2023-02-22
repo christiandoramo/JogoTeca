@@ -1,0 +1,30 @@
+
+public abstract class Livro {
+	private String titulo;
+    private String ISBN;
+    private String autor;
+    private String ano;
+    private String editora;    
+    private int    quantidade;
+    private float  valor;
+
+    public String getTitulo(){ return titulo; }
+    public String getISBNS(){ return ISBN; }
+    public String getAutor(){ return autor; }
+    public String getAno(){ return ano; }
+    public String getEditora(){ return editora; }
+    public int    getQuantidade(){ return quantidade; }
+    public float  getValor(){ return valor; }
+
+    public void setTitulo    (String titulo) { this.titulo = titulo; }
+    public void setISBNS     (String ISBN)   { this.ISBN = ISBN; }
+    public void setAutor     (String autor)  { this.autor = autor; }
+    public void setAno       (String ano)    { this.ano = ano; }
+    public void setEditora   (String editora){ this.editora = editora; }
+    public void setQuantidade(int quantidade){ this.quantidade = quantidade; }
+    public void setValor     (float valor){ this.valor = valor; }
+
+    
+    protected abstract boolean disponibilidade(String titulo);
+    protected abstract void ShowLivros();
+}

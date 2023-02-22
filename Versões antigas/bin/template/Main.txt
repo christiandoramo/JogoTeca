@@ -1,0 +1,139 @@
+import java.util.Scanner;
+
+public class Main {
+    static Scanner ler = new Scanner(System.in);
+    public static LivroLivraria _livroLivraria;
+    public static LivroBiblioteca _livroBiblioteca;
+
+	    public static void main(String[] args) {           
+	        Escolha();
+	        ler.close();      
+	    }
+	//########################################### Método que roda a classe LivrariaLivro########################
+	    public static void LivrariaManager(){
+	        int i = 0;
+	        String titulo;
+	        do{
+	          System.out.println("Escolha uma ação");
+	          System.out.println("(1) - Mostrar todos livros \n(2) - Vender Livro \n(3) - Pesquisar Livro");
+
+	          i = ler.nextInt();
+	          if(i == 1){
+	                _livroLivraria.ShowLivros();
+	            }
+	          else if(i == 2){
+	                
+	                System.out.println("Digite o nome do Livro");
+	                titulo = ler.next();              
+	                if(_livroLivraria.vendeLivro(titulo))
+	                    System.out.println("Livro Vendido  com sucesso!");
+	                else System.out.println("Erro verifique o nome do livro ou sua disponibilidade");
+	            }
+	            else if(i == 3){
+	               titulo = ler.next(); 
+	               _livroLivraria.MostraUmLivro(titulo);               
+	            }
+	        
+	        }while(i !=0);        
+	    }
+
+
+	//############################################ Método que roda a classe LivroBibliotéca############
+
+
+	    public static void BibliotecaManager() {
+	    	  int i = 0;
+		        String titulo;
+		        String nomeUsuario;
+		        do{
+		          System.out.println("Escolha uma ação");
+		          System.out.println("(1) - Mostrar todos livros \n(2) - Emprestar Livro \n(3) - Pesquisar Livro \n(4) - Devolver Livro  \n(0) - Sair");
+
+		          i = ler.nextInt();
+		          if(i == 1){
+		        	  _livroBiblioteca.ShowLivros();
+		            }
+		          else if(i == 2){
+		                
+		                System.out.println("Digite o nome do Livro");
+		                titulo = ler.next();
+		                System.out.println("Digite o nome do Usuario");
+		                nomeUsuario = ler.next();
+		                if(_livroBiblioteca.emprestarLivro(titulo , nomeUsuario))
+		                    System.out.println("Livro emprestado  com sucesso!");
+		                else System.out.println("Erro verifique o nome do livro ou sua disponibilidade");
+		            }
+		            else if(i == 3){
+		               titulo = ler.next(); 
+		               _livroBiblioteca.MostraUmLivro(titulo);              
+		            }
+		            else if(i ==4 ) {
+		            	System.out.println("Digite o nome do Livro");
+		                titulo = ler.next();
+		                System.out.println("Digite o nome do Usuario");
+		                nomeUsuario = ler.next();
+		            	_livroBiblioteca.DevolveLivro(titulo, nomeUsuario);
+		            	 System.out.println("Livro Devolvido  com sucesso!");
+		            }		          
+		        
+		        }while(i !=0);   
+	    }
+
+
+
+
+	//########################################### Coisas para rodar a main ###################
+	    public static void Escolha(){        
+	        System.out.println("Escolha o que quer acessar \n(1) - Livraria \n(2) - Biblioteca"); 
+	        int op = ler.nextInt();
+
+	        if(op == 1){
+	            _livroLivraria = new LivroLivraria(true);
+	            insereDataLivraria(_livroLivraria);
+	            LivrariaManager();
+	        }  
+	        else if(op == 2){
+	        	_livroBiblioteca = new LivroBiblioteca(true);
+	        	insereDataBiblioteca(_livroBiblioteca);
+	        	BibliotecaManager();
+	        	
+	        }
+	        else{
+	            System.out.println("Opçao invalida escolha novamente");
+	            Escolha();
+	        }        
+	    }
+	    
+	    
+	    public static void insereDataLivraria(LivroLivraria li){
+	        
+	        for(int i = 0 ; i< 10 ;i++){
+	        	LivroLivraria book = new LivroLivraria();
+	            book.setTitulo("livro_" + i); 
+	            book.setEditora("editora_" +i);
+	            book.setAno("201"+1);
+	            book.setAutor("shurato_");
+	            book.setISBNS("ISBN_"+i);
+	            book.setQuantidade(i);
+	            book.setValor(0.5f * i);
+	            li.addLivros(book);
+	        }
+	    }
+	    
+	    
+	    public static void insereDataBiblioteca(LivroBiblioteca li){
+	        
+	        for(int i = 0 ; i< 10 ;i++){
+	        	LivroBiblioteca book = new LivroBiblioteca();
+	            book.setTitulo("livro_" + i); 
+	            book.setEditora("editora_" +i);
+	            book.setAno("201"+1);
+	            book.setAutor("shurato_");
+	            book.setISBNS("ISBN_"+i);
+	            book.setQuantidade(i);
+	            book.setValor(0.5f * i);
+	            li.addLivros(book);
+	        }
+	    }
+}
+
