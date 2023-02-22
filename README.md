@@ -43,6 +43,7 @@ javaSE 8 ( jdk 8u211 - jre 1.8)
 <br>
 Eclipse IDE Oxygen 2 Enterprise Edition
 javafx - já integrado em jdk 1.8
+## (Usando a JRE 1.8 Não precisa seguir o tutorial abaixo sobre como habilitar o javafx, pois já vem incluso no jdk 1.8) 
 <br>
 
 obter recursos aqui: [Google Drive - Jogoteca](https://drive.google.com/drive/folders/17cEQQ40nq47XDg6v99tujSVtjEZ549l5?usp=share_link)
