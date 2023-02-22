@@ -39,11 +39,11 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 
 ### Versões usadas
 
-javafx 17.0.6
-<br>
 javaSE 8 ( jdk 8u211 - jre 1.8)
 <br>
-Eclipse IDE Oxygen 2 for Java Developers
+Eclipse IDE Oxygen 2 Enterprise Edition
+javafx - já integrado em jdk 1.8
+<br>
 
 obter recursos aqui: [Google Drive - Jogoteca](https://drive.google.com/drive/folders/17cEQQ40nq47XDg6v99tujSVtjEZ549l5?usp=share_link)
 
@@ -53,11 +53,13 @@ Exemplos/Templates para estudo: <br> [Sistemas Bancários - Leandro Marques](htt
 
 ## Habilitando JavaFX com eclipse IDE 🚀
 
+tutorial oficial do javafx com eclipse: [link](https://openjfx.io/openjfx-docs/#install-javafx)
+
 ## _Atenção!_
 
 Use uma versão do eclipse anterior as de 2022 (como 2021-03), pois as mais recentes podem bugar na criação de arquivos fxml necessarios para o javafx </mark> <br>
 
-Clickar na aba HELP -> install new software. Na janela já aberta coloque em add "e(fx)clipse" (se o link não estiver disponivel tente esse https://download.eclipse.org/efxclipse/updates-released/3.5.0/site/ ou https://download.eclipse.org/efxclipse/updates-released/3.5.0/site/).<br><br>
+Clickar na aba HELP -> install new software. Na janela já aberta coloque https://download.eclipse.org/efxclipse/updates-released/3.5.0/site/.<br><br>
 Agora baixe o arquivo do javafx no site Gluon em uma pasta que voce se lembre.
 
 No eclipse, clique no seu projeto e abra as propriedadess. Na aba library e depois selecione modulepath, crie uma biblioteca adicionando "external Jars", adicionando todos os jars que estão na pasta lib da pasta do javafx baixado. Agora basta selecionar essa livraria criada e dar o apply and close.
