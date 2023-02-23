@@ -39,14 +39,14 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 
 ### Versões usadas
 
-javaSE 8 ( jdk 8u211 - jre 1.8)
+[javaSE 8](https://www.oracle.com/br/java/technologies/javase/javase8-archive-downloads.html)
 <br>
-Eclipse IDE Oxygen 2 Enterprise Edition
-javafx - já integrado em jdk 1.8
-## (Usando a JRE 1.8 Não precisa seguir o tutorial abaixo sobre como habilitar o javafx, pois já vem incluso no jdk 1.8) 
+[Eclipse IDE Oxygen 2 Enterprise Edition](https://www.eclipse.org/downloads/packages/release/oxygen/2)
+<br>
+javafx - já integrado em jdk 1.8 (sem precisar da importação)
 <br>
 
-obter recursos aqui: [Google Drive - Jogoteca](https://drive.google.com/drive/folders/17cEQQ40nq47XDg6v99tujSVtjEZ549l5?usp=share_link)
+Drive: [Google Drive - Jogoteca](https://drive.google.com/drive/folders/17cEQQ40nq47XDg6v99tujSVtjEZ549l5?usp=share_link)
 
 Exemplos/Templates para estudo: <br> [Sistemas Bancários - Leandro Marques](https://github.com/lmarques7/sistema_bancario) <br> [JavaFX CRUD MVC - Rafael Mesquita](https://www.youtube.com/playlist?list=PL-mvLy2ws8ILNrs8jtEAwaZMxDZvlMj48)
 
