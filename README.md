@@ -35,6 +35,10 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 
 <div align="center">
 
+### Versão UML mais recente
+
+<img src="https://cacoo.com/diagrams/VsKkmsbGyVQpaKyR-7B548.png" alt="UML Jogoteca 2.1">
+
 # Dicas de Acesso aos colaboradores
 
 ### Versões usadas
