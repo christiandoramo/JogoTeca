@@ -1,4 +1,4 @@
-package application;
+package br.jogoteca.sistema.application;
 	
 import javafx.application.Application;
 import javafx.stage.Stage;
