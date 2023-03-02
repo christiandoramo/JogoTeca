@@ -1,5 +1,8 @@
 package br.jogoteca.sistema.models;
 
-public class Payment {
+import java.time.LocalDateTime;
 
+public class Payment {
+	private LocalDateTime moment;
+	private PaymentMethod method;
 }
