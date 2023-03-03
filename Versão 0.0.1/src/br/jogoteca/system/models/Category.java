@@ -1,4 +1,4 @@
-package br.jogoteca.sistema.models;
+package br.jogoteca.system.models;
 
 public class Category {
 	private int ID;
@@ -6,4 +6,6 @@ public class Category {
 	private String genre;
 	private String subgenre;
 	private String genreDescription;
+	
+	
 }

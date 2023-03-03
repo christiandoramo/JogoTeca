@@ -1,4 +1,4 @@
-package br.jogoteca.sistema.data;
+package br.jogoteca.system.data;
 
 public class GenericRepository {
 

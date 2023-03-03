@@ -1,4 +1,4 @@
-package br.jogoteca.sistema.models;
+package br.jogoteca.system.models;
 
 import java.util.List;
 
