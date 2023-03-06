@@ -1,0 +1,28 @@
+.table-view{
+   -fx-background-color: transparent;
+}
+
+.table-row-cell .text {
+       -fx-fill: white ;
+       -fx-font-weight: bold ;  
+}
+
+.table-row-cell {
+    -fx-background-color: transparent;
+}
+
+.table-row-cell:empty {
+    -fx-background-color: transparent;    
+}
+
+.table-row-cell:fill{
+    -fx-background-color: transparent;
+}
+ 
+.table-row-cell:hover{
+    -fx-background-color: transparent;
+}
+ 
+.table-row-cell:selected{
+    -fx-background-color: chocolate;
+}
