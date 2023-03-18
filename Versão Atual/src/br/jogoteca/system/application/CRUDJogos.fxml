@@ -4,17 +4,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
 <AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.CRUDJogosViewController">
    <children>
-      <Label layoutX="218.0" layoutY="27.0" text="Tela de CRUD de Jogos" textAlignment="CENTER">
+      <Label layoutX="219.0" layoutY="15.0" text="Tela de CRUD de Jogos" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font></Label>
-      <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltarParaPrincipalAdmin" text="Voltar" />
-      <MenuButton fx:id="menuItens" layoutX="219.0" layoutY="62.0" mnemonicParsing="false" prefWidth="164.0" text="Selecione uma Operação">
+      <Button layoutX="29.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltarParaPrincipalAdmin" text="Voltar" />
+      <MenuButton fx:id="menuItens" layoutX="220.0" layoutY="54.0" mnemonicParsing="false" prefWidth="164.0" text="Selecione uma Operação">
         <items>
           <MenuItem fx:id="itemCriar" mnemonicParsing="false" onAction="#mostrarOpcoesCREATE" text="Inserir novo Jogo" />
           <MenuItem fx:id="itemBuscar" mnemonicParsing="false" onAction="#mostrarOpcoesREAD" text="Buscar Jogo" />
@@ -22,5 +26,21 @@
             <MenuItem fx:id="itemRemover" mnemonicParsing="false" onAction="#mostrarOpcoesDESTROY" text="Remover Jogo" />
         </items>
       </MenuButton>
+      <AnchorPane fx:id="telaInserir" layoutX="29.0" layoutY="98.0" prefHeight="261.0" prefWidth="545.0" style="-fx-background-color: cyan;" visible="false">
+         <children>
+            <TextField fx:id="name" layoutX="24.0" layoutY="21.0" prefHeight="25.0" prefWidth="334.0" promptText="Name" />
+            <TextField fx:id="genre" layoutX="24.0" layoutY="60.0" promptText="Genre" />
+            <TextField fx:id="subGenre" layoutX="191.0" layoutY="60.0" prefHeight="25.0" prefWidth="164.0" promptText="SubGenre" />
+            <TextField fx:id="releaseDate" layoutX="24.0" layoutY="106.0" promptText="Release Date" />
+            <TextField fx:id="price" layoutX="24.0" layoutY="152.0" promptText="Price" />
+            <TextField fx:id="urlImage" layoutX="24.0" layoutY="197.0" promptText="Image Url" />
+            <TextArea fx:id="description" layoutX="191.0" layoutY="91.0" prefHeight="132.0" prefWidth="164.0" promptText="Description" />
+            <ImageView fx:id="image" fitHeight="197.0" fitWidth="165.0" layoutX="366.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@Digimonworld3boxart.png" />
+               </image>
+            </ImageView>
+         </children>
+      </AnchorPane>
    </children>
 </AnchorPane>
