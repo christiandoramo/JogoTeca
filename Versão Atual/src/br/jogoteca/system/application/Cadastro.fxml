@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+
+
+<AnchorPane minHeight="400.0" minWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.361">
+   <children>
+      <Label layoutX="256.0" layoutY="33.0" text="Tela de Cadastro" />
+   </children>
+</AnchorPane>
