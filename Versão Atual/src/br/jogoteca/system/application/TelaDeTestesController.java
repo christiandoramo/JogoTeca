@@ -33,7 +33,6 @@ public class TelaDeTestesController implements Initializable {
 	protected void irParaConsultaPedidos(ActionEvent event) {
 		ViewsController.changeScreen(Tela.CONSULTAPEDIDOS);
 	}
-	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 	}

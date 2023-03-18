@@ -1,11 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.MenuButton?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane minHeight="400.0" minWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.361">
+<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.CRUDJogosViewController">
    <children>
-      <Label layoutX="238.0" layoutY="43.0" text="Tela de CRUD de Jogos" />
+      <Label layoutX="218.0" layoutY="27.0" text="Tela de CRUD de Jogos" textAlignment="CENTER">
+         <font>
+            <Font size="16.0" />
+         </font></Label>
+      <Button layoutX="14.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltarParaPrincipalAdmin" text="Voltar" />
+      <MenuButton fx:id="menuItens" layoutX="219.0" layoutY="62.0" mnemonicParsing="false" prefWidth="164.0" text="Selecione uma Operação">
+        <items>
+          <MenuItem fx:id="itemCriar" mnemonicParsing="false" onAction="#mostrarOpcoesCREATE" text="Inserir novo Jogo" />
+          <MenuItem fx:id="itemBuscar" mnemonicParsing="false" onAction="#mostrarOpcoesREAD" text="Buscar Jogo" />
+            <MenuItem fx:id="itemAtualizar" mnemonicParsing="false" onAction="#mostrarOpcoesUPDATE" text="Atualizar Jogo" />
+            <MenuItem fx:id="itemRemover" mnemonicParsing="false" onAction="#mostrarOpcoesDESTROY" text="Remover Jogo" />
+        </items>
+      </MenuButton>
    </children>
 </AnchorPane>
