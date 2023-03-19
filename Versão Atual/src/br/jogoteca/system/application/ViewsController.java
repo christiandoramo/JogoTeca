@@ -62,6 +62,39 @@ public class ViewsController extends Application {
 	}
 
 	public static void main(String[] args) {
+		
+		UserController userController = new UserController();
+
+	    User user1 = new User(1, "João Silva", "Rua A, 123", "(81)91234-5678", "joao@gmail.com", "joao.silva", "123456");;
+	    userController.addUser(user1);
+
+	    User user2 = new User(2, "Maria Souza", "Rua B, 456", "(31)92345-6789", "maria@gmail.com", "maria.souza", "654321");
+	    userController.addUser(user2);
+
+	    User user3 = new User(3, "José Santos", "Rua C, 789", "(47)93456-7890", "jose@gmail.com", "jose.santos", "senha123");
+	    userController.addUser(user3);
+
+	    User user4 = new User(4, "Ana Paula", "Rua D, 321", "(11)94567-8901", "ana@gmail.com", "ana.paula", "senha456");
+	    userController.addUser(user4);
+
+	    User user5 = new User(5, "Pedro Oliveira", "Rua E, 654", "(22)95678-9012", "pedro@gmail.com", "pedro.oliveira", "senha789");
+	    userController.addUser(user5);
+
+	    User user6 = new User(6, "Carla Silva", "Rua F, 987", "(57)96789-0123", "carla@gmail.com", "carla.silva", "senhaabc");
+	    userController.addUser(user6);
+
+	    User user7 = new User(7, "Roberto Souza", "Rua G, 246", "(81)97890-1234", "roberto@gmail.com", "roberto.souza", "senhabcd");
+	    userController.addUser(user7);
+
+	    User user8 = new User(8, "Fernanda Santos", "Rua H, 135", "(32)98901-2345", "fernanda@gmail.com", "fernanda.santos", "senhaefg");
+	    userController.addUser(user8);
+
+	    User user9 = new User(9, "Antônio Oliveira", "Rua I, 369", "(31)99012-3456", "antonio@gmail.com", "antonio.oliveira", "senhahij");
+	    userController.addUser(user9);
+
+	    User user10 = new User(10, "Luana Silva", "Rua J, 258", "(43)90123-4567", "luana@gmail.com", "luana.silva", "senhaklm");
+	    userController.addUser(user10);
+		
 		launch(args);
 	}
 }
