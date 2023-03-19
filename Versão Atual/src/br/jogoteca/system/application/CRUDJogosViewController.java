@@ -1,5 +1,6 @@
 package br.jogoteca.system.application;
 
+import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ResourceBundle;
@@ -24,13 +25,16 @@ import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
+import javafx.stage.Stage;
 import javafx.util.converter.DoubleStringConverter;
 
 public class CRUDJogosViewController implements Initializable {
 
 	@FXML
 	protected MenuButton menuItens;
-	
+
 	@FXML
 	protected AnchorPane telaInserir;
 	@FXML
@@ -47,9 +51,7 @@ public class CRUDJogosViewController implements Initializable {
 	protected TextField urlImage;
 	@FXML
 	protected ListView<ImageView> listaImagemJogo;
-	
-	
-	
+
 	@FXML
 	protected AnchorPane telaBuscar;
 	@FXML
@@ -60,9 +62,7 @@ public class CRUDJogosViewController implements Initializable {
 	protected ListView<ImageView> listaJogos;
 	@FXML
 	protected MenuButton CampoBuscarGenero;
-	
-	
-	
+
 	@FXML
 	protected AnchorPane telaAtualizar;
 	@FXML
@@ -83,9 +83,7 @@ public class CRUDJogosViewController implements Initializable {
 	protected DatePicker CampoTrocaReleaseDate;
 	@FXML
 	protected TextArea CampoTrocaDescricao;
-	
-	
-	
+
 	@FXML
 	protected AnchorPane telaRemover;
 	@FXML
@@ -94,7 +92,7 @@ public class CRUDJogosViewController implements Initializable {
 	protected TextField campoRemoverNome;
 	@FXML
 	protected ListView<ImageView> listaRemover;
-	
+
 	@FXML
 	protected Label createLog;
 	@FXML
@@ -104,24 +102,67 @@ public class CRUDJogosViewController implements Initializable {
 	@FXML
 	protected Label destroyLog;
 	
-	
+	GamesController gc = GamesController.getInstance();
+
+	public boolean preencheuEntradasInsercao() {
+		for (Node node : telaInserir.getChildren()) {
+			if (node instanceof TextField) {
+				TextField tf = (TextField) node;
+				if (tf.getText().trim().isEmpty()) {
+					return false;
+				}
+			} else if (node instanceof DatePicker) {
+				DatePicker dp = (DatePicker) node;
+				if (dp.getValue() == null) {
+					return false;
+				}
+			} else if (node instanceof MenuButton) {
+				MenuButton mb = (MenuButton) node;
+				if (mb.getText().equals("Selecionar Genero")) {
+					return false;
+				}
+			}
+		}
+		return true;
+	}
 
 	@FXML
 	protected void voltarParaPrincipalAdmin(ActionEvent event) {
+		limparTelaCRUD();
 		ViewsController.changeScreen(Tela.PRINCIPALADMIN);
+	}
 
+	@FXML
+	protected void selecionarImagem() {
+		FileChooser fileChooser = new FileChooser();
+		fileChooser.setTitle("Abrir Arquivo");
+		Stage stage = (Stage) urlImage.getScene().getWindow();
+		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+		fileChooser.getExtensionFilters()
+				.add(new ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"));
+		File selectedFile = fileChooser.showOpenDialog(stage);
+		if (selectedFile != null) {
+			urlImage.setText(selectedFile.getAbsolutePath());
+		}
 	}
 
 	@FXML
 	protected void inserirJogo() {
-		 String nome = name.getText();
-		 Genre genero = (Genre) genres.getUserData();
-		 String descricao = description.getText();
-		 LocalDate lancamento = releaseDate.getValue();
-		 String url = urlImage.getText();
-		 double preco = Double.parseDouble(price.getText());
-		 GamesController.insertGame(nome,lancamento,genero,descricao,url,preco);
-		 
+		if(preencheuEntradasInsercao()) {
+		String nome = name.getText();
+		Genre genero = (Genre) genres.getUserData();
+		String descricao = description.getText();
+		LocalDate lancamento = releaseDate.getValue();
+		String url = urlImage.getText();
+		Double preco = Double.parseDouble(price.getText());
+		
+			createLog.setText(gc.insertGame(nome, lancamento, genero, descricao, url, preco));
+			createLog.setVisible(true);
+			gc.mostrarGameRepository();
+		}else {
+			createLog.setText("Erro: Preencha todos Campos");
+			createLog.setVisible(true);
+		}
 	}
 
 	protected void limparOperacaoCRUD(AnchorPane telaOperacional) {
@@ -136,11 +177,32 @@ public class CRUDJogosViewController implements Initializable {
 						((MenuButton) node).setText("Selecionar Genero");
 					} else if (node instanceof DatePicker) {
 						((DatePicker) node).setValue(null);
+					} else if (node instanceof Label) {
+						((Label) node).setVisible(false);
 					}
 				}
 			}
 		telaOperacional.setVisible(true);
 
+	}
+
+	protected void limparTelaCRUD() {
+		AnchorPane[] telasOperacionais = new AnchorPane[] { telaInserir, telaAtualizar, telaBuscar, telaRemover };
+		for (AnchorPane tela : telasOperacionais)
+			if (tela.isVisible()) {
+				tela.setVisible(false);
+				for (Node node : tela.getChildren()) {
+					if (node instanceof TextInputControl) {
+						((TextInputControl) node).setText(null);
+					} else if (node instanceof MenuButton) {
+						((MenuButton) node).setText("Selecionar Genero");
+					} else if (node instanceof DatePicker) {
+						((DatePicker) node).setValue(null);
+					} else if (node instanceof Label) {
+						((Label) node).setVisible(false);
+					}
+				}
+			}
 	}
 
 	@FXML
