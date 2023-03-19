@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
@@ -18,28 +19,27 @@
             <Font size="16.0" />
          </font></Label>
       <Button layoutX="29.0" layoutY="15.0" mnemonicParsing="false" onAction="#voltarParaPrincipalAdmin" text="Voltar" />
-      <MenuButton fx:id="menuItens" layoutX="220.0" layoutY="54.0" mnemonicParsing="false" prefWidth="164.0" text="Selecione uma Operação">
+      <MenuButton fx:id="menuItens" layoutX="220.0" layoutY="48.0" mnemonicParsing="false" prefWidth="164.0" text="Selecione uma Operação">
         <items>
-          <MenuItem fx:id="itemCriar" mnemonicParsing="false" onAction="#mostrarOpcoesCREATE" text="Inserir novo Jogo" />
-          <MenuItem fx:id="itemBuscar" mnemonicParsing="false" onAction="#mostrarOpcoesREAD" text="Buscar Jogo" />
-            <MenuItem fx:id="itemAtualizar" mnemonicParsing="false" onAction="#mostrarOpcoesUPDATE" text="Atualizar Jogo" />
-            <MenuItem fx:id="itemRemover" mnemonicParsing="false" onAction="#mostrarOpcoesDESTROY" text="Remover Jogo" />
+          <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesCREATE" text="Inserir novo Jogo" />
+          <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesREAD" text="Buscar Jogo" />
+            <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesUPDATE" text="Atualizar Jogo" />
+            <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesDESTROY" text="Remover Jogo" />
         </items>
       </MenuButton>
-      <AnchorPane fx:id="telaInserir" layoutX="29.0" layoutY="98.0" prefHeight="261.0" prefWidth="545.0" style="-fx-background-color: cyan;" visible="false">
+      <AnchorPane fx:id="telaInserir" layoutX="27.0" layoutY="89.0" prefHeight="289.0" prefWidth="547.0" style="-fx-background-color: cyan;">
          <children>
-            <TextField fx:id="name" layoutX="24.0" layoutY="21.0" prefHeight="25.0" prefWidth="334.0" promptText="Name" />
-            <TextField fx:id="genre" layoutX="24.0" layoutY="60.0" promptText="Genre" />
-            <TextField fx:id="subGenre" layoutX="191.0" layoutY="60.0" prefHeight="25.0" prefWidth="164.0" promptText="SubGenre" />
-            <TextField fx:id="releaseDate" layoutX="24.0" layoutY="106.0" promptText="Release Date" />
-            <TextField fx:id="price" layoutX="24.0" layoutY="152.0" promptText="Price" />
-            <TextField fx:id="urlImage" layoutX="24.0" layoutY="197.0" promptText="Image Url" />
-            <TextArea fx:id="description" layoutX="191.0" layoutY="91.0" prefHeight="132.0" prefWidth="164.0" promptText="Description" />
+            <MenuButton fx:id="genres" layoutX="25.0" layoutY="75.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Selecione um Genero" />
+            <TextField fx:id="name" layoutX="25.0" layoutY="36.0" prefHeight="25.0" prefWidth="334.0" promptText="Name" />
+            <TextField fx:id="price" layoutX="25.0" layoutY="160.0" promptText="Price" />
+            <TextField fx:id="urlImage" layoutX="25.0" layoutY="203.0" promptText="Image Url" />
+            <TextArea fx:id="description" layoutX="192.0" layoutY="74.0" prefHeight="164.0" prefWidth="164.0" promptText="Description" />
             <ImageView fx:id="image" fitHeight="197.0" fitWidth="165.0" layoutX="366.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@Digimonworld3boxart.png" />
                </image>
             </ImageView>
+            <DatePicker fx:id="releaseDate" layoutX="24.0" layoutY="112.0" prefHeight="25.0" prefWidth="149.0" promptText="Release Date" />
          </children>
       </AnchorPane>
    </children>
