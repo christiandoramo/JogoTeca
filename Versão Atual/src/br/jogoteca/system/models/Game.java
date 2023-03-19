@@ -8,6 +8,7 @@ public class Game {
 	private LocalDate releaseDate;
 	private String description;
 	private String imageURL;
+	private double price;
 	private Genre genre;
 	
 	
@@ -17,9 +18,6 @@ public class Game {
 	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
-
-
-	private double price;
 	
 	public int getId() {
 		return id;
