@@ -8,25 +8,12 @@ import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.Genre;
 
 public class GamesController {
-	private int id;
-	private GenericRepository<Game> gameRepository;
+	private static int GameId;
+	private static GenericRepository<Game> gameRepository;
 
-	private static GamesController instance;
-
-	private GamesController() {
-		this.gameRepository = new GenericRepository<>("games.dat");
-	}
-
-	public static GamesController getInstance() {
-		if (instance == null) {
-			instance = new GamesController();
-		}
-		return instance;
-	}
-
-	public String insertGame(String name, LocalDate releaseDate, Genre genre, String description, String imageURL,
+	public static String insertGame(String name, LocalDate releaseDate, Genre genre, String description, String imageURL,
 			double price) {
-		Game novo = new Game(++id, name, releaseDate, genre, description, imageURL, price);
+		Game novo = new Game(++GameId, name, releaseDate, genre, description, imageURL, price);
 		try {
 			gameRepository.insert(novo);
 			return "Novo jogo inserido com Sucesso";
