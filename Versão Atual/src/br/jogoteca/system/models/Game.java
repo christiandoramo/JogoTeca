@@ -1,8 +1,11 @@
 package br.jogoteca.system.models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Game {
+public class Game implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private String name;
 	private LocalDate releaseDate;

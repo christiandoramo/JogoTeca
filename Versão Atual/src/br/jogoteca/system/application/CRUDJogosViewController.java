@@ -3,32 +3,28 @@ package br.jogoteca.system.application;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
-import java.util.function.UnaryOperator;
-import java.util.regex.Pattern;
 
 import br.jogoteca.system.controllers.GamesController;
+import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.Genre;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.MenuButton;
-import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TextFormatter;
 import javafx.scene.control.TextInputControl;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
-import javafx.util.converter.DoubleStringConverter;
 
 public class CRUDJogosViewController implements Initializable {
 
@@ -50,7 +46,7 @@ public class CRUDJogosViewController implements Initializable {
 	@FXML
 	protected TextField urlImage;
 	@FXML
-	protected ListView<ImageView> listaImagemJogo;
+	protected ListView<Game> listaImagemJogo;
 
 	@FXML
 	protected AnchorPane telaBuscar;
@@ -59,7 +55,7 @@ public class CRUDJogosViewController implements Initializable {
 	@FXML
 	protected TextField CampoBuscarNome;
 	@FXML
-	protected ListView<ImageView> listaJogos;
+	protected ListView<Game> listaJogos;
 	@FXML
 	protected MenuButton CampoBuscarGenero;
 
@@ -72,7 +68,7 @@ public class CRUDJogosViewController implements Initializable {
 	@FXML
 	protected TextField CampoTrocaNome;
 	@FXML
-	protected ListView<ImageView> JogoAAtualizar;
+	protected ListView<Game> JogoAAtualizar;
 	@FXML
 	protected MenuButton CampoTrocaGenero;
 	@FXML
@@ -91,7 +87,7 @@ public class CRUDJogosViewController implements Initializable {
 	@FXML
 	protected TextField campoRemoverNome;
 	@FXML
-	protected ListView<ImageView> listaRemover;
+	protected ListView<Game> listaRemover;
 
 	@FXML
 	protected Label createLog;
@@ -101,7 +97,7 @@ public class CRUDJogosViewController implements Initializable {
 	protected Label updateLog;
 	@FXML
 	protected Label destroyLog;
-	
+
 	GamesController gc = GamesController.getInstance();
 
 	public boolean preencheuEntradasInsercao() {
@@ -142,25 +138,26 @@ public class CRUDJogosViewController implements Initializable {
 				.add(new ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"));
 		File selectedFile = fileChooser.showOpenDialog(stage);
 		if (selectedFile != null) {
-			urlImage.setText(selectedFile.getAbsolutePath());
+			String absolutePath = selectedFile.getAbsolutePath();
+			urlImage.setText(absolutePath);
 		}
 	}
 
 	@FXML
 	protected void inserirJogo() {
-		if(preencheuEntradasInsercao()) {
-		String nome = name.getText();
-		Genre genero = (Genre) genres.getUserData();
-		String descricao = description.getText();
-		LocalDate lancamento = releaseDate.getValue();
-		String url = urlImage.getText();
-		Double preco = Double.parseDouble(price.getText());
-		
+		if (preencheuEntradasInsercao()) {
+			String nome = name.getText();
+			Genre genero = (Genre) genres.getUserData();
+			String descricao = description.getText();
+			LocalDate lancamento = releaseDate.getValue();
+			String url = urlImage.getText();
+			Double preco = Double.parseDouble(price.getText());
+
 			createLog.setText(gc.insertGame(nome, lancamento, genero, descricao, url, preco));
 			createLog.setVisible(true);
 			gc.mostrarGameRepository();
-		}else {
-			createLog.setText("Erro: Preencha todos Campos");
+		} else {
+			createLog.setText("Erro: Preencha todos os Campos");
 			createLog.setVisible(true);
 		}
 	}
@@ -183,7 +180,6 @@ public class CRUDJogosViewController implements Initializable {
 				}
 			}
 		telaOperacional.setVisible(true);
-
 	}
 
 	protected void limparTelaCRUD() {
@@ -229,42 +225,88 @@ public class CRUDJogosViewController implements Initializable {
 		limparOperacaoCRUD(telaRemover);
 	}
 
-	@Override
-	public void initialize(URL url, ResourceBundle rb) {
+	@FXML
+	protected void searchGameByIdentificador() {
+		int id = Integer.parseInt(CampoBuscarId.getText());
+		List<Game> gamesAchados = new ArrayList<>();
+		Game n = gc.searchGameById(id);
+		if (n != null) {
+			gamesAchados.add(n);
+			ViewsController.mostraAchados(listaJogos, gamesAchados);
+			readLog.setVisible(false);
+		} else {
+			readLog.setText("Jogo Não Encontrado");
+			readLog.setVisible(true);
+		}
+	}
 
-		// Impede de escolher datas posteriores a hoje - FUNCIONANDO
-		releaseDate.setDayCellFactory(picker -> new DateCell() {
-			@Override
-			public void updateItem(LocalDate date, boolean empty) {
-				super.updateItem(date, empty);
-				if (date.isAfter(LocalDate.now())) {
-					setDisable(true);
-				}
+	@FXML
+	protected void searchGameByNome() {
+		String nome = CampoBuscarNome.getText();
+		List<Game> gamesAchados = new ArrayList<>();
+		if (nome != null) {
+			Game n = gc.searchGameByName(nome);
+			if (n != null) {
+				gamesAchados.add(n);
+				ViewsController.mostraAchados(listaJogos, gamesAchados);
+				gamesAchados.forEach(action -> System.out.println(action.getName()));
+				readLog.setVisible(false);
+			} else {
+				readLog.setText("Jogo Não Encontrado");
+				readLog.setVisible(true);
 			}
-		});
-		// cria os menuItems baseados nos enums genre - FUNCIONANDO
-		Genre _genres[] = Genre.values();
-		for (Genre genre : _genres) {
-			MenuItem item = new MenuItem(genre.name());
-			item.setUserData(genre);
-			item.setOnAction(e -> {
-				genres.setText(item.getText());
-			});
-			genres.getItems().add(item);
+		} else {
+			readLog.setText("Digite um Nome");
+			readLog.setVisible(true);
 		}
 
-		// apenas permite que sejam digitados doubles em price - FUNCIONANDO
-		Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
-		UnaryOperator<TextFormatter.Change> doubleFilter = change -> {
-			String newText = change.getControlNewText();
-			if (validDoubleText.matcher(newText).matches()) {
-				return change;
-			}
-			return null;
-		};
-		TextFormatter<Double> doubleFormatter = new TextFormatter<>(new DoubleStringConverter(), 0.0, doubleFilter);
-		price.setTextFormatter(doubleFormatter);
+	}
 
+	@FXML
+	protected void searchGameByGenero() {
+		Genre genero = (Genre) CampoBuscarGenero.getUserData();
+		System.out.println(genero);
+		List<Game> gamesAchados;
+		if (genero != null) {
+			List<Game> n = gc.searchGamesByGenre(genero);
+			for(Game g:n)
+				System.out.println(g.getId());
+			if (!n.isEmpty()) {
+				gamesAchados = gc.searchGamesByGenre(genero);
+				ViewsController.mostraAchados(listaJogos, gamesAchados);
+				for(Game g:gamesAchados)
+					System.out.println(g.getId());
+				readLog.setVisible(false);
+			} else {
+				readLog.setText("Jogo Não Encontrado");
+				readLog.setVisible(true);
+			}
+		}
+	}
+
+	@FXML
+	protected void searchTodos() {
+		List<Game> allGames = gc.searchAllGames();
+		if (!allGames.isEmpty()) {
+			ViewsController.mostraAchados(listaJogos, allGames);
+			readLog.setVisible(false);
+		} else {
+			readLog.setText("Jogo Não Encontrado");
+			readLog.setVisible(true);
+		}
+
+	}
+
+	@Override
+	public void initialize(URL url, ResourceBundle rb) {
+		ViewsController.desabilitarDatasFuturas(releaseDate);
+		ViewsController.preencheMenuGeneros(genres);
+		ViewsController.preencheMenuGeneros(CampoBuscarGenero);
+		ViewsController.controlaDouble(price);
+		ViewsController.controlaDouble(CampoTrocaPrice);
+		ViewsController.controlaInteiro(campoRemoverId);
+		ViewsController.controlaInteiro(CampoBuscarId);
+		ViewsController.controlaInteiro(CampoAtualizarPorId);
 	}
 
 }

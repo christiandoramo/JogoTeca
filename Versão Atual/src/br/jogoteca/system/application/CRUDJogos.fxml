@@ -55,10 +55,10 @@
          <children>
             <TextField fx:id="CampoBuscarId" layoutX="14.0" layoutY="26.0" prefHeight="25.0" prefWidth="175.0" promptText="Buscar por Id" />
             <TextField fx:id="CampoBuscarNome" layoutX="14.0" layoutY="79.0" prefHeight="25.0" prefWidth="175.0" promptText="Buscar por Nome" />
-            <Button layoutX="206.0" layoutY="26.0" mnemonicParsing="false" text="Buscar" />
-            <Button layoutX="206.0" layoutY="79.0" mnemonicParsing="false" text="Buscar" />
-            <Button layoutX="206.0" layoutY="132.0" mnemonicParsing="false" text="Buscar" />
-            <Button layoutX="62.0" layoutY="198.0" mnemonicParsing="false" text="Listar Todos" />
+            <Button layoutX="206.0" layoutY="26.0" mnemonicParsing="false" onAction="#searchGameByIdentificador" text="Buscar" />
+            <Button layoutX="206.0" layoutY="79.0" mnemonicParsing="false" onAction="#searchGameByNome" text="Buscar" />
+            <Button layoutX="206.0" layoutY="132.0" mnemonicParsing="false" onAction="#searchGameByGenero" text="Buscar" />
+            <Button layoutX="62.0" layoutY="198.0" mnemonicParsing="false" onAction="#searchTodos" text="Listar Todos" />
             <ListView fx:id="listaJogos" layoutX="274.0" layoutY="14.0" prefHeight="264.0" prefWidth="261.0" />
             <MenuButton fx:id="CampoBuscarGenero" layoutX="28.0" layoutY="132.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="149.0" text="Selecione um Genero" />
             <Label fx:id="readLog" alignment="CENTER" layoutX="46.0" layoutY="236.0" prefHeight="32.0" prefWidth="135.0" text="Label" textFill="RED" visible="false" wrapText="true" />

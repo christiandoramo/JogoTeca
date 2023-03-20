@@ -56,9 +56,4 @@ public class GenericRepository<T> implements IGenericRepository<T> {
         
         FileUtilRepository.saveFile(elements, this.fileName);
 	}
-	
-	
-	public void inserir() {
-		
-	}
 }

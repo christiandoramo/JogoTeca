@@ -2,13 +2,14 @@ package br.jogoteca.system.controllers;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.jogoteca.system.data.GenericRepository;
 import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.Genre;
 
 public class GamesController {
-	private int GameId;
+	private int gameId;
 	private GenericRepository<Game> gameRepository;
 
 	private static GamesController instance;
@@ -32,7 +33,7 @@ public class GamesController {
 
 	public String insertGame(String name, LocalDate releaseDate, Genre genre, String description, String imageURL,
 			double price) {
-		Game novo = new Game(++GameId, name, releaseDate, genre, description, imageURL, price);
+		Game novo = new Game(++gameId, name, releaseDate, genre, description, imageURL, price);
 		try {
 			gameRepository.insert(novo);
 			return "Novo jogo inserido com Sucesso";
@@ -41,24 +42,21 @@ public class GamesController {
 		}
 	}
 
-	public Game readGame(int id) {
-		return null;
-	}
+	public Game searchGameById(int id) {
+		return gameRepository.read().stream().filter(game -> game.getId() == id).findFirst().orElse(null);
 
-	public Game searchGameByID(int id) {
-		return null;
 	}
 
 	public Game searchGameByName(String name) {
-		return null;
+		return gameRepository.read().stream().filter(game -> game.getName().equals(name)).findFirst().orElse(null);
 	}
 
 	public List<Game> searchAllGames() {
-		return null;
+		return gameRepository.read();
 	}
 
-	public List<Game> searchGamesByCategory(String genre, String subGenre, String description) {
-		return null;
+	public List<Game> searchGamesByGenre(Genre genre) {
+		return gameRepository.read().stream().filter(game -> game.getGenre() == genre).collect(Collectors.toList());
 	}
 
 	public void updateGame(int id) {
