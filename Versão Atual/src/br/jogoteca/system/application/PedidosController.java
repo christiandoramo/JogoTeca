@@ -1,10 +1,11 @@
- package br.jogoteca.system.controllers;
+ package br.jogoteca.system.application;
 
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.jogoteca.system.models.Usuario;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

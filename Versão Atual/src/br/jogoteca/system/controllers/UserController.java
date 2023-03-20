@@ -1,6 +1,8 @@
-package br.jogoteca.system.application;
+package br.jogoteca.system.controllers;
 
 import java.util.ArrayList;
+
+import br.jogoteca.system.models.User;
 
 public class UserController {
     

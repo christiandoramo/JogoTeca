@@ -32,7 +32,6 @@ public class GenericRepository<T> implements IGenericRepository<T> {
         }
         
         FileUtilRepository.saveFile(elements, this.fileName);
-		
 	}
 	public List<T> read() {
 		return Collections.unmodifiableList(this.elements);

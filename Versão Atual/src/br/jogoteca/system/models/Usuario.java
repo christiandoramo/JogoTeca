@@ -1,4 +1,4 @@
-package br.jogoteca.system.controllers;
+package br.jogoteca.system.models;
 
 import java.time.LocalDate;
 

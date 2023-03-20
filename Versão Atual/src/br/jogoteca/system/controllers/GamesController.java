@@ -71,13 +71,13 @@ public class GamesController {
 			LocalDate releaseDate) {
 		Game game = searchGameById(id);
 		if (game != null) {
-			if (name != null)
+			if (name != null  && !name.equals(""))
 				game.setName(name);
-			if (imageURL != null)
+			if (imageURL != null  && !imageURL.equals(""))
 				game.setImageURL(imageURL);
-			if (description != null)
+			if (description != null  && !description.equals(""))
 				game.setdescription(description);
-			if (price != null)
+			if (price != null  && price != 0.0)
 				game.setPrice(price);
 			if (genre != null)
 				game.setGenre(genre);
@@ -95,11 +95,11 @@ public class GamesController {
 			String imageURL, LocalDate releaseDate) {
 		Game game = searchGameByName(name);
 		try {
-			if (newName != null && newName.equals(""))
+			if (newName != null && !newName.equals(""))
 				game.setName(newName);
-			if (imageURL != null && imageURL.equals(""))
+			if (imageURL != null && !imageURL.equals(""))
 				game.setImageURL(imageURL);
-			if (description != null && description.equals(""))
+			if (description != null && !description.equals(""))
 				game.setdescription(description);
 			if (price != null && price != 0.0)
 				game.setPrice(price);

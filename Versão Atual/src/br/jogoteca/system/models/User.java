@@ -1,4 +1,4 @@
-package br.jogoteca.system.application;
+package br.jogoteca.system.models;
 
 public class User {
     
