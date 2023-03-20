@@ -1,11 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
 
-
-<AnchorPane minHeight="400.0" minWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.361">
+<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <Label layoutX="238.0" layoutY="43.0" text="Tela de CRUD de Jogos" />
+      <Label layoutX="197.0" layoutY="22.0" text="Tela de CRUD de Jogos">
+         <font>
+            <Font size="20.0" />
+         </font></Label>
+      <ListView fx:id="listaDeNomes" layoutX="343.0" layoutY="100.0" prefHeight="200.0" prefWidth="200.0" />
+      <TextField fx:id="name" layoutX="42.0" layoutY="175.0" />
+      <Button layoutX="97.0" layoutY="210.0" mnemonicParsing="false" onMouseClicked="#adicionarJogo" prefHeight="25.0" prefWidth="46.0" text="criar" />
+      <Button layoutX="417.0" layoutY="69.0" mnemonicParsing="false" onMouseClicked="#removerJogo" text="remover" />
    </children>
 </AnchorPane>
