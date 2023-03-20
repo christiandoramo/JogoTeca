@@ -1,10 +1,11 @@
 package br.jogoteca.system.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Order {
 	private int ID;
-	private GameOrder gameOrder;
+	private List<GameItem> gameOrder;
 	private OrderStatus orderStatus;
 	private LocalDateTime moment;
 	
