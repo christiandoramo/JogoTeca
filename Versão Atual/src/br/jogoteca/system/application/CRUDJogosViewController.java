@@ -148,6 +148,7 @@ public class CRUDJogosViewController implements Initializable {
 		if (preencheuEntradasInsercao()) {
 			String nome = name.getText();
 			Genre genero = (Genre) genres.getUserData();
+			System.out.println(genero.name());
 			String descricao = description.getText();
 			LocalDate lancamento = releaseDate.getValue();
 			String url = urlImage.getText();
@@ -248,6 +249,7 @@ public class CRUDJogosViewController implements Initializable {
 			Game n = gc.searchGameByName(nome);
 			if (n != null) {
 				gamesAchados.add(n);
+				System.out.println(n.getGenre().name());
 				ViewsController.mostraAchados(listaJogos, gamesAchados);
 				gamesAchados.forEach(action -> System.out.println(action.getName()));
 				readLog.setVisible(false);
@@ -259,7 +261,6 @@ public class CRUDJogosViewController implements Initializable {
 			readLog.setText("Digite um Nome");
 			readLog.setVisible(true);
 		}
-
 	}
 
 	@FXML

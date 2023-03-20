@@ -120,6 +120,7 @@ public class ViewsController extends Application {
 			item.setUserData(genre);
 			item.setOnAction(e -> {
 				mb.setText(item.getText());
+				mb.setUserData(genre);
 			});
 			mb.getItems().add(item);
 		}
@@ -200,7 +201,10 @@ public class ViewsController extends Application {
 
 	    User user10 = new User(10, "Luana Silva", "Rua J, 258", "(43)90123-4567", "luana@gmail.com", "luana.silva", "senhaklm");
 	    userController.addUser(user10);
-		
+	
+	    for(User user : userController.getAllUsers())
+	    	System.out.println(user);
+	    
 		launch(args);
 	}
 

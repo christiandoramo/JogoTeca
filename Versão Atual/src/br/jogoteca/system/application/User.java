@@ -47,4 +47,12 @@ public class User {
     public String getSenha() {
         return this.senha;
     }
+
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefone=" + telefone + ", email="
+				+ email + ", login=" + login + ", senha=" + senha + "]";
+	}
+    
+    
 }
