@@ -3,7 +3,6 @@ package br.jogoteca.system.application;
 import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -100,47 +99,50 @@ public class CRUDJogosViewController implements Initializable {
 
 	GamesController gc = GamesController.getInstance();
 
-	public boolean preencheuEntradasInsercao() {
-		for (Node node : telaInserir.getChildren()) {
-			if (node instanceof TextField) {
-				TextField tf = (TextField) node;
-				if (tf.getText().trim().isEmpty()) {
-					return false;
-				}
-			} else if (node instanceof DatePicker) {
-				DatePicker dp = (DatePicker) node;
-				if (dp.getValue() == null) {
-					return false;
-				}
-			} else if (node instanceof MenuButton) {
-				MenuButton mb = (MenuButton) node;
-				if (mb.getText().equals("Selecionar Genero")) {
-					return false;
-				}
-			}
-		}
-		return true;
+	String modoAtualizacao = "";
+
+	@FXML
+	protected void atualizarJogo() {
+		if (modoAtualizacao.equals("id"))
+			atualizarPorId();
+		else if (modoAtualizacao.equals("name"))
+			atualizarPorName();
 	}
 
 	@FXML
-	protected void voltarParaPrincipalAdmin(ActionEvent event) {
-		limparTelaCRUD();
-		ViewsController.changeScreen(Tela.PRINCIPALADMIN);
+	protected void buscarAtualizarPorId() {
+		ViewsController.searchGameById(gc, CampoAtualizarPorId, JogoAAtualizar, updateLog);
+		modoAtualizacao = "id";
 	}
 
 	@FXML
-	protected void selecionarImagem() {
-		FileChooser fileChooser = new FileChooser();
-		fileChooser.setTitle("Abrir Arquivo");
-		Stage stage = (Stage) urlImage.getScene().getWindow();
-		fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-		fileChooser.getExtensionFilters()
-				.add(new ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"));
-		File selectedFile = fileChooser.showOpenDialog(stage);
-		if (selectedFile != null) {
-			String absolutePath = selectedFile.getAbsolutePath();
-			urlImage.setText(absolutePath);
-		}
+	protected void buscarAtualizarPorName() {
+		ViewsController.searchGameByNome(gc, CampoAtualizarPorNome, JogoAAtualizar, updateLog);
+		modoAtualizacao = "name";
+	}
+
+	protected void atualizarPorId() {
+		int _id = Integer.parseInt(CampoAtualizarPorId.getText());
+		String _name = CampoTrocaNome.getText();
+		Genre _genero = (Genre) CampoTrocaGenero.getUserData();
+		String p = CampoTrocaPrice.getText();
+		Double _price = p == null || p.equals("")  ? null : Double.parseDouble(p);
+		String _descricao = CampoTrocaDescricao.getText();
+		String _image = CampoTrocaImage.getText();
+		LocalDate _release = CampoTrocaReleaseDate.getValue();
+		gc.updateGameById(_id, _name, _genero, _price, _descricao, _image, _release);
+	}
+
+	protected void atualizarPorName() {
+		String _name = CampoAtualizarPorNome.getText();
+		String _newName = CampoTrocaNome.getText();
+		Genre _genero = (Genre) CampoTrocaGenero.getUserData();
+		String p = CampoTrocaPrice.getText();
+		Double _price = p == null || p.equals("") ? null : Double.parseDouble(p);
+		String _descricao = CampoTrocaDescricao.getText();
+		String _image = CampoTrocaImage.getText();
+		LocalDate _release = CampoTrocaReleaseDate.getValue();
+		gc.updateGameByName(_name, _newName, _genero, _price, _descricao, _image, _release);
 	}
 
 	@FXML
@@ -163,8 +165,78 @@ public class CRUDJogosViewController implements Initializable {
 		}
 	}
 
+	@FXML
+	protected void searchGameByIdentificador() {
+		ViewsController.searchGameById(gc, CampoBuscarId, listaJogos, readLog);
+	}
+
+	@FXML
+	protected void searchGameByNome() {
+		ViewsController.searchGameByNome(gc, CampoBuscarNome, listaJogos, readLog);
+	}
+
+	@FXML
+	protected void searchGameByGenero() {
+		Genre genero = (Genre) CampoBuscarGenero.getUserData();
+		System.out.println(genero);
+		List<Game> gamesAchados;
+		if (genero != null) {
+			List<Game> n = gc.searchGamesByGenre(genero);
+			for (Game g : n)
+				System.out.println(g.getId());
+			if (!n.isEmpty()) {
+				gamesAchados = gc.searchGamesByGenre(genero);
+				ViewsController.mostraAchados(listaJogos, gamesAchados);
+				for (Game g : gamesAchados)
+					System.out.println(g.getId());
+				readLog.setVisible(false);
+			} else {
+				readLog.setText("Jogo Não Encontrado");
+				readLog.setVisible(true);
+			}
+		}
+	}
+
+	@FXML
+	protected void searchTodos() {
+		List<Game> allGames = gc.searchAllGames();
+		if (!allGames.isEmpty()) {
+			ViewsController.mostraAchados(listaJogos, allGames);
+			readLog.setVisible(false);
+		} else {
+			readLog.setText("Jogo Não Encontrado");
+			readLog.setVisible(true);
+		}
+
+	}
+
+	@FXML
+	protected void mostrarOpcoesCREATE(ActionEvent event) {
+		menuItens.setText("Inserir novo Jogo");
+		limparOperacaoCRUD(telaInserir);
+	}
+
+	@FXML
+	protected void mostrarOpcoesREAD(ActionEvent event) {
+		menuItens.setText("Buscar Jogo");
+		limparOperacaoCRUD(telaBuscar);
+	}
+
+	@FXML
+	protected void mostrarOpcoesUPDATE(ActionEvent event) {
+		menuItens.setText("Atualizar Jogo");
+		limparOperacaoCRUD(telaAtualizar);
+	}
+
+	@FXML
+	protected void mostrarOpcoesDESTROY(ActionEvent event) {
+		menuItens.setText("Remover Jogo");
+		limparOperacaoCRUD(telaRemover);
+	}
+
 	protected void limparOperacaoCRUD(AnchorPane telaOperacional) {
 		AnchorPane[] telasOperacionais = new AnchorPane[] { telaInserir, telaAtualizar, telaBuscar, telaRemover };
+		modoAtualizacao = "";
 		for (AnchorPane tela : telasOperacionais)
 			if (tela.isVisible()) {
 				tela.setVisible(false);
@@ -202,112 +274,54 @@ public class CRUDJogosViewController implements Initializable {
 			}
 	}
 
-	@FXML
-	protected void mostrarOpcoesCREATE(ActionEvent event) {
-		menuItens.setText("Inserir novo Jogo");
-		limparOperacaoCRUD(telaInserir);
-	}
-
-	@FXML
-	protected void mostrarOpcoesREAD(ActionEvent event) {
-		menuItens.setText("Buscar Jogo");
-		limparOperacaoCRUD(telaBuscar);
-	}
-
-	@FXML
-	protected void mostrarOpcoesUPDATE(ActionEvent event) {
-		menuItens.setText("Atualizar Jogo");
-		limparOperacaoCRUD(telaAtualizar);
-	}
-
-	@FXML
-	protected void mostrarOpcoesDESTROY(ActionEvent event) {
-		menuItens.setText("Remover Jogo");
-		limparOperacaoCRUD(telaRemover);
-	}
-
-	@FXML
-	protected void searchGameByIdentificador() {
-		int id = Integer.parseInt(CampoBuscarId.getText());
-		List<Game> gamesAchados = new ArrayList<>();
-		Game n = gc.searchGameById(id);
-		if (n != null) {
-			gamesAchados.add(n);
-			ViewsController.mostraAchados(listaJogos, gamesAchados);
-			readLog.setVisible(false);
-		} else {
-			readLog.setText("Jogo Não Encontrado");
-			readLog.setVisible(true);
-		}
-	}
-
-	@FXML
-	protected void searchGameByNome() {
-		String nome = CampoBuscarNome.getText();
-		List<Game> gamesAchados = new ArrayList<>();
-		if (nome != null) {
-			Game n = gc.searchGameByName(nome);
-			if (n != null) {
-				gamesAchados.add(n);
-				System.out.println(n.getGenre().name());
-				ViewsController.mostraAchados(listaJogos, gamesAchados);
-				gamesAchados.forEach(action -> System.out.println(action.getName()));
-				readLog.setVisible(false);
-			} else {
-				readLog.setText("Jogo Não Encontrado");
-				readLog.setVisible(true);
-			}
-		} else {
-			readLog.setText("Digite um Nome");
-			readLog.setVisible(true);
-		}
-	}
-
-	@FXML
-	protected void searchGameByGenero() {
-		Genre genero = (Genre) CampoBuscarGenero.getUserData();
-		System.out.println(genero);
-		List<Game> gamesAchados;
-		if (genero != null) {
-			List<Game> n = gc.searchGamesByGenre(genero);
-			for(Game g:n)
-				System.out.println(g.getId());
-			if (!n.isEmpty()) {
-				gamesAchados = gc.searchGamesByGenre(genero);
-				ViewsController.mostraAchados(listaJogos, gamesAchados);
-				for(Game g:gamesAchados)
-					System.out.println(g.getId());
-				readLog.setVisible(false);
-			} else {
-				readLog.setText("Jogo Não Encontrado");
-				readLog.setVisible(true);
+	public boolean preencheuEntradasInsercao() {
+		for (Node node : telaInserir.getChildren()) {
+			if (node instanceof TextField) {
+				TextField tf = (TextField) node;
+				if (tf.getText().trim().isEmpty()) {
+					return false;
+				}
+			} else if (node instanceof DatePicker) {
+				DatePicker dp = (DatePicker) node;
+				if (dp.getValue() == null) {
+					return false;
+				}
+			} else if (node instanceof MenuButton) {
+				MenuButton mb = (MenuButton) node;
+				if (mb.getText().equals("Selecionar Genero")) {
+					return false;
+				}
 			}
 		}
+		return true;
 	}
 
 	@FXML
-	protected void searchTodos() {
-		List<Game> allGames = gc.searchAllGames();
-		if (!allGames.isEmpty()) {
-			ViewsController.mostraAchados(listaJogos, allGames);
-			readLog.setVisible(false);
-		} else {
-			readLog.setText("Jogo Não Encontrado");
-			readLog.setVisible(true);
-		}
+	protected void selecionarImagem() {
+		ViewsController.escolherImagem(urlImage);
+	}
 
+	@FXML
+	protected void selecionarImagemAtualizar() {
+		ViewsController.escolherImagem(CampoTrocaImage);
+	}
+
+	@FXML
+	protected void voltarParaPrincipalAdmin(ActionEvent event) {
+		limparTelaCRUD();
+		ViewsController.changeScreen(Tela.PRINCIPALADMIN);
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 		ViewsController.desabilitarDatasFuturas(releaseDate);
+		ViewsController.desabilitarDatasFuturas(CampoTrocaReleaseDate);
 		ViewsController.preencheMenuGeneros(genres);
 		ViewsController.preencheMenuGeneros(CampoBuscarGenero);
+		ViewsController.preencheMenuGeneros(CampoTrocaGenero);
 		ViewsController.controlaDouble(price);
-		ViewsController.controlaDouble(CampoTrocaPrice);
 		ViewsController.controlaInteiro(campoRemoverId);
 		ViewsController.controlaInteiro(CampoBuscarId);
-		ViewsController.controlaInteiro(CampoAtualizarPorId);
 	}
 
 }

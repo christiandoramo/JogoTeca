@@ -11,7 +11,7 @@ public class Game implements Serializable {
 	private LocalDate releaseDate;
 	private String description;
 	private String imageURL;
-	private double price;
+	private Double price;
 	private Genre genre;
 	
 	
@@ -52,14 +52,14 @@ public class Game implements Serializable {
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
-	public double getPrice() {
+	public Double getPrice() {
 		return price;
 	}
-	public void setPrice(double price) {
+	public void setPrice(Double price) {
 		this.price = price;
 	}
 
-	public Game(int id, String name, LocalDate releaseDate, Genre genre, String description, String imageURL, double price) {
+	public Game(int id, String name, LocalDate releaseDate, Genre genre, String description, String imageURL, Double price) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -73,12 +73,9 @@ public class Game implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ((name == null) ? 0 : name.hashCode());
+		result = prime * result + id;
 		return result;
 	}
-	
-	
-	// SÃO IGUAIS COM O MESMO NOME
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -88,12 +85,8 @@ public class Game implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Game other = (Game) obj;
-		if (name == null) {
-			if (other.name != null)
-				return false;
-		} else if (!name.equals(other.name))
+		if (id != other.id)
 			return false;
 		return true;
-	}
-	
+	}	
 }

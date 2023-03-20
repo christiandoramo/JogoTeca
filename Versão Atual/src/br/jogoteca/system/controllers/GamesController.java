@@ -9,13 +9,15 @@ import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.Genre;
 
 public class GamesController {
-	private int gameId;
 	private GenericRepository<Game> gameRepository;
+	private int lastId;
 
 	private static GamesController instance;
 
 	private GamesController() {
 		this.gameRepository = new GenericRepository<>("games.dat");
+		lastId = gameRepository.read().size();
+		System.out.println(lastId);
 	}
 
 	public static GamesController getInstance() {
@@ -33,13 +35,19 @@ public class GamesController {
 
 	public String insertGame(String name, LocalDate releaseDate, Genre genre, String description, String imageURL,
 			double price) {
-		Game novo = new Game(++gameId, name, releaseDate, genre, description, imageURL, price);
+		Game novo = new Game(lastId + 1, name, releaseDate, genre, description, imageURL, price);
 		try {
-			gameRepository.insert(novo);
-			return "Novo jogo inserido com Sucesso";
+			boolean contemNome = gameRepository.read().stream().anyMatch(item -> item.getName().equals(novo.getName()));
+			// registra apenas se não contem nome - se contem nome diz ja tem com mesmo nome
+			if (!contemNome) {
+				gameRepository.insert(novo);
+				lastId++;
+				return "Novo jogo inserido com Sucesso";
+			}
 		} catch (Exception e) {
-			return "Erro: Um Jogo com o mesmo nome já existe";
+			System.out.println("EEEEEERRRRRRRRRRROOOOOOOOOOOOO" + e);
 		}
+		return "Erro: Um Jogo com o mesmo nome já existe";
 	}
 
 	public Game searchGameById(int id) {
@@ -59,7 +67,50 @@ public class GamesController {
 		return gameRepository.read().stream().filter(game -> game.getGenre() == genre).collect(Collectors.toList());
 	}
 
-	public void updateGame(int id) {
+	public void updateGameById(int id, String name, Genre genre, Double price, String description, String imageURL,
+			LocalDate releaseDate) {
+		Game game = searchGameById(id);
+		if (game != null) {
+			if (name != null)
+				game.setName(name);
+			if (imageURL != null)
+				game.setImageURL(imageURL);
+			if (description != null)
+				game.setdescription(description);
+			if (price != null)
+				game.setPrice(price);
+			if (genre != null)
+				game.setGenre(genre);
+			if (releaseDate != null)
+				game.setReleaseDate(releaseDate);
+		}
+		try {
+			gameRepository.update(game);
+		} catch (Exception e) {
+			System.out.println("Erro: O game não existe" + e);
+		}
+	}
+
+	public void updateGameByName(String name, String newName, Genre genre, Double price, String description,
+			String imageURL, LocalDate releaseDate) {
+		Game game = searchGameByName(name);
+		try {
+			if (newName != null && newName.equals(""))
+				game.setName(newName);
+			if (imageURL != null && imageURL.equals(""))
+				game.setImageURL(imageURL);
+			if (description != null && description.equals(""))
+				game.setdescription(description);
+			if (price != null && price != 0.0)
+				game.setPrice(price);
+			if (genre != null)
+				game.setGenre(genre);
+			if (releaseDate != null)
+				game.setReleaseDate(releaseDate);
+			gameRepository.update(game);
+		} catch (Exception e) {
+			System.out.println("Erro: O game não existe" + e);
+		}
 
 	}
 

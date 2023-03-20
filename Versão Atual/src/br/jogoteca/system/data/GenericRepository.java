@@ -44,9 +44,9 @@ public class GenericRepository<T> implements IGenericRepository<T> {
         } else {
             throw new ElementDoesNotExistException(obj);
         }
-        
         FileUtilRepository.saveFile(elements, this.fileName);
 	}
+	
 	public void delete(T obj) throws ElementDoesNotExistException{
         if (this.elements.contains(obj)) {
             this.elements.remove(this.elements.indexOf(obj));
