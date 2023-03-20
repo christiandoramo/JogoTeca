@@ -22,16 +22,8 @@ public class CustomersController {
         return instance;
     }
     
-    
-    
-    
-    
-    
-	public void createCustomer() {
+	public void insertCustomer() {
 		
-	}
-	public Customer readCustomer(int id) {
-		return null;
 	}
 	public Customer searchCustomerByID(int id) {
 		return null;
@@ -45,7 +37,7 @@ public class CustomersController {
 	public void updateCustomer(int id) {
 		
 	}
-	public void destroyCustomer(int id) {
+	public void removeCustomer(int id) {
 		
 	}
 }
