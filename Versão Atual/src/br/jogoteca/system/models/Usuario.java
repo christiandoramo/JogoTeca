@@ -1,7 +1,5 @@
 package br.jogoteca.system.models;
 
-import java.time.LocalDate;
-
 public class Usuario {
 
 	 
