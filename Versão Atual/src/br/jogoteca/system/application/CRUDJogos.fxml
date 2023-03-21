@@ -44,9 +44,9 @@
          <children>
             <TextField fx:id="campoRemoverId" layoutX="25.0" layoutY="25.0" prefHeight="25.0" prefWidth="158.0" promptText="Remover por Id" />
             <TextField fx:id="campoRemoverNome" layoutX="25.0" layoutY="91.0" prefHeight="25.0" prefWidth="158.0" promptText="Remover por Nome" />
-            <Button layoutX="191.0" layoutY="25.0" mnemonicParsing="false" text="Buscar" />
-            <Button layoutX="191.0" layoutY="91.0" mnemonicParsing="false" text="Buscar" />
-            <Button layoutX="94.0" layoutY="167.0" mnemonicParsing="false" text="Remover" />
+            <Button layoutX="191.0" layoutY="25.0" mnemonicParsing="false" onAction="#buscarRemoverPorId" text="Buscar" />
+            <Button layoutX="191.0" layoutY="91.0" mnemonicParsing="false" onAction="#buscarRemoverPorName" text="Buscar" />
+            <Button layoutX="94.0" layoutY="167.0" mnemonicParsing="false" onAction="#removerJogo" text="Remover" />
             <ListView fx:id="listaRemover" layoutX="300.0" layoutY="16.0" prefHeight="200.0" prefWidth="200.0" />
             <Label fx:id="destroyLog" alignment="CENTER" layoutX="74.0" layoutY="214.0" prefHeight="32.0" prefWidth="98.0" text="removeLog" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" />
          </children>

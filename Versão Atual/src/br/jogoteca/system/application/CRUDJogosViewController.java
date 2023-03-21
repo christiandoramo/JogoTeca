@@ -1,6 +1,5 @@
 package br.jogoteca.system.application;
 
-import java.io.File;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
@@ -21,9 +20,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
-import javafx.stage.FileChooser.ExtensionFilter;
-import javafx.stage.Stage;
 
 public class CRUDJogosViewController implements Initializable {
 
@@ -100,6 +96,26 @@ public class CRUDJogosViewController implements Initializable {
 	GamesController gc = GamesController.getInstance();
 
 	String modoAtualizacao = "";
+	String modoRemocao = "";
+
+	@FXML
+	protected void removerJogo() {
+		if (modoRemocao.equals("id"))
+			removerPorId();
+		else if (modoRemocao.equals("name"))
+			removerPorName();
+	}
+
+	protected void removerPorId() {
+		int _id = Integer.parseInt(campoRemoverId.getText());
+		
+		gc.destroyGameById(_id);
+	}
+
+	protected void removerPorName() {
+		String _name = campoRemoverNome.getText();
+		gc.destroyGameByName(_name);
+	}
 
 	@FXML
 	protected void atualizarJogo() {
@@ -107,6 +123,18 @@ public class CRUDJogosViewController implements Initializable {
 			atualizarPorId();
 		else if (modoAtualizacao.equals("name"))
 			atualizarPorName();
+	}
+
+	@FXML
+	protected void buscarRemoverPorId() {
+		ViewsController.searchGameById(gc, campoRemoverId, listaRemover, destroyLog);
+		modoRemocao = "id";
+	}
+
+	@FXML
+	protected void buscarRemoverPorName() {
+		ViewsController.searchGameByNome(gc, campoRemoverNome, listaRemover, destroyLog);
+		modoRemocao = "name";
 	}
 
 	@FXML
@@ -126,7 +154,7 @@ public class CRUDJogosViewController implements Initializable {
 		String _name = CampoTrocaNome.getText();
 		Genre _genero = (Genre) CampoTrocaGenero.getUserData();
 		String p = CampoTrocaPrice.getText();
-		Double _price = p == null || p.equals("")  ? null : Double.parseDouble(p);
+		Double _price = p == null || p.equals("") ? null : Double.parseDouble(p);
 		String _descricao = CampoTrocaDescricao.getText();
 		String _image = CampoTrocaImage.getText();
 		LocalDate _release = CampoTrocaReleaseDate.getValue();
@@ -179,16 +207,18 @@ public class CRUDJogosViewController implements Initializable {
 	protected void searchGameByGenero() {
 		Genre genero = (Genre) CampoBuscarGenero.getUserData();
 		System.out.println(genero);
-		List<Game> gamesAchados;
 		if (genero != null) {
-			List<Game> n = gc.searchGamesByGenre(genero);
-			for (Game g : n)
-				System.out.println(g.getId());
-			if (!n.isEmpty()) {
-				gamesAchados = gc.searchGamesByGenre(genero);
+			List<Game> gamesAchados = gc.searchGamesByGenre(genero);
+			if (!gamesAchados.isEmpty()) {
 				ViewsController.mostraAchados(listaJogos, gamesAchados);
-				for (Game g : gamesAchados)
-					System.out.println(g.getId());
+				for (Game game : gamesAchados) {
+					System.out.println("id: " + game.getId());
+					System.out.println("name: " + game.getName());
+					System.out.println("preco: " + game.getPrice());
+					System.out.println("genero: " + game.getGenre().name());
+					System.out.println("lançamento: " + game.getReleaseDate().toString());
+					System.out.println("descrição: " + game.getDescription());
+				}
 				readLog.setVisible(false);
 			} else {
 				readLog.setText("Jogo Não Encontrado");
@@ -201,6 +231,14 @@ public class CRUDJogosViewController implements Initializable {
 	protected void searchTodos() {
 		List<Game> allGames = gc.searchAllGames();
 		if (!allGames.isEmpty()) {
+			for (Game game : allGames) {
+				System.out.println("id: " + game.getId());
+				System.out.println("name: " + game.getName());
+				System.out.println("preco: " + game.getPrice());
+				System.out.println("genero: " + game.getGenre().name());
+				System.out.println("lançamento: " + game.getReleaseDate().toString());
+				System.out.println("descrição: " + game.getDescription());
+			}
 			ViewsController.mostraAchados(listaJogos, allGames);
 			readLog.setVisible(false);
 		} else {
@@ -237,6 +275,7 @@ public class CRUDJogosViewController implements Initializable {
 	protected void limparOperacaoCRUD(AnchorPane telaOperacional) {
 		AnchorPane[] telasOperacionais = new AnchorPane[] { telaInserir, telaAtualizar, telaBuscar, telaRemover };
 		modoAtualizacao = "";
+		modoRemocao = "";
 		for (AnchorPane tela : telasOperacionais)
 			if (tela.isVisible()) {
 				tela.setVisible(false);

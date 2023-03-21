@@ -71,13 +71,13 @@ public class GamesController {
 			LocalDate releaseDate) {
 		Game game = searchGameById(id);
 		if (game != null) {
-			if (name != null  && !name.equals(""))
+			if (name != null && !name.equals(""))
 				game.setName(name);
-			if (imageURL != null  && !imageURL.equals(""))
+			if (imageURL != null && !imageURL.equals(""))
 				game.setImageURL(imageURL);
-			if (description != null  && !description.equals(""))
-				game.setdescription(description);
-			if (price != null  && price != 0.0)
+			if (description != null && !description.equals(""))
+				game.setDescription(description);
+			if (price != null && price != 0.0)
 				game.setPrice(price);
 			if (genre != null)
 				game.setGenre(genre);
@@ -100,7 +100,7 @@ public class GamesController {
 			if (imageURL != null && !imageURL.equals(""))
 				game.setImageURL(imageURL);
 			if (description != null && !description.equals(""))
-				game.setdescription(description);
+				game.setDescription(description);
 			if (price != null && price != 0.0)
 				game.setPrice(price);
 			if (genre != null)
@@ -114,7 +114,29 @@ public class GamesController {
 
 	}
 
-	public void destroyGame(int id) {
+	public void destroyGameById(int id) {
+		Game game = searchGameById(id);
+		if (game != null) {
+			try {
+				gameRepository.delete(game);
+			} catch (Exception e) {
+				System.out.println("O jogo não pode ser apagado");
+			}
+		} else {
+			System.out.println("O jogo não foi encontrado a partir desse ID");
+		}
+	}
 
+	public void destroyGameByName(String name) {
+		Game game = searchGameByName(name);
+		if (game != null) {
+			try {
+				gameRepository.delete(game);
+			} catch (Exception e) {
+				System.out.println("O jogo não pode ser apagado");
+			}
+		} else {
+			System.out.println("O jogo não foi encontrado a partir desse nome");
+		}
 	}
 }

@@ -139,6 +139,12 @@ public class ViewsController extends Application {
 		if (nome != null) {
 			Game n = gc.searchGameByName(nome);
 			if (n != null) {
+				System.out.println("id: " + n.getId());
+				System.out.println("name: " + n.getName());
+				System.out.println("id: " + n.getPrice());
+				System.out.println("name: " + n.getGenre().name());
+				System.out.println("id: " + n.getReleaseDate());
+				System.out.println("name: " + n.getDescription());
 				gamesAchados.add(n);
 				ViewsController.mostraAchados(lista, gamesAchados);
 				gamesAchados.forEach(action -> System.out.println(action.getName()));
@@ -159,6 +165,12 @@ public class ViewsController extends Application {
 		if (id != 0) {
 			Game n = gc.searchGameById(id);
 			if (n != null) {
+				System.out.println("id: " + n.getId());
+				System.out.println("name: " + n.getName());
+				System.out.println("id: " + n.getPrice());
+				System.out.println("name: " + n.getGenre().name());
+				System.out.println("id: " + n.getReleaseDate());
+				System.out.println("name: " + n.getDescription());
 				gamesAchados.add(n);
 				ViewsController.mostraAchados(lista, gamesAchados);
 				log.setVisible(false);
@@ -213,7 +225,7 @@ public class ViewsController extends Application {
 			}
 		});
 	}
-	
+
 	public static void escolherImagem(TextField campoUrl) {
 		FileChooser fileChooser = new FileChooser();
 		fileChooser.setTitle("Abrir Arquivo");
