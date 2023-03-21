@@ -14,15 +14,11 @@ public class UserController {
         this.users = new ArrayList<User>();
     }
 
-    public void addUser(User user) {
+    public void insertUser(User user) {
         this.users.add(user);
     }
 
-    public void removeUser(User user) {
-        this.users.remove(user);
-    }
-
-    public User getUserById(int id) {
+    public User searchUserById(int id) {
         for (User user : this.users) {
             if (user.getId() == id) {
                 return user;
@@ -30,20 +26,27 @@ public class UserController {
         }
         return null;
     }
-    
-    public void updateUser(User updatedUser) {
-        boolean userUpdated = false;
-        for (int i = 0; i < this.users.size() && !userUpdated; i++) {
-            if (this.users.get(i).getId() == updatedUser.getId()) {
+
+    public void updateUserById(int id, User updatedUser) {
+        for (int i = 0; i < this.users.size(); i++) {
+            if (this.users.get(i).getId() == id) {
                 this.users.set(i, updatedUser);
-                userUpdated = true;
             }
         }
     }
 
+    public void destroyUserById(int id) {
+        for (int i = 0; i < this.users.size(); i++) {
+            if (this.users.get(i).getId() == id) {
+                this.users.remove(i);
+            }
+        }
+    }
+    
     public ArrayList<User> getAllUsers() {
         return this.users;
     }
+}
     
     
     //Para uso de arquivos na SPRINT 4/5
@@ -61,4 +64,4 @@ public class UserController {
 //        }
 //        return instance;
 //    }
-}
+
