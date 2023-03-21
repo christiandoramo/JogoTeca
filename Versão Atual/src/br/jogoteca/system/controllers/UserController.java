@@ -30,6 +30,16 @@ public class UserController {
         }
         return null;
     }
+    
+    public void updateUser(User updatedUser) {
+        boolean userUpdated = false;
+        for (int i = 0; i < this.users.size() && !userUpdated; i++) {
+            if (this.users.get(i).getId() == updatedUser.getId()) {
+                this.users.set(i, updatedUser);
+                userUpdated = true;
+            }
+        }
+    }
 
     public ArrayList<User> getAllUsers() {
         return this.users;

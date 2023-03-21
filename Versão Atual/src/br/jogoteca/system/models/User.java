@@ -50,8 +50,8 @@ public class User {
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", nome=" + nome + ", endereco=" + endereco + ", telefone=" + telefone + ", email="
-				+ email + ", login=" + login + ", senha=" + senha + "]";
+		return "User [Id = " + id + ", Nome = " + nome + ", Endereço = " + endereco + ", Telefone = " + telefone + ", E-mail = "
+				+ email + ", Login = " + login + ", Senha = " + senha + "]";
 	}
     
     
