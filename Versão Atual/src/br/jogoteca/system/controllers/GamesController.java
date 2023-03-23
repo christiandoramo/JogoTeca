@@ -10,7 +10,7 @@ import br.jogoteca.system.models.Genre;
 
 public class GamesController {
 	private GenericRepository<Game> gameRepository;
-	private int lastId;
+	private int lastId = 1;
 
 	private static GamesController instance;
 
@@ -27,27 +27,27 @@ public class GamesController {
 		return instance;
 	}
 
+	public boolean contemNome(String nome) {
+		boolean contemNome = gameRepository.read().stream().anyMatch(item -> item.getName().equals(nome));
+		return contemNome;
+	}
+
 	public void mostrarGameRepository() {
 		if (!gameRepository.read().isEmpty())
 			for (Game game : gameRepository.read())
 				System.out.println(game.getName());
 	}
 
-	public String insertGame(String name, LocalDate releaseDate, Genre genre, String description, String imageURL,
+	public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String imageURL,
 			double price) {
 		Game novo = new Game(lastId + 1, name, releaseDate, genre, description, imageURL, price);
 		try {
-			boolean contemNome = gameRepository.read().stream().anyMatch(item -> item.getName().equals(novo.getName()));
-			// registra apenas se não contem nome - se contem nome diz ja tem com mesmo nome
-			if (!contemNome) {
-				gameRepository.insert(novo);
-				lastId++;
-				return "Novo jogo inserido com Sucesso";
-			}
+			gameRepository.insert(novo);
+			lastId++;
+
 		} catch (Exception e) {
-			System.out.println("EEEEEERRRRRRRRRRROOOOOOOOOOOOO" + e);
+			System.out.println(e);
 		}
-		return "Erro: Um Jogo com o mesmo nome já existe";
 	}
 
 	public Game searchGameById(int id) {
@@ -86,8 +86,9 @@ public class GamesController {
 		}
 		try {
 			gameRepository.update(game);
+			System.out.println("Sucesso: O jogo foi atualizado");
 		} catch (Exception e) {
-			System.out.println("Erro: O game não existe" + e);
+			System.out.println(e);
 		}
 	}
 
@@ -109,34 +110,28 @@ public class GamesController {
 				game.setReleaseDate(releaseDate);
 			gameRepository.update(game);
 		} catch (Exception e) {
-			System.out.println("Erro: O game não existe" + e);
+			System.out.println(e);
 		}
 
 	}
 
 	public void destroyGameById(int id) {
 		Game game = searchGameById(id);
-		if (game != null) {
-			try {
-				gameRepository.delete(game);
-			} catch (Exception e) {
-				System.out.println("O jogo não pode ser apagado");
-			}
-		} else {
-			System.out.println("O jogo não foi encontrado a partir desse ID");
+		try {
+			gameRepository.delete(game);
+		} catch (Exception e) {
+			System.out.println(e);
 		}
+
 	}
 
 	public void destroyGameByName(String name) {
 		Game game = searchGameByName(name);
-		if (game != null) {
-			try {
-				gameRepository.delete(game);
-			} catch (Exception e) {
-				System.out.println("O jogo não pode ser apagado");
-			}
-		} else {
-			System.out.println("O jogo não foi encontrado a partir desse nome");
+		try {
+			gameRepository.delete(game);
+			lastId--;
+		} catch (Exception e) {
+			System.out.println(e);
 		}
 	}
 }

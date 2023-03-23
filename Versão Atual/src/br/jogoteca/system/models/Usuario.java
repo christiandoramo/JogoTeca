@@ -31,7 +31,6 @@ public class Usuario {
 
 
 		public String getPedido() {
-			
 				return pedido;
 		}
 }

@@ -154,7 +154,7 @@ public class ViewsController extends Application {
 				log.setVisible(true);
 			}
 		} else {
-			log.setText("Digite um Nome");
+			log.setText("Digite um Nome válido");
 			log.setVisible(true);
 		}
 	}
@@ -179,7 +179,7 @@ public class ViewsController extends Application {
 				log.setVisible(true);
 			}
 		} else {
-			log.setText("Digite um Nome");
+			log.setText("Digite um id válido");
 			log.setVisible(true);
 		}
 	}

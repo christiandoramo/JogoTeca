@@ -6,7 +6,7 @@ import java.time.LocalDate;
 public class Game implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private int id;
+	private long id;
 	private String name;
 	private LocalDate releaseDate;
 	private String description;
@@ -22,10 +22,10 @@ public class Game implements Serializable {
 		this.genre = genre;
 	}
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {
@@ -59,7 +59,7 @@ public class Game implements Serializable {
 		this.price = price;
 	}
 
-	public Game(int id, String name, LocalDate releaseDate, Genre genre, String description, String imageURL, Double price) {
+	public Game(long id, String name, LocalDate releaseDate, Genre genre, String description, String imageURL, Double price) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -73,7 +73,7 @@ public class Game implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + id;
+		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
 	@Override
@@ -88,5 +88,6 @@ public class Game implements Serializable {
 		if (id != other.id)
 			return false;
 		return true;
-	}	
+	}
+
 }

@@ -108,7 +108,7 @@ public class CRUDJogosViewController implements Initializable {
 
 	protected void removerPorId() {
 		int _id = Integer.parseInt(campoRemoverId.getText());
-		
+
 		gc.destroyGameById(_id);
 	}
 
@@ -119,10 +119,15 @@ public class CRUDJogosViewController implements Initializable {
 
 	@FXML
 	protected void atualizarJogo() {
-		if (modoAtualizacao.equals("id"))
-			atualizarPorId();
-		else if (modoAtualizacao.equals("name"))
-			atualizarPorName();
+		if (preencheuAlgumaEntradaAtualizacao()) {
+			if (modoAtualizacao.equals("id"))
+				atualizarPorId();
+			else if (modoAtualizacao.equals("name"))
+				atualizarPorName();
+		} else
+			updateLog.setText("Erro: Preencha algum campo para atualizar");
+		updateLog.setVisible(true);
+
 	}
 
 	@FXML
@@ -158,7 +163,13 @@ public class CRUDJogosViewController implements Initializable {
 		String _descricao = CampoTrocaDescricao.getText();
 		String _image = CampoTrocaImage.getText();
 		LocalDate _release = CampoTrocaReleaseDate.getValue();
-		gc.updateGameById(_id, _name, _genero, _price, _descricao, _image, _release);
+		if (!gc.contemNome(_name)) {
+			gc.updateGameById(_id, _name, _genero, _price, _descricao, _image, _release);
+			updateLog.setText("Sucesso: Jogo Atualizado com sucesso");
+		} else {
+			updateLog.setText("Erro: Já existe um Jogo com o mesmo nome");
+		}
+
 	}
 
 	protected void atualizarPorName() {
@@ -170,7 +181,12 @@ public class CRUDJogosViewController implements Initializable {
 		String _descricao = CampoTrocaDescricao.getText();
 		String _image = CampoTrocaImage.getText();
 		LocalDate _release = CampoTrocaReleaseDate.getValue();
-		gc.updateGameByName(_name, _newName, _genero, _price, _descricao, _image, _release);
+		if (!gc.contemNome(_newName)) {
+			gc.updateGameByName(_name, _newName, _genero, _price, _descricao, _image, _release);
+			updateLog.setText("Sucesso: Jogo Atualizado com sucesso");
+		} else {
+			updateLog.setText("Erro: Já existe um Jogo com o mesmo nome");
+		}
 	}
 
 	@FXML
@@ -183,14 +199,17 @@ public class CRUDJogosViewController implements Initializable {
 			LocalDate lancamento = releaseDate.getValue();
 			String url = urlImage.getText();
 			Double preco = Double.parseDouble(price.getText());
-
-			createLog.setText(gc.insertGame(nome, lancamento, genero, descricao, url, preco));
-			createLog.setVisible(true);
+			if (!gc.contemNome(nome)) {
+				gc.insertGame(nome, lancamento, genero, descricao, url, preco);
+				createLog.setText("Sucesso: Jogo inserido com sucesso");
+			} else {
+				createLog.setText("Erro: Jogo com mesmo nome já existe");
+			}
 			gc.mostrarGameRepository();
 		} else {
 			createLog.setText("Erro: Preencha todos os Campos");
-			createLog.setVisible(true);
 		}
+		createLog.setVisible(true);
 	}
 
 	@FXML
@@ -333,6 +352,22 @@ public class CRUDJogosViewController implements Initializable {
 			}
 		}
 		return true;
+	}
+
+	public boolean preencheuAlgumaEntradaAtualizacao() {
+		if (!CampoTrocaGenero.getText().trim().isEmpty())
+			return true;
+		if (!CampoTrocaGenero.getText().equals("Selecionar Genero"))
+			return true;
+		if (!CampoTrocaImage.getText().trim().isEmpty())
+			return true;
+		if (!CampoTrocaPrice.getText().trim().isEmpty())
+			return true;
+		if (CampoTrocaReleaseDate.getValue() != null)
+			return true;
+		if (!CampoTrocaDescricao.getText().trim().isEmpty())
+			return true;
+		return false;
 	}
 
 	@FXML
