@@ -244,49 +244,83 @@ public class ViewsController extends Application {
 
 		UserController userController = new UserController();
 
-	    User user1 = new User(1, "João Silva", "Rua A, 123", "(81)91234-5678", "joao@gmail.com", "joao.silva", "123456");;
-	    userController.insertUser(user1);
-
+		// Criando os usuários
+	    User user1 = new User(1, "João Silva", "Rua A, 123", "(81)91234-5678", "joao@gmail.com", "joao.silva", "123456");
 	    User user2 = new User(2, "Maria Souza", "Rua B, 456", "(31)92345-6789", "maria@gmail.com", "maria.souza", "654321");
-	    userController.insertUser(user2);
-
 	    User user3 = new User(3, "José Santos", "Rua C, 789", "(47)93456-7890", "jose@gmail.com", "jose.santos", "senha123");
-	    userController.insertUser(user3);
-
 	    User user4 = new User(4, "Ana Paula", "Rua D, 321", "(11)94567-8901", "ana@gmail.com", "ana.paula", "senha456");
-	    userController.insertUser(user4);
-
 	    User user5 = new User(5, "Pedro Oliveira", "Rua E, 654", "(22)95678-9012", "pedro@gmail.com", "pedro.oliveira", "senha789");
-	    userController.insertUser(user5);
-
 	    User user6 = new User(6, "Carla Silva", "Rua F, 987", "(57)96789-0123", "carla@gmail.com", "carla.silva", "senhaabc");
-	    userController.insertUser(user6);
-
 	    User user7 = new User(7, "Roberto Souza", "Rua G, 246", "(81)97890-1234", "roberto@gmail.com", "roberto.souza", "senhabcd");
-	    userController.insertUser(user7);
-
 	    User user8 = new User(8, "Fernanda Santos", "Rua H, 135", "(32)98901-2345", "fernanda@gmail.com", "fernanda.santos", "senhaefg");
-	    userController.insertUser(user8);
-
 	    User user9 = new User(9, "Antônio Oliveira", "Rua I, 369", "(31)99012-3456", "antonio@gmail.com", "antonio.oliveira", "senhahij");
-	    userController.insertUser(user9);
-
 	    User user10 = new User(10, "Luana Silva", "Rua J, 258", "(43)90123-4567", "luana@gmail.com", "luana.silva", "senhaklm");
+	    
+	    // Inserindo os usuários no UserController
+	    userController.insertUser(user1);
+	    userController.insertUser(user2);
+	    userController.insertUser(user3);
+	    userController.insertUser(user4);
+	    userController.insertUser(user5);
+	    userController.insertUser(user6);
+	    userController.insertUser(user7);
+	    userController.insertUser(user8);
+	    userController.insertUser(user9);
 	    userController.insertUser(user10);
 	    
 	    for (User user : userController.getAllUsers())
 			System.out.println(user);
 	    
-	    /*User retrievedUser = userController.searchUserById(1);
-	    System.out.println("Usuário encontrado: " + retrievedUser.getNome());
+	    // Testando a função de busca por ID
+	    User searchedUser = userController.searchUserById(1);
+	    if (searchedUser != null) {
+	        System.out.println("\nUsuário encontrado: " + searchedUser);
+	    } else {
+	        System.out.println("\nUsuário não encontrado.");
+	    }
 	    
-	    User updatedUser = new User(1, "John Doe Jr.", "Rua B, 456", "(11) 9876-5432", "johndoejr@example.com", "johndoe", "123456");
+	    searchedUser = userController.searchUserById(6);
+	    if (searchedUser != null) {
+	        System.out.println("Usuário encontrado: " + searchedUser);
+	    } else {
+	        System.out.println("Usuário não encontrado.");
+	    }
+	    
+	    searchedUser = userController.searchUserById(12);
+	    if (searchedUser != null) {
+	        System.out.println("Usuário encontrado: " + searchedUser);
+	    } else {
+	        System.out.println("Usuário não encontrado.");
+	    }
+	    
+	    // Testando a função de atualização por ID
+	    User updatedUser = new User(1, "John Silver", "Rua A, 123", "(81)91234-5678", "john@gmail.com", "john.silver", "123456");
 	    userController.updateUserById(1, updatedUser);
-	    System.out.println("Usuário atualizado: " + userController.searchUserById(1).getNome());
+	    System.out.println("\nUsuário atualizado: " + userController.searchUserById(1));
 	    
-	    User retrievedUser2 = userController.searchUserById(1);
-	    userController.destroyUserById(1);
-	    System.out.println("Usuário removido: " + retrievedUser2.getNome());*/
+	    // Testando a função de remoção por ID
+	    System.out.println("\nUsuário removido: " + userController.searchUserById(2));
+	    userController.destroyUserById(2);
+	    
+	    System.out.println("Usuário removido: " + userController.searchUserById(5));
+	    userController.destroyUserById(5);
+	    
+	    System.out.println("Usuário removido: " + userController.searchUserById(8));
+	    userController.destroyUserById(8);
+	    
+	    // Testando a função de listar todos os usuários
+	    ArrayList<User> allUsers = userController.getAllUsers();
+	    System.out.println("\nTodos os usuários:");
+	    for (User user : allUsers) {
+	        System.out.println(user);
+	    }
+	    
+	    searchedUser = userController.searchUserById(2);
+	    if (searchedUser != null) {
+	        System.out.println("\nUsuário encontrado: " + searchedUser);
+	    } else {
+	        System.out.println("\nUsuário não encontrado.\n");
+	    }
 
 		launch(args);
 	}
