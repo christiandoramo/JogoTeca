@@ -32,11 +32,11 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 
 ### Diagrama de Classes de Modelos
 
-<img src="/diagramas/UML 4.jpeg" alt="UML Jogoteca 4">
+<img src="https://i.pinimg.com/originals/b6/ca/3d/b6ca3dbb5a7cad38a5196335f2355ea5.jpg">
 
 ### Diagrama navegacional entre Telas
 
-<img src="/diagramas/modelo Navegacional.jpeg" alt="Modelo Navegacional">
+<img src="https://i.pinimg.com/originals/8a/a5/21/8aa521754b89f2a144ac0ef72de0909a.jpg" alt="Modelo Navegacional">
 
 # Dicas de Acesso aos colaboradores
 
