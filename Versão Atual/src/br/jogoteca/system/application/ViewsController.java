@@ -7,8 +7,10 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
+import br.jogoteca.system.controllers.GameItemControllers;
 import br.jogoteca.system.controllers.GamesController;
 import br.jogoteca.system.controllers.UserController;
+import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.Genre;
 import br.jogoteca.system.models.User;
@@ -150,11 +152,11 @@ public class ViewsController extends Application {
 				gamesAchados.forEach(action -> System.out.println(action.getName()));
 				log.setVisible(false);
 			} else {
-				log.setText("Jogo N„o Encontrado");
+				log.setText("Jogo N√£o Encontrado");
 				log.setVisible(true);
 			}
 		} else {
-			log.setText("Digite um Nome v·lido");
+			log.setText("Digite um Nome");
 			log.setVisible(true);
 		}
 	}
@@ -175,11 +177,11 @@ public class ViewsController extends Application {
 				ViewsController.mostraAchados(lista, gamesAchados);
 				log.setVisible(false);
 			} else {
-				log.setText("Jogo N„o Encontrado");
+				log.setText("Jogo N√£o Encontrado");
 				log.setVisible(true);
 			}
 		} else {
-			log.setText("Digite um id v·lido");
+			log.setText("Digite um Nome");
 			log.setVisible(true);
 		}
 	}
@@ -242,21 +244,53 @@ public class ViewsController extends Application {
 
 	public static void main(String[] args) {
 
-		UserController userController = new UserController();
-
-		// Criando os usu·rios
-	    User user1 = new User(1, "Jo„o Silva", "Rua A, 123", "(81)91234-5678", "joao@gmail.com", "joao.silva", "123456");
+		//testando - OK
+		ArrayList<Game> games = new ArrayList<Game>();
+		ArrayList<Game> games2 = new ArrayList<Game>();
+		Game game1 = new Game(10, "LEAGUE", LocalDate.now(), Genre.Action, "description1", "imageURL1", 2.5);
+		Game game2 = new Game(11, "LOL", LocalDate.now(), Genre.Action, "description2", "imageURL2", 3.5);
+		Game game3 = new Game(12, "PWI", LocalDate.now(), Genre.RPG, "description3", "imageURL3", 4.5);
+		
+		Game game4 = new Game(13, "PWBR", LocalDate.now(), Genre.RPG, "description4", "imageURL4", 5.5);
+		Game game5 = new Game(14, "PWHITS", LocalDate.now(), Genre.RPG, "description5", "imageURL5", 6.5);
+		Game game6 = new Game(15, "PWELITE", LocalDate.now(), Genre.RPG, "description6", "imageURL6", 7.5);
+		
+		games.add(game1);games.add(game2);games.add(game3);
+		games2.add(game4);games2.add(game5);games2.add(game6);
+		
+		GameItem gi1 = new GameItem(1, 1.5, games);
+		GameItem gi2 = new GameItem(2, 2.5, games2);
+		
+		GameItemControllers testController = new GameItemControllers();
+		
+		//create - OK
+		testController.addGameItem(gi1);
+		testController.addGameItem(gi2);
+		//remove - OK
+		testController.removeGameItem(gi1);
+		//update - OK
+		testController.attGameItem(gi1, gi2);
+		//read - OK
+		for (GameItem x : testController.showGameItemList())
+			System.out.println(x);
+		
+		
+		
+				
+		/*UserController userController = new UserController();
+		// Criando os usu√°rios
+	    User user1 = new User(1, "Jo√£o Silva", "Rua A, 123", "(81)91234-5678", "joao@gmail.com", "joao.silva", "123456");
 	    User user2 = new User(2, "Maria Souza", "Rua B, 456", "(31)92345-6789", "maria@gmail.com", "maria.souza", "654321");
-	    User user3 = new User(3, "JosÈ Santos", "Rua C, 789", "(47)93456-7890", "jose@gmail.com", "jose.santos", "senha123");
+	    User user3 = new User(3, "Jos√© Santos", "Rua C, 789", "(47)93456-7890", "jose@gmail.com", "jose.santos", "senha123");
 	    User user4 = new User(4, "Ana Paula", "Rua D, 321", "(11)94567-8901", "ana@gmail.com", "ana.paula", "senha456");
 	    User user5 = new User(5, "Pedro Oliveira", "Rua E, 654", "(22)95678-9012", "pedro@gmail.com", "pedro.oliveira", "senha789");
 	    User user6 = new User(6, "Carla Silva", "Rua F, 987", "(57)96789-0123", "carla@gmail.com", "carla.silva", "senhaabc");
 	    User user7 = new User(7, "Roberto Souza", "Rua G, 246", "(81)97890-1234", "roberto@gmail.com", "roberto.souza", "senhabcd");
 	    User user8 = new User(8, "Fernanda Santos", "Rua H, 135", "(32)98901-2345", "fernanda@gmail.com", "fernanda.santos", "senhaefg");
-	    User user9 = new User(9, "AntÙnio Oliveira", "Rua I, 369", "(31)99012-3456", "antonio@gmail.com", "antonio.oliveira", "senhahij");
+	    User user9 = new User(9, "Ant√¥nio Oliveira", "Rua I, 369", "(31)99012-3456", "antonio@gmail.com", "antonio.oliveira", "senhahij");
 	    User user10 = new User(10, "Luana Silva", "Rua J, 258", "(43)90123-4567", "luana@gmail.com", "luana.silva", "senhaklm");
 	    
-	    // Inserindo os usu·rios no UserController
+	    // Inserindo os usu√°rios no UserController
 	    userController.insertUser(user1);
 	    userController.insertUser(user2);
 	    userController.insertUser(user3);
@@ -271,56 +305,56 @@ public class ViewsController extends Application {
 	    for (User user : userController.getAllUsers())
 			System.out.println(user);
 	    
-	    // Testando a funÁ„o de busca por ID
+	    // Testando a fun√ß√£o de busca por ID
 	    User searchedUser = userController.searchUserById(1);
 	    if (searchedUser != null) {
-	        System.out.println("\nUsu·rio encontrado: " + searchedUser);
+	        System.out.println("\nUsu√°rio encontrado: " + searchedUser);
 	    } else {
-	        System.out.println("\nUsu·rio n„o encontrado.");
+	        System.out.println("\nUsu√°rio n√£o encontrado.");
 	    }
 	    
 	    searchedUser = userController.searchUserById(6);
 	    if (searchedUser != null) {
-	        System.out.println("Usu·rio encontrado: " + searchedUser);
+	        System.out.println("Usu√°rio encontrado: " + searchedUser);
 	    } else {
-	        System.out.println("Usu·rio n„o encontrado.");
+	        System.out.println("Usu√°rio n√£o encontrado.");
 	    }
 	    
 	    searchedUser = userController.searchUserById(12);
 	    if (searchedUser != null) {
-	        System.out.println("Usu·rio encontrado: " + searchedUser);
+	        System.out.println("Usu√°rio encontrado: " + searchedUser);
 	    } else {
-	        System.out.println("Usu·rio n„o encontrado.");
+	        System.out.println("Usu√°rio n√£o encontrado.");
 	    }
 	    
-	    // Testando a funÁ„o de atualizaÁ„o por ID
+	    // Testando a fun√ß√£o de atualiza√ß√£o por ID
 	    User updatedUser = new User(1, "John Silver", "Rua A, 123", "(81)91234-5678", "john@gmail.com", "john.silver", "123456");
 	    userController.updateUserById(1, updatedUser);
-	    System.out.println("\nUsu·rio atualizado: " + userController.searchUserById(1));
+	    System.out.println("\nUsu√°rio atualizado: " + userController.searchUserById(1));
 	    
-	    // Testando a funÁ„o de remoÁ„o por ID
-	    System.out.println("\nUsu·rio removido: " + userController.searchUserById(2));
+	    // Testando a fun√ß√£o de remo√ß√£o por ID
+	    System.out.println("\nUsu√°rio removido: " + userController.searchUserById(2));
 	    userController.destroyUserById(2);
 	    
-	    System.out.println("Usu·rio removido: " + userController.searchUserById(5));
+	    System.out.println("Usu√°rio removido: " + userController.searchUserById(5));
 	    userController.destroyUserById(5);
 	    
-	    System.out.println("Usu·rio removido: " + userController.searchUserById(8));
+	    System.out.println("Usu√°rio removido: " + userController.searchUserById(8));
 	    userController.destroyUserById(8);
 	    
-	    // Testando a funÁ„o de listar todos os usu·rios
+	    // Testando a fun√ß√£o de listar todos os usu√°rios
 	    ArrayList<User> allUsers = userController.getAllUsers();
-	    System.out.println("\nTodos os usu·rios:");
+	    System.out.println("\nTodos os usu√°rios:");
 	    for (User user : allUsers) {
 	        System.out.println(user);
 	    }
 	    
 	    searchedUser = userController.searchUserById(2);
 	    if (searchedUser != null) {
-	        System.out.println("\nUsu·rio encontrado: " + searchedUser);
+	        System.out.println("\nUsu√°rio encontrado: " + searchedUser);
 	    } else {
-	        System.out.println("\nUsu·rio n„o encontrado.\n");
-	    }
+	        System.out.println("\nUsu√°rio n√£o encontrado.\n");
+	    }*/
 
 		launch(args);
 	}
