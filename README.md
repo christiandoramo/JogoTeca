@@ -48,3 +48,8 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 <br>
 
 </div>
+
+### Para acessar o projeto:
+* 1. use as versoes acima, instale os software efxclipse em help - install new software - work with https://download.eclipse.org/efxclipse/updates-released/3.5.0/site
+* 2. agora coloque java build path e o compiler para java 8
+* 3. adicione a library javafx sdk
