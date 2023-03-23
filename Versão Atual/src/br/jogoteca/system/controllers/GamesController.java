@@ -119,6 +119,7 @@ public class GamesController {
 		Game game = searchGameById(id);
 		try {
 			gameRepository.delete(game);
+			lastId--;
 		} catch (Exception e) {
 			System.out.println(e);
 		}

@@ -2,8 +2,6 @@ package br.jogoteca.system.controllers;
 
 import java.util.ArrayList;
 
-import br.jogoteca.system.exceptions.ElementAlreadyExistsException;
-import br.jogoteca.system.exceptions.ElementDoesNotExistException;
 import br.jogoteca.system.models.GameItem;
 
 
