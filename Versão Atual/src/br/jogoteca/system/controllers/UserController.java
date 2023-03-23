@@ -2,8 +2,6 @@ package br.jogoteca.system.controllers;
 
 import java.util.ArrayList;
 
-import br.jogoteca.system.data.GenericRepository;
-import br.jogoteca.system.models.Customer;
 import br.jogoteca.system.models.User;
 
 public class UserController {

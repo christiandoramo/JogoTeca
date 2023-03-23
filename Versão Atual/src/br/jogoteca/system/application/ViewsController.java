@@ -9,11 +9,9 @@ import java.util.regex.Pattern;
 
 import br.jogoteca.system.controllers.GameItemControllers;
 import br.jogoteca.system.controllers.GamesController;
-import br.jogoteca.system.controllers.UserController;
-import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.Game;
+import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.Genre;
-import br.jogoteca.system.models.User;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

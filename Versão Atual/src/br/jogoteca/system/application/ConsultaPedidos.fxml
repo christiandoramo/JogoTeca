@@ -24,6 +24,6 @@
       <Text layoutX="40.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="id" wrappingWidth="33.0" />
       <Text layoutX="34.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="pedido" wrappingWidth="44.13671875" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Button layoutX="490.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#updateButton1" text="uptade/pedido" />
+      <Button layoutX="490.0" layoutY="344.0" mnemonicParsing="false" text="uptade/pedido" />
    </children>
 </AnchorPane>
