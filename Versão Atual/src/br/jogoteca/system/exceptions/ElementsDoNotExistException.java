@@ -10,6 +10,9 @@ public class ElementsDoNotExistException extends Exception {
 	private Object element;
 
 	/*
+	 * public ElementsDoNotExistException(List<?> obj) { super("Erro: Nenhum " +
+	 * obj.get(0).getClass().getSimpleName() + " foi encontrado"); this.element =
+	 * obj; }
 	 * Na verdade, se a lista estiver vazia, não há como saber qual é o tipo do
 	 * objeto que deveria ser armazenado na lista. Isso ocorre porque o tipo
 	 * genérico da lista, definido entre os sinais de maior e menor (<>), é apagado
@@ -21,12 +24,9 @@ public class ElementsDoNotExistException extends Exception {
 	 * listas vazias geralmente retornem um valor padrão, ou lançam uma exceção
 	 * informando que a lista está vazia e que não há elementos para processar.
 	 * 
-	 * public ElementsDoNotExistException(List<?> obj) { super("Erro: Nenhum " +
-	 * obj.get(0).getClass().getSimpleName() + " foi encontrado"); this.element =
-	 * obj; }
 	 */
 
-	public ElementsDoNotExistException(List<Game> obj) {
+	public ElementsDoNotExistException(List<T> obj) {
 		super("Erro: Nenhum foi encontrado");
 		this.element = obj;
 	}
