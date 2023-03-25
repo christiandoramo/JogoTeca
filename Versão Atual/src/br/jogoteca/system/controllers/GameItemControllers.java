@@ -37,4 +37,20 @@ public class GameItemControllers {
 		}
 		return instance;
 	}
+    
+    //Para uso de arquivos na SPRINT 4/5
+//	private GenericRepository<Customer> customerRepository;
+//	
+//	private static CustomersController instance;
+//	
+//	private CustomersController() {
+//        this.customerRepository = new GenericRepository<>("customers.dat");
+//    }
+//	
+//    public static CustomersController getInstance() {
+//        if (instance == null) {
+//            instance = new CustomersController();
+//        }
+//        return instance;
+//    }
 }

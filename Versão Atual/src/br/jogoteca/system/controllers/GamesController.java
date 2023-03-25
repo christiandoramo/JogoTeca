@@ -5,11 +5,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import br.jogoteca.system.data.GenericRepository;
+import br.jogoteca.system.data.IGenericRepository;
+import br.jogoteca.system.exceptions.ElementAlreadyExistsException;
+import br.jogoteca.system.exceptions.ElementDoesNotExistException;
+import br.jogoteca.system.exceptions.ElementWithSameNameExistsException;
+import br.jogoteca.system.exceptions.ElementsDoNotExistException;
 import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.Genre;
 
 public class GamesController {
-	private GenericRepository<Game> gameRepository;
+	private IGenericRepository<Game> gameRepository;
 	private int lastId = 1;
 
 	private static GamesController instance;
@@ -28,8 +33,7 @@ public class GamesController {
 	}
 
 	public boolean contemNome(String nome) {
-		boolean contemNome = gameRepository.read().stream().anyMatch(item -> item.getName().equals(nome));
-		return contemNome;
+		return gameRepository.read().stream().anyMatch(item -> item.getName().equals(nome));
 	}
 
 	public void mostrarGameRepository() {
@@ -39,36 +43,30 @@ public class GamesController {
 	}
 
 	public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String imageURL,
-			double price) {
+			double price) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
 		Game novo = new Game(lastId + 1, name, releaseDate, genre, description, imageURL, price);
-		try {
-			gameRepository.insert(novo);
-			lastId++;
-
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		gameRepository.insert(novo);
+		lastId++;
 	}
 
-	public Game searchGameById(int id) {
+	public Game searchGameById(int id) throws ElementDoesNotExistException {
 		return gameRepository.read().stream().filter(game -> game.getId() == id).findFirst().orElse(null);
-
 	}
 
-	public Game searchGameByName(String name) {
+	public Game searchGameByName(String name) throws ElementDoesNotExistException {
 		return gameRepository.read().stream().filter(game -> game.getName().equals(name)).findFirst().orElse(null);
 	}
 
-	public List<Game> searchAllGames() {
+	public List<Game> searchAllGames() throws ElementsDoNotExistException {
 		return gameRepository.read();
 	}
 
-	public List<Game> searchGamesByGenre(Genre genre) {
+	public List<Game> searchGamesByGenre(Genre genre) throws ElementsDoNotExistException {
 		return gameRepository.read().stream().filter(game -> game.getGenre() == genre).collect(Collectors.toList());
 	}
 
 	public void updateGameById(int id, String name, Genre genre, Double price, String description, String imageURL,
-			LocalDate releaseDate) {
+			LocalDate releaseDate) throws ElementDoesNotExistException, ElementWithSameNameExistsException {
 		Game game = searchGameById(id);
 		if (game != null) {
 			if (name != null && !name.equals(""))
@@ -83,19 +81,15 @@ public class GamesController {
 				game.setGenre(genre);
 			if (releaseDate != null)
 				game.setReleaseDate(releaseDate);
-		}
-		try {
 			gameRepository.update(game);
-			System.out.println("Sucesso: O jogo foi atualizado");
-		} catch (Exception e) {
-			System.out.println(e);
 		}
 	}
 
 	public void updateGameByName(String name, String newName, Genre genre, Double price, String description,
-			String imageURL, LocalDate releaseDate) {
+			String imageURL, LocalDate releaseDate)
+			throws ElementWithSameNameExistsException, ElementDoesNotExistException {
 		Game game = searchGameByName(name);
-		try {
+		if (game != null) {
 			if (newName != null && !newName.equals(""))
 				game.setName(newName);
 			if (imageURL != null && !imageURL.equals(""))
@@ -109,13 +103,11 @@ public class GamesController {
 			if (releaseDate != null)
 				game.setReleaseDate(releaseDate);
 			gameRepository.update(game);
-		} catch (Exception e) {
-			System.out.println(e);
 		}
 
 	}
 
-	public void destroyGameById(int id) {
+	public void destroyGameById(int id) throws ElementDoesNotExistException {
 		Game game = searchGameById(id);
 		try {
 			gameRepository.delete(game);
@@ -126,7 +118,7 @@ public class GamesController {
 
 	}
 
-	public void destroyGameByName(String name) {
+	public void destroyGameByName(String name) throws ElementDoesNotExistException {
 		Game game = searchGameByName(name);
 		try {
 			gameRepository.delete(game);

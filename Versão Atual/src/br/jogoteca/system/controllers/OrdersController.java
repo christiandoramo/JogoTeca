@@ -27,18 +27,6 @@ public class OrdersController {
 		return instance;
 	}
 
-	// public boolean contemNome(String nome) {
-	// boolean contemNome = ordersRepository.read().stream().anyMatch(item ->
-	// item.getName().equals(nome));
-	// return contemNome;
-	// }
-
-	// public void mostrarordersRepository() {
-	// if (!ordersRepository.read().isEmpty())
-	// for (Order order : ordersRepository.read())
-	// System.out.println(order.getId());
-	// }
-
 	public void insertOrder(int id, LocalDateTime moment, User user, GameItem item) {
 
 		Order order = new Order(lastId + 1, moment, user, item);

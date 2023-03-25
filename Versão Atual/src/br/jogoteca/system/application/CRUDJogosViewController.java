@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import br.jogoteca.system.controllers.GamesController;
+import br.jogoteca.system.exceptions.ElementWithSameNameExistsException;
+import br.jogoteca.system.exceptions.ElementsDoNotExistException;
 import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.Genre;
 import javafx.event.ActionEvent;
@@ -108,13 +110,25 @@ public class CRUDJogosViewController implements Initializable {
 
 	protected void removerPorId() {
 		int _id = Integer.parseInt(campoRemoverId.getText());
+		try {
+			gc.destroyGameById(_id);
+			destroyLog.setVisible(false);
+		} catch (Exception e) {
+			destroyLog.setText(e.getMessage());
+			destroyLog.setVisible(true);
+		}
 
-		gc.destroyGameById(_id);
 	}
 
 	protected void removerPorName() {
 		String _name = campoRemoverNome.getText();
-		gc.destroyGameByName(_name);
+		try {
+			gc.destroyGameByName(_name);
+			destroyLog.setVisible(false);
+		} catch (Exception e) {
+			destroyLog.setText(e.getMessage());
+			destroyLog.setVisible(true);
+		}
 	}
 
 	@FXML
@@ -124,10 +138,10 @@ public class CRUDJogosViewController implements Initializable {
 				atualizarPorId();
 			else if (modoAtualizacao.equals("name"))
 				atualizarPorName();
-		} else
-			updateLog.setText("Erro: Preencha algum campo para atualizar");
-		updateLog.setVisible(true);
-
+			else
+				updateLog.setText("Erro: Preencha algum campo para atualizar");
+			updateLog.setVisible(true);
+		}
 	}
 
 	@FXML
@@ -163,13 +177,17 @@ public class CRUDJogosViewController implements Initializable {
 		String _descricao = CampoTrocaDescricao.getText();
 		String _image = CampoTrocaImage.getText();
 		LocalDate _release = CampoTrocaReleaseDate.getValue();
-		if (!gc.contemNome(_name)) {
-			gc.updateGameById(_id, _name, _genero, _price, _descricao, _image, _release);
-			updateLog.setText("Sucesso: Jogo Atualizado com sucesso");
-		} else {
-			updateLog.setText("Erro: Já existe um Jogo com o mesmo nome");
+		try {
+			if (!gc.contemNome(_name)) {
+				gc.updateGameById(_id, _name, _genero, _price, _descricao, _image, _release);
+				updateLog.setText("Sucesso: O Jogo foi Atualizado");
+			} else
+				throw new ElementWithSameNameExistsException(_name);
+		} catch (Exception e) {
+			updateLog.setText(e.getMessage());
+		} finally {
+			updateLog.setVisible(true);
 		}
-
 	}
 
 	protected void atualizarPorName() {
@@ -181,12 +199,16 @@ public class CRUDJogosViewController implements Initializable {
 		String _descricao = CampoTrocaDescricao.getText();
 		String _image = CampoTrocaImage.getText();
 		LocalDate _release = CampoTrocaReleaseDate.getValue();
-		if (!gc.contemNome(_newName)) {
-			gc.updateGameByName(_name, _newName, _genero, _price, _descricao, _image, _release);
-			updateLog.setText("Sucesso: Jogo Atualizado com sucesso");
-		} else {
-			updateLog.setText("Erro: Já existe um Jogo com o mesmo nome");
+		try {
+			if (!gc.contemNome(_newName)) {
+				gc.updateGameByName(_name, _newName, _genero, _price, _descricao, _image, _release);
+				updateLog.setText("Sucesso: O Jogo foi Atualizado");
+			} else
+				throw new ElementWithSameNameExistsException(_newName);
+		} catch (Exception e) {
+			updateLog.setText(e.getMessage());
 		}
+		updateLog.setVisible(true);
 	}
 
 	@FXML
@@ -199,17 +221,21 @@ public class CRUDJogosViewController implements Initializable {
 			LocalDate lancamento = releaseDate.getValue();
 			String url = urlImage.getText();
 			Double preco = Double.parseDouble(price.getText());
-			if (!gc.contemNome(nome)) {
-				gc.insertGame(nome, lancamento, genero, descricao, url, preco);
-				createLog.setText("Sucesso: Jogo inserido com sucesso");
-			} else {
-				createLog.setText("Erro: Jogo com mesmo nome já existe");
+			try {
+				if (!gc.contemNome(nome)) {
+					gc.insertGame(nome, lancamento, genero, descricao, url, preco);
+					createLog.setText("Sucesso: Jogo inserido com sucesso");
+				} else
+					throw new ElementWithSameNameExistsException(nome);
+			} catch (Exception e) {
+				createLog.setText(e.getMessage());
 			}
 			gc.mostrarGameRepository();
 		} else {
 			createLog.setText("Erro: Preencha todos os Campos");
 		}
 		createLog.setVisible(true);
+
 	}
 
 	@FXML
@@ -225,46 +251,38 @@ public class CRUDJogosViewController implements Initializable {
 	@FXML
 	protected void searchGameByGenero() {
 		Genre genero = (Genre) CampoBuscarGenero.getUserData();
-		System.out.println(genero);
 		if (genero != null) {
-			List<Game> gamesAchados = gc.searchGamesByGenre(genero);
-			if (!gamesAchados.isEmpty()) {
-				ViewsController.mostraAchados(listaJogos, gamesAchados);
-				for (Game game : gamesAchados) {
-					System.out.println("id: " + game.getId());
-					System.out.println("name: " + game.getName());
-					System.out.println("preco: " + game.getPrice());
-					System.out.println("genero: " + game.getGenre().name());
-					System.out.println("lançamento: " + game.getReleaseDate().toString());
-					System.out.println("descrição: " + game.getDescription());
+			try {
+				List<Game> gamesAchados = gc.searchGamesByGenre(genero);
+				if (!gamesAchados.isEmpty()) {
+					ViewsController.mostraAchados(listaJogos, gamesAchados);
+					readLog.setVisible(false);
+				} else {
+					throw new ElementsDoNotExistException(gamesAchados);
 				}
-				readLog.setVisible(false);
-			} else {
-				readLog.setText("Jogo Não Encontrado");
+			} catch (ElementsDoNotExistException e) {
+				readLog.setText(e.getMessage());
 				readLog.setVisible(true);
 			}
+		} else {
+			readLog.setText("Erro: Nenhum genero foi selecionado");
+			readLog.setVisible(true);
 		}
 	}
 
 	@FXML
 	protected void searchTodos() {
-		List<Game> allGames = gc.searchAllGames();
-		if (!allGames.isEmpty()) {
-			for (Game game : allGames) {
-				System.out.println("id: " + game.getId());
-				System.out.println("name: " + game.getName());
-				System.out.println("preco: " + game.getPrice());
-				System.out.println("genero: " + game.getGenre().name());
-				System.out.println("lançamento: " + game.getReleaseDate().toString());
-				System.out.println("descrição: " + game.getDescription());
-			}
-			ViewsController.mostraAchados(listaJogos, allGames);
-			readLog.setVisible(false);
-		} else {
-			readLog.setText("Jogo Não Encontrado");
+		try {
+			List<Game> allGames = gc.searchAllGames();
+			if (!allGames.isEmpty()) {
+				ViewsController.mostraAchados(listaJogos, allGames);
+				readLog.setVisible(false);
+			} else
+				throw new ElementsDoNotExistException(allGames);
+		} catch (ElementsDoNotExistException e) {
+			readLog.setText(e.getMessage());
 			readLog.setVisible(true);
 		}
-
 	}
 
 	@FXML
