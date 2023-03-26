@@ -15,14 +15,13 @@ import br.jogoteca.system.models.Genre;
 
 public class GamesController {
 	private IGenericRepository<Game> gameRepository;
-	private int lastId = 1;
+	private int lastId;
 
 	private static GamesController instance;
 
 	private GamesController() {
 		this.gameRepository = new GenericRepository<>("games.dat");
 		lastId = gameRepository.read().size();
-		System.out.println(lastId);
 	}
 
 	public static GamesController getInstance() {
@@ -44,7 +43,7 @@ public class GamesController {
 
 	public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String imageURL,
 			double price) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-		Game novo = new Game(lastId + 1, name, releaseDate, genre, description, imageURL, price);
+		Game novo = new Game(lastId+1, name, releaseDate, genre, description, imageURL, price);
 		gameRepository.insert(novo);
 		lastId++;
 	}
@@ -109,22 +108,14 @@ public class GamesController {
 
 	public void destroyGameById(int id) throws ElementDoesNotExistException {
 		Game game = searchGameById(id);
-		try {
-			gameRepository.delete(game);
-			lastId--;
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		gameRepository.delete(game);
+		lastId--;
 
 	}
 
 	public void destroyGameByName(String name) throws ElementDoesNotExistException {
 		Game game = searchGameByName(name);
-		try {
-			gameRepository.delete(game);
-			lastId--;
-		} catch (Exception e) {
-			System.out.println(e);
-		}
+		gameRepository.delete(game);
+		lastId--;
 	}
 }

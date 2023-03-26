@@ -9,9 +9,13 @@ import java.util.regex.Pattern;
 
 import br.jogoteca.system.controllers.GameItemControllers;
 import br.jogoteca.system.controllers.GamesController;
+import br.jogoteca.system.controllers.UserController;
+import br.jogoteca.system.exceptions.ElementDoesNotExistException;
+import br.jogoteca.system.exceptions.ElementWithSameCPFExistsException;
 import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.Genre;
+import br.jogoteca.system.models.User;
 import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -39,7 +43,7 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class ViewsController extends Application {
 	private static Scene sceneLogin, scenePrincipalAdmin, sceneCadastro, sceneCRUDJogos, sceneConsultaClientes,
-			sceneConsultaPedidos, sceneTestes;
+			sceneConsultaPedidos, sceneTestes, sceneTelaX;
 	private static Stage primaryStage;
 
 	@Override
@@ -47,14 +51,16 @@ public class ViewsController extends Application {
 		primaryStage = stage;
 		primaryStage.setTitle("Jogoteca");
 
+		FXMLLoader screenTelaX = new FXMLLoader(getClass().getResource("TelaX.fxml"));
 		FXMLLoader screenTestes = new FXMLLoader(getClass().getResource("TelaDeTestes.fxml"));
 		FXMLLoader screenLogin = new FXMLLoader(getClass().getResource("Login.fxml"));
 		FXMLLoader screenPrincipalAdmin = new FXMLLoader(getClass().getResource("PrincipalAdmin.fxml"));
 		FXMLLoader screenCadastro = new FXMLLoader(getClass().getResource("Cadastro.fxml"));
-		FXMLLoader screenConsultaClientes = new FXMLLoader(getClass().getResource("ConsultaClientes.fxml"));
+		FXMLLoader screenConsultaClientes = new FXMLLoader(getClass().getResource("ConsultaUsuarios.fxml"));
 		FXMLLoader screenConsultaPedidos = new FXMLLoader(getClass().getResource("ConsultaPedidos.fxml"));
 		FXMLLoader screenCRUDJogos = new FXMLLoader(getClass().getResource("CRUDJogos.fxml"));
 
+		Parent parentTelaX = screenTelaX.load();
 		Parent parentTestes = screenTestes.load();
 		Parent parentLogin = screenLogin.load();
 		Parent parentPrincipalAdmin = screenPrincipalAdmin.load();
@@ -63,6 +69,7 @@ public class ViewsController extends Application {
 		Parent parentConsultaClientes = screenConsultaClientes.load();
 		Parent parentCRUDJogos = screenCRUDJogos.load();
 
+		sceneTelaX = new Scene(parentTelaX);
 		sceneTestes = new Scene(parentTestes);
 		sceneLogin = new Scene(parentLogin);
 		sceneCadastro = new Scene(parentCadastro);
@@ -89,6 +96,8 @@ public class ViewsController extends Application {
 			primaryStage.setScene(sceneCRUDJogos);
 		} else if (screen == Tela.PRINCIPALADMIN) {
 			primaryStage.setScene(scenePrincipalAdmin);
+		} else if (screen == Tela.TELAX) {
+			primaryStage.setScene(sceneTelaX);
 		}
 	}
 
@@ -141,17 +150,12 @@ public class ViewsController extends Application {
 			try {
 				Game n = gc.searchGameByName(nome);
 				if (n != null) {
-					System.out.println("id: " + n.getId());
-					System.out.println("name: " + n.getName());
-					System.out.println("id: " + n.getPrice());
-					System.out.println("name: " + n.getGenre().name());
-					System.out.println("id: " + n.getReleaseDate());
-					System.out.println("name: " + n.getDescription());
 					gamesAchados.add(n);
-					ViewsController.mostraAchados(lista, gamesAchados);
+					mostraGamesAchados(lista, gamesAchados);
 					gamesAchados.forEach(action -> System.out.println(action.getName()));
 					log.setVisible(false);
-				}
+				} else
+					throw new ElementDoesNotExistException(n);
 			} catch (Exception e) {
 				log.setText(e.getMessage());
 				log.setVisible(true);
@@ -162,29 +166,62 @@ public class ViewsController extends Application {
 	public static void searchGameById(GamesController gc, TextField campo, ListView<Game> lista, Label log) {
 		int id = Integer.parseInt(campo.getText());
 		List<Game> gamesAchados = new ArrayList<>();
-		if (id != 0) {
+		if (id > 0) {
 			try {
 				Game n = gc.searchGameById(id);
 				if (n != null) {
-					System.out.println("id: " + n.getId());
-					System.out.println("name: " + n.getName());
-					System.out.println("id: " + n.getPrice());
-					System.out.println("name: " + n.getGenre().name());
-					System.out.println("id: " + n.getReleaseDate());
-					System.out.println("name: " + n.getDescription());
 					gamesAchados.add(n);
-					ViewsController.mostraAchados(lista, gamesAchados);
+					mostraGamesAchados(lista, gamesAchados);
 					log.setVisible(false);
-				}
-
+				} else
+					throw new ElementDoesNotExistException(n);
 			} catch (Exception e) {
 				log.setText(e.getMessage());
 				log.setVisible(true);
 			}
+		} else {
+			log.setText("Erro: Digite um ID");
+			log.setVisible(true);
 		}
 	}
 
-	public static void mostraAchados(ListView<Game> listaJogos, List<Game> gamesAchados) {
+	public static void mostraUsuariosAchados(ListView<User> listaUsers, List<User> usersAchados) {
+		ObservableList<User> data = FXCollections.observableArrayList();
+		data.addAll(usersAchados);
+
+		listaUsers.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
+			@Override
+			public ListCell<User> call(ListView<User> param) {
+				ListCell<User> cell = new ListCell<User>() {
+					@Override
+					protected void updateItem(User achado, boolean btl) {
+						super.updateItem(achado, btl);
+						if (achado != null) {
+							File file = new File(
+									"C:\\Users\\chris\\Desktop\\repo\\Projeto-IP2\\Vers„o Atual\\src\\br\\jogoteca\\system\\data\\images\\51EWX7C9B3L.jpg");// perfis
+																																							// n„o
+																																							// possuem																															// imagem
+							String imagePath = file.toURI().toString();
+							Image img = new Image(imagePath);
+							ImageView imgview = new ImageView(img);
+							imgview.setFitWidth(100);
+							imgview.setFitHeight(100);
+							setGraphic(imgview);
+							String legenda = "Id: " + achado.getId() + "\nNome: " + achado.getNome() + "\nCPF: "
+									+ achado.getCPF();
+							setText(legenda);
+							setTextAlignment(TextAlignment.JUSTIFY);
+						}
+					}
+				};
+				return cell;
+
+			}
+		});
+		listaUsers.setItems(data);
+	}
+
+	public static void mostraGamesAchados(ListView<Game> listaJogos, List<Game> gamesAchados) {
 		ObservableList<Game> data = FXCollections.observableArrayList();
 		data.addAll(gamesAchados);
 
@@ -345,6 +382,29 @@ public class ViewsController extends Application {
 		 * System.out.println("\nUsu√°rio encontrado: " + searchedUser); } else {
 		 * System.out.println("\nUsu√°rio n√£o encontrado.\n"); }
 		 */
+
+		/*String cpf1 = "111222333";
+		String cpf2 = "222333111";
+		UserController uc = UserController.getInstance();
+		try {
+			if (!uc.contemCPF2(cpf1)) {
+				uc.insertUser2(cpf1, "josepio1", "Beco da facada", "6911246921", "gmail.br", "username23", "password");
+			} else {
+				throw new ElementWithSameCPFExistsException(cpf1);
+			}
+
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		try {
+			if (!uc.contemCPF2(cpf2)) {
+				uc.insertUser2(cpf2, "josepio2", "Beco da facada", "6911246921", "gmail.br", "username23", "password");
+			} else {
+				throw new ElementWithSameCPFExistsException(cpf2);
+			}
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}*/
 
 		launch(args);
 	}

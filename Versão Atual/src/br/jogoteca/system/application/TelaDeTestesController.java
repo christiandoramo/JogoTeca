@@ -32,6 +32,11 @@ public class TelaDeTestesController implements Initializable {
 	protected void irParaConsultaPedidos(ActionEvent event) {
 		ViewsController.changeScreen(Tela.CONSULTAPEDIDOS);
 	}
+	@FXML
+	protected void irParaTelaX(ActionEvent event) {
+		ViewsController.changeScreen(Tela.TELAX);
+	}
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 	}

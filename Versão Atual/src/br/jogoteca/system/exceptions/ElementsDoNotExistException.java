@@ -2,8 +2,6 @@ package br.jogoteca.system.exceptions;
 
 import java.util.List;
 
-import br.jogoteca.system.models.Game;
-
 public class ElementsDoNotExistException extends Exception {
 
 	private static final long serialVersionUID = 8248637567350230956L;
@@ -26,7 +24,7 @@ public class ElementsDoNotExistException extends Exception {
 	 * 
 	 */
 
-	public ElementsDoNotExistException(List<T> obj) {
+	public ElementsDoNotExistException(List<?> obj) {
 		super("Erro: Nenhum foi encontrado");
 		this.element = obj;
 	}

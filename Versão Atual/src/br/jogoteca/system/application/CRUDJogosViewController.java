@@ -255,7 +255,7 @@ public class CRUDJogosViewController implements Initializable {
 			try {
 				List<Game> gamesAchados = gc.searchGamesByGenre(genero);
 				if (!gamesAchados.isEmpty()) {
-					ViewsController.mostraAchados(listaJogos, gamesAchados);
+					ViewsController.mostraGamesAchados(listaJogos, gamesAchados);
 					readLog.setVisible(false);
 				} else {
 					throw new ElementsDoNotExistException(gamesAchados);
@@ -275,7 +275,7 @@ public class CRUDJogosViewController implements Initializable {
 		try {
 			List<Game> allGames = gc.searchAllGames();
 			if (!allGames.isEmpty()) {
-				ViewsController.mostraAchados(listaJogos, allGames);
+				ViewsController.mostraGamesAchados(listaJogos, allGames);
 				readLog.setVisible(false);
 			} else
 				throw new ElementsDoNotExistException(allGames);
