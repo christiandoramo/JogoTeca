@@ -68,8 +68,11 @@ public class ConsultaUsuariosController implements Initializable {
 					throw new ElementDoesNotExistException(n);
 				}
 			} catch (Exception e) {
-				System.out.println("entrou na exceção");
-				logBuscas.setText(e.getMessage());
+			    if (e instanceof ElementDoesNotExistException) {
+			        logBuscas.setText("Erro: Usuario não encontrado");
+			    } else {
+			        logBuscas.setText("Ocorreu um erro. Tente novamente.");
+			    }
 				logBuscas.setVisible(true);
 			}
 		} else {
@@ -93,8 +96,13 @@ public class ConsultaUsuariosController implements Initializable {
 				} else
 					throw new ElementDoesNotExistException(n);
 			} catch (Exception e) {
-				logBuscas.setText(e.getMessage());
+				logBuscas.setText("ERRROO");
 				logBuscas.setVisible(true);
+			    if (e instanceof ElementDoesNotExistException) {
+			        logBuscas.setText("Erro: Usuario não encontrado");
+			    } else {
+			        logBuscas.setText("Ocorreu um erro. Tente novamente.");
+			    }
 			}
 		} else {
 			logBuscas.setText("Erro: Digite um CPF válido");
@@ -118,7 +126,11 @@ public class ConsultaUsuariosController implements Initializable {
 				} else
 					throw new ElementDoesNotExistException(n);
 			} catch (Exception e) {
-				logBuscas.setText(e.getMessage());
+			    if (e instanceof ElementDoesNotExistException) {
+			        logBuscas.setText("Erro: Usuario não encontrado");
+			    } else {
+			        logBuscas.setText("Ocorreu um erro. Tente novamente.");
+			    }
 				logBuscas.setVisible(true);
 			}
 		} else {
@@ -136,8 +148,12 @@ public class ConsultaUsuariosController implements Initializable {
 				logBuscas.setVisible(false);
 			} else
 				throw new ElementsDoNotExistException(allUsers);
-		} catch (ElementsDoNotExistException e) {
-			logBuscas.setText(e.getMessage());
+		} catch (Exception e) {
+		    if (e instanceof ElementsDoNotExistException) {
+		        logBuscas.setText("Erro: Nenhum usuário encontrado");
+		    } else {
+		        logBuscas.setText("Ocorreu um erro. Tente novamente.");
+		    }
 			logBuscas.setVisible(true);
 		}
 	}

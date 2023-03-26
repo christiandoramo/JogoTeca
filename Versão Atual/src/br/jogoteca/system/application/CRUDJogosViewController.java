@@ -260,8 +260,12 @@ public class CRUDJogosViewController implements Initializable {
 				} else {
 					throw new ElementsDoNotExistException(gamesAchados);
 				}
-			} catch (ElementsDoNotExistException e) {
-				readLog.setText(e.getMessage());
+			} catch (Exception e) {
+				if (e instanceof ElementsDoNotExistException) {
+					readLog.setText("Erro: Nenhum usuário encontrado");
+				} else {
+					readLog.setText("Ocorreu um erro. Tente novamente.");
+				}
 				readLog.setVisible(true);
 			}
 		} else {
@@ -279,9 +283,14 @@ public class CRUDJogosViewController implements Initializable {
 				readLog.setVisible(false);
 			} else
 				throw new ElementsDoNotExistException(allGames);
-		} catch (ElementsDoNotExistException e) {
-			readLog.setText(e.getMessage());
+		} catch (Exception e) {
+			if (e instanceof ElementsDoNotExistException) {
+				readLog.setText("Erro: Nenhum usuário encontrado");
+			} else {
+				readLog.setText("Ocorreu um erro. Tente novamente.");
+			}
 			readLog.setVisible(true);
+
 		}
 	}
 
