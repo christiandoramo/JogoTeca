@@ -32,7 +32,7 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 
 ### Diagrama de Classes de Modelos
 
-<img src="https://i.pinimg.com/originals/b6/ca/3d/b6ca3dbb5a7cad38a5196335f2355ea5.jpg">
+<img src="https://i.pinimg.com/originals/bf/df/4d/bfdf4dc250063f1a441d489f2cb4f350.png">
 
 ### Diagrama navegacional entre Telas
 
