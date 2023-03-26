@@ -1,23 +1,43 @@
 package br.jogoteca.system.models;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import br.jogoteca.system.models.Game;
 
+public class GameItem implements Serializable {
 
-public class GameItem {
-	private int ID;
-	private double totalValue;
+	private int id;
+	private double value;
 	private ArrayList<Game> games;
-
-	
-	public double calculateTotalValue(ArrayList<Game> listToCalculate){
-		double result = 0;
-		for (Game valor : listToCalculate){
-			result+=valor.getPrice();
-		}
-			return result;
+	//////////////////////////////////////////////////////////////////////////////////
+	private static final long serialVersionUID = 560634059532769584L;
+	private Game game;
+	public Game getGame() {
+		return game;
 	}
-	public ArrayList<Game> getGames(){
+
+	public void setGame(Game game) {
+		this.game = game;
+	}
+
+	public GameItem(int id, double value, Game game) {
+		super();
+		this.id = id;
+		this.value = value;
+		this.game = game;
+	}
+	
+	
+	/////////////////////////////////////////////////////////////////////////////////
+
+	public double calculateValue(ArrayList<Game> listToCalculate) {
+		double result = 0;
+		for (Game valor : listToCalculate) {
+			result += valor.getPrice();
+		}
+		return result;
+	}
+
+	public ArrayList<Game> getGames() {
 		return games;
 	}
 
@@ -25,35 +45,37 @@ public class GameItem {
 		this.games.clear();
 		this.games.addAll(games);
 	}
-	
-	public double gettotalValue(){
-		return totalValue;
+
+	public double getValue() {
+		return value;
 	}
-	public void settotalValue(double totalValue){
-		this.totalValue = totalValue;
+
+	public void setValue(double value) {
+		this.value = value;
 	}
-	public int getId(){
-		return ID;
+
+	public int getId() {
+		return id;
 	}
-	public void setId(int ID){
-		this.ID = ID;
+
+	public void setId(int id) {
+		this.id = id;
 	}
-	
-	
-	public GameItem (int ID, double totalValue, ArrayList<Game> games){		
-		this.ID = ID;
-		this.totalValue = totalValue;
+
+	public GameItem(int id, double value, ArrayList<Game> games) {
+		this.id = id;
+		this.value = value;
 		this.games = games;
 	}
-	
-	
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + ID;
+		result = prime * result + id;
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -63,9 +85,9 @@ public class GameItem {
 		if (getClass() != obj.getClass())
 			return false;
 		GameItem other = (GameItem) obj;
-		if (ID != other.ID)
+		if (id != other.id)
 			return false;
 		return true;
 	}
-	
+
 }

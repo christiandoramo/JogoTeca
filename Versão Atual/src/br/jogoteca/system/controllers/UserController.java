@@ -35,7 +35,7 @@ public class UserController {
 	//
 	public void insertUser2(String cpf, String nome, String endereco, String telefone, String email, String login,
 			String senha) throws ElementAlreadyExistsException, ElementWithSameCPFExistsException {
-		User novo = new User(lastId + 1, cpf, nome, endereco, telefone, email, login, senha);
+		User novo = new User(lastId + 1, cpf, nome, endereco, telefone, email, login, senha, new ArrayList<>());
 		userRepository.insert(novo);
 		lastId++;
 	}

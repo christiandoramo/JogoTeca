@@ -1,15 +1,19 @@
 package br.jogoteca.system.models;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 public class Order {
 	private int id;
 	private LocalDateTime moment;
 	private User user;
-	private GameItem item;
+	private List<GameItem> items;
+	private OrderStatus status;
+	
+	
 
 	public Double totalValue() {
-		return item.getGames().stream().mapToDouble(x -> x.getPrice()).sum();
+		return items.stream().mapToDouble(x -> x.getValue()).sum();
 	}
 
 	public int getId() {
@@ -20,11 +24,11 @@ public class Order {
 		this.id = id;
 	}
 
-	public LocalDateTime getmoment() {
+	public LocalDateTime getMoment() {
 		return moment;
 	}
 
-	public void setmoment(LocalDateTime moment) {
+	public void setMoment(LocalDateTime moment) {
 		this.moment = moment;
 	}
 
@@ -36,20 +40,30 @@ public class Order {
 		this.user = user;
 	}
 
-	public GameItem getitem() {
-		return item;
+	public List<GameItem> getItems() {
+		return items;
 	}
 
-	public void setitem(GameItem item) {
-		this.item = item;
+	public void setItems(List<GameItem> items) {
+		this.items = items;
 	}
 
-	public Order(int id, LocalDateTime moment, User user, GameItem item) {
+	
+	public OrderStatus getStatus() {
+		return status;
+	}
+
+	public void setStatus(OrderStatus status) {
+		this.status = status;
+	}
+
+	public Order(int id, LocalDateTime moment, User user, List<GameItem> items, OrderStatus status) {
 		super();
 		this.id = id;
 		this.moment = moment;
 		this.user = user;
-		this.item = item;
+		this.items = items;
+		this.status = status;
 	}
 
 	@Override

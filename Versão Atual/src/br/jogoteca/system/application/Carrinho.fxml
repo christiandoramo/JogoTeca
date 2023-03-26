@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.CarrinhoController">
+   <children>
+      <ListView fx:id="listaItemsJogos" layoutX="132.0" layoutY="23.0" prefHeight="354.0" prefWidth="261.0" />
+      <Button layoutX="44.0" layoutY="35.0" mnemonicParsing="false" onAction="#voltarParaTelaPrincipalUsuario" text="Voltar" />
+      <Button layoutX="453.0" layoutY="276.0" mnemonicParsing="false" onAction="#irParaTelaPedidoDeCompra" text="Fazer a Compra" />
+      <Button layoutX="448.0" layoutY="69.0" mnemonicParsing="false" onAction="#limparCarrinho" text="Limpar Carrinho" />
+      <Label fx:id="carrinhoLog" alignment="CENTER" layoutX="435.0" layoutY="326.0" prefHeight="51.0" prefWidth="127.0" text="Label" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" />
+   </children>
+</AnchorPane>

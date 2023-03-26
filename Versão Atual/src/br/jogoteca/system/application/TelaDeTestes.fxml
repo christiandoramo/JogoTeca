@@ -12,5 +12,6 @@
       <Button layoutX="394.0" layoutY="25.0" mnemonicParsing="false" onAction="#irParaConsultaPedidos" text="Tela de Consulta de Pedidos" />
       <Button layoutX="204.0" layoutY="87.0" mnemonicParsing="false" onAction="#irParaPrincipalAdmin" text="Tela de Principal Admin" />
       <Button layoutX="669.0" layoutY="355.0" mnemonicParsing="false" onAction="#irParaTelaX" text="TELA X" />
+      <Button layoutX="45.0" layoutY="169.0" mnemonicParsing="false" onAction="#irParaCarrinho" text="Tela do Carrinho" />
    </children>
 </AnchorPane>

@@ -1,6 +1,7 @@
 package br.jogoteca.system.models;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class User implements Serializable {
 
@@ -15,7 +16,8 @@ public class User implements Serializable {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	private static final long serialVersionUID = 1L;
 	private String cpf;
-
+	private List<GameItem> carrinho;
+	
 	public String getCPF() {
 		return cpf;
 	}
@@ -23,9 +25,17 @@ public class User implements Serializable {
 	public void setCPF(String cpf) {
 		this.cpf = cpf;
 	}
+	
+	public List<GameItem> getCarrinho() {
+		return carrinho;
+	}
+
+	public void setCarrinho(List<GameItem> carrinho) {
+		this.carrinho = carrinho;
+	}
 
 	public User(int id, String cpf, String nome, String endereco, String telefone, String email, String login,
-			String senha) {
+			String senha, List<GameItem> carrinho) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -35,6 +45,7 @@ public class User implements Serializable {
 		this.login = login;
 		this.senha = senha;
 		this.cpf = cpf;
+		this.carrinho = carrinho;
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
