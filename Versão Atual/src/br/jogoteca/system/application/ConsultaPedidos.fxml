@@ -8,22 +8,24 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.PedidosController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.PedidosController">
    <children>
       <Label layoutX="142.0" layoutY="22.0" prefHeight="17.0" prefWidth="317.0" text="             Tela de pedidos">
          <font>
             <Font size="25.0" />
          </font>
       </Label>
-      <Button layoutX="429.0" layoutY="94.0" mnemonicParsing="false" onMouseClicked="#deleteButton" text="remover" />
+      <Button layoutX="350.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#deleteButton" text="remover" />
       <Button layoutX="125.0" layoutY="200.0" mnemonicParsing="false" onMouseClicked="#addButton" text="adicionar" />
       <TextField fx:id="nameTextField" layoutX="83.0" layoutY="165.0" />
       <ListView fx:id="elementListView" layoutX="359.0" layoutY="133.0" prefHeight="200.0" prefWidth="200.0" />
-      <Button layoutX="359.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#updateButton" text="update/Id" />
+      <Button layoutX="414.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#updateButton" text="update/Id" />
       <TextField fx:id="descriptionTextField" layoutX="82.0" layoutY="133.0" />
       <Text layoutX="40.0" layoutY="150.0" strokeType="OUTSIDE" strokeWidth="0.0" text="id" wrappingWidth="33.0" />
-      <Text layoutX="34.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="pedido" wrappingWidth="44.13671875" />
+      <Text layoutX="34.0" layoutY="182.0" strokeType="OUTSIDE" strokeWidth="0.0" text="item" wrappingWidth="44.13671875" />
       <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
-      <Button layoutX="490.0" layoutY="344.0" mnemonicParsing="false" text="uptade/pedido" />
+      <Button layoutX="490.0" layoutY="344.0" mnemonicParsing="false" onMouseClicked="#updateButton1" text="uptade/pedido" />
+      <Button layoutX="359.0" layoutY="99.0" mnemonicParsing="false" onMouseClicked="#buscar" text="buscar" />
+      <TextField fx:id="barraDeBusca" layoutX="416.0" layoutY="99.0" />
    </children>
 </AnchorPane>
