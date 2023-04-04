@@ -14,7 +14,11 @@ public class AcessAreaTest extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		Pane root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-		Scene scene = new Scene(root, 400, 300);
+		///////////////////////////
+		// substituindo tela inicial de login pela tela de testes
+		root= FXMLLoader.load(getClass().getResource("TelaDeTestes.fxml"));
+		/////////////////////////
+		Scene scene = new Scene(root, root.getWidth(), root.getHeight());
 		primaryStage.setScene(scene);
 		primaryStage.show();
 		

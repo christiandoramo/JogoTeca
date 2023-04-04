@@ -22,7 +22,7 @@
 
 ## Desenvolvedores do projeto
 
-| [<img src="https://avatars.githubusercontent.com/u/116567019?v=4" width=115><br><sub>Caio Fontes/sub>](https://github.com/caio10012)                                       | [<img src="https://avatars.githubusercontent.com/u/116025325?v=4" width=115><br><sub>Christian Oliveira</sub>](https://github.com/christiandoramo)                               | [<img src="https://avatars.githubusercontent.com/u/118299886?v=4" width=115><br><sub>Giovanni Lima</sub>](https://github.com/Giovanni-LN)                                                                   | [<img src="https://avatars.githubusercontent.com/u/111536765?v=4" width=115><br><sub>Lucas Gabriel</sub>](https://github.com/luganasc)                                     |
+| [<img src="https://avatars.githubusercontent.com/u/116567019?v=4" width=115><br><sub>Caio Fontes</sub>](https://github.com/caio10012)                                      | [<img src="https://avatars.githubusercontent.com/u/116025325?v=4" width=115><br><sub>Christian Oliveira</sub>](https://github.com/christiandoramo)                               | [<img src="https://avatars.githubusercontent.com/u/118299886?v=4" width=115><br><sub>Giovanni Lima</sub>](https://github.com/Giovanni-LN)                                                                   | [<img src="https://avatars.githubusercontent.com/u/111536765?v=4" width=115><br><sub>Lucas Gabriel</sub>](https://github.com/luganasc)                                     |
 | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | [![Gmail Badge](https://img.shields.io/badge/-caiofontes183@gmail.com-c14438?style=social&logo=gmail&link=mailto:caiofontes183@gmail.com)](mailto:caiofontes183@gmail.com) | [![Gmail Badge](https://img.shields.io/badge/-christiandoramo@gmail.com-c14438?style=social&logo=gmail&link=mailto:christiandoramo@gmail.com)](mailto:christiandoramo@gmail.com) | [![Gmail Badge](https://img.shields.io/badge/-giovanni.lima.nascimento@gmail.com-c14438?style=social&logo=gmail&link=mailto:giovanni.lima.nascimento@gmail.com)](mailto:giovanni.lima.nascimento@gmail.com) | [![Gmail Badge](https://img.shields.io/badge/-lucas.gabrieln@ufrpe.br-c14438?style=social&logo=gmail&link=mailto:lucas.gabrieln@ufrpe.br)](mailto:lucas.gabrieln@ufrpe.br) |
 
@@ -30,7 +30,7 @@
 
 <div  align="left">
 
-O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jogos, visando o público Gamer e Entusiastas do meio, fornecendo funções essenciais como: Compra e Aluguel de jogos, além de possibilitar outras funções ao usuário, como lista espera, desejos, favoritos e entre outras.
+O Projeto JogoTeca tem como principal a funcionalidade a venda de jogos, visando o público Gamer e Entusiastas do meio. Para o funcionamento do sistema, são necessárias funções essenciais como a inserção, busca, atualização e remoção de jogos, e consulta das vendas e dos Usuários por parte da admnistração. Enquanto o Usuário, deve poder navegar entre os jogos, ver o seu próprio perfil e o perfil do jogo, ter uma lista de desejos para comprar tudo a hora que quiser, realizar o pedido de Compra, fazer o pagamento, poder ver os jogos adquiridos, o historico de compras e seus comprovantes de compra. Todos essas funcionalidades devem estar presente no estado final no projeto (sprint 5) com interface gráfica funcional, armazenamento e leitura de arquivos.
 
 </div>
 
@@ -38,29 +38,21 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 
 <div  align="left">
 
-:pushpin: **REQ1** - O sistema deve permitir a inclusão, alteração, busca e remoção de jogos.
+:pushpin: **REQ1** - Inclusão, alteração, busca e remoção de jogos pela admnistração.
 
 :pushpin: **REQ2** - Deve haver diferentes logins e senhas de acesso para o administrador e os usuários.
 
-:pushpin: **REQ3** - Permitir o compra de produtos para os usuários previamente cadastrados.
+:pushpin: **REQ3** - Permitir a compra de produtos para os usuários.
 
 :pushpin: **REQ4** - Retornar a quantidade de copias digitais vendidas de cada jogo.
 
-:pushpin: **REQ5** - O sistema deve permitir a consulta dos dados dos usuários da jogoteca.
+:pushpin: **REQ5** - Consulta dos dados dos usuários pela admnistração.
 
-:pushpin: **REQ6** - O sistema deve armazenar os dados relativos aos usuários, pedidos e jogos.
+:pushpin: **REQ6** - Armazenamento dos dados relativos aos usuários, vendas e jogos.
 
-:pushpin: **REQ7** - O usuário deve possuir direito a uma lista de desejos para jogos com pretendidos
+:pushpin: **REQ7** - O usuário pode ter uma forma de abstração de carrinho.
 
-:pushpin: **REQ8** - O sistema deve permitir a impressão de um histórico de pedidos.
-
-:pushpin: **REQ9** - O usuário pode ter uma abstração de carrinho para comprar vários jogos de uma vez.
-
-:pushpin: **REQ10** - O Sistema deve permitir que o cliente possa consultar as suas informações cadastradas.
-
-:pushpin: **REQ11** - O sistema deve permitir a troca de jogos por moedas que podem ser acumuladas com compras.
-
-:pushpin: **REQ12** - O sistema deve permitir o empréstimo de um jogo por um comprador que deseje alugar.
+:pushpin: **REQ8** - O Sistema deve permitir que o cliente possa consultar as suas informações.
 
 </div>
 
@@ -68,11 +60,11 @@ O Projeto JogoTeca tem como principal a funcionalidade a comercialização de jo
 
 ## Diagrama de Classes
 
-<img width="683px" src="https://i.pinimg.com/originals/bf/df/4d/bfdf4dc250063f1a441d489f2cb4f350.png">
+<img width="683px" src="https://i.pinimg.com/originals/5a/44/7e/5a447e30d6acb8ad0f31407b6f872df9.png">
 
 ## Diagrama navegacional
 
-<img width="683px" src="https://i.pinimg.com/originals/8a/a5/21/8aa521754b89f2a144ac0ef72de0909a.jpg"  alt="Modelo Navegacional">
+<img width="683px" src="https://i.pinimg.com/originals/89/f3/94/89f3940f008035a06c7906b12570bb42.png"  alt="Modelo Navegacional">
 
 ## Dicas de Acesso :arrow_forward:
 

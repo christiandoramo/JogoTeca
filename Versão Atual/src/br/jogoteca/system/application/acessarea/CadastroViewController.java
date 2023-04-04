@@ -134,9 +134,9 @@ public class CadastroViewController extends AcessAreaController implements Initi
 	    }
 	    
 	    @FXML
-	    private void OnHandleBotaoVoltar(ActionEvent event) throws IOException {
+	    private void OnHandleBotaoIrParaOLogin(ActionEvent event) throws IOException {
 	        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-	        handleBotaoVoltar(event);
+	        handleBotaoIrParaLogin(event);
 	    }
 	    
 		@Override

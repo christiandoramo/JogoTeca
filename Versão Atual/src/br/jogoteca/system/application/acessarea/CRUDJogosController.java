@@ -1,11 +1,11 @@
-package br.jogoteca.system.application;
+package br.jogoteca.system.application.acessarea;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import br.jogoteca.system.application.acessarea.Tela;
 import br.jogoteca.system.controllers.GamesController;
 import br.jogoteca.system.exceptions.ElementWithSameNameExistsException;
 import br.jogoteca.system.exceptions.ElementsDoNotExistException;
@@ -23,8 +23,9 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-public class CRUDJogosViewController implements Initializable {
+public class CRUDJogosController extends AcessAreaController implements Initializable {
 
 	@FXML
 	protected MenuButton menuItens;
@@ -100,6 +101,15 @@ public class CRUDJogosViewController implements Initializable {
 
 	String modoAtualizacao = "";
 	String modoRemocao = "";
+	
+	@FXML
+	protected void voltarParaMenuAdmin(ActionEvent event) throws IOException {
+		limparTelaCRUD();
+		//AcessAreaController.changeScreen(Tela.PRINCIPALADMIN);
+    	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+    	handleBotaoIrMenuAdmin(event);
+	}
+
 
 	@FXML
 	protected void removerJogo() {
@@ -147,25 +157,25 @@ public class CRUDJogosViewController implements Initializable {
 
 	@FXML
 	protected void buscarRemoverPorId() {
-		ViewsController.searchGameById(gc, campoRemoverId, listaRemover, destroyLog);
+		AcessAreaController.searchGameById(gc, campoRemoverId, listaRemover, destroyLog);
 		modoRemocao = "id";
 	}
 
 	@FXML
 	protected void buscarRemoverPorName() {
-		ViewsController.searchGameByNome(gc, campoRemoverNome, listaRemover, destroyLog);
+		AcessAreaController.searchGameByNome(gc, campoRemoverNome, listaRemover, destroyLog);
 		modoRemocao = "name";
 	}
 
 	@FXML
 	protected void buscarAtualizarPorId() {
-		ViewsController.searchGameById(gc, CampoAtualizarPorId, JogoAAtualizar, updateLog);
+		AcessAreaController.searchGameById(gc, CampoAtualizarPorId, JogoAAtualizar, updateLog);
 		modoAtualizacao = "id";
 	}
 
 	@FXML
 	protected void buscarAtualizarPorName() {
-		ViewsController.searchGameByNome(gc, CampoAtualizarPorNome, JogoAAtualizar, updateLog);
+		AcessAreaController.searchGameByNome(gc, CampoAtualizarPorNome, JogoAAtualizar, updateLog);
 		modoAtualizacao = "name";
 	}
 
@@ -241,12 +251,12 @@ public class CRUDJogosViewController implements Initializable {
 
 	@FXML
 	protected void searchGameByIdentificador() {
-		ViewsController.searchGameById(gc, CampoBuscarId, listaJogos, readLog);
+		AcessAreaController.searchGameById(gc, CampoBuscarId, listaJogos, readLog);
 	}
 
 	@FXML
 	protected void searchGameByNome() {
-		ViewsController.searchGameByNome(gc, CampoBuscarNome, listaJogos, readLog);
+		AcessAreaController.searchGameByNome(gc, CampoBuscarNome, listaJogos, readLog);
 	}
 
 	@FXML
@@ -256,7 +266,7 @@ public class CRUDJogosViewController implements Initializable {
 			try {
 				List<Game> gamesAchados = gc.searchGamesByGenre(genero);
 				if (!gamesAchados.isEmpty()) {
-					ViewsController.mostraGamesAchados(listaJogos, gamesAchados);
+					AcessAreaController.mostraGamesAchados(listaJogos, gamesAchados);
 					readLog.setVisible(false);
 				} else {
 					throw new ElementsDoNotExistException(gamesAchados);
@@ -280,7 +290,7 @@ public class CRUDJogosViewController implements Initializable {
 		try {
 			List<Game> allGames = gc.searchAllGames();
 			if (!allGames.isEmpty()) {
-				ViewsController.mostraGamesAchados(listaJogos, allGames);
+				AcessAreaController.mostraGamesAchados(listaJogos, allGames);
 				readLog.setVisible(false);
 			} else
 				throw new ElementsDoNotExistException(allGames);
@@ -400,30 +410,24 @@ public class CRUDJogosViewController implements Initializable {
 
 	@FXML
 	protected void selecionarImagem() {
-		ViewsController.escolherImagem(urlImage);
+		AcessAreaController.escolherImagem(urlImage);
 	}
 
 	@FXML
 	protected void selecionarImagemAtualizar() {
-		ViewsController.escolherImagem(CampoTrocaImage);
-	}
-
-	@FXML
-	protected void voltarParaPrincipalAdmin(ActionEvent event) {
-		limparTelaCRUD();
-		ViewsController.changeScreen(Tela.PRINCIPALADMIN);
+		AcessAreaController.escolherImagem(CampoTrocaImage);
 	}
 
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
-		ViewsController.desabilitarDatasFuturas(releaseDate);
-		ViewsController.desabilitarDatasFuturas(CampoTrocaReleaseDate);
-		ViewsController.preencheMenuGeneros(genres);
-		ViewsController.preencheMenuGeneros(CampoBuscarGenero);
-		ViewsController.preencheMenuGeneros(CampoTrocaGenero);
-		ViewsController.controlaDouble(price);
-		ViewsController.controlaInteiro(campoRemoverId);
-		ViewsController.controlaInteiro(CampoBuscarId);
+		AcessAreaController.desabilitarDatasFuturas(releaseDate);
+		AcessAreaController.desabilitarDatasFuturas(CampoTrocaReleaseDate);
+		AcessAreaController.preencheMenuGeneros(genres);
+		AcessAreaController.preencheMenuGeneros(CampoBuscarGenero);
+		AcessAreaController.preencheMenuGeneros(CampoTrocaGenero);
+		AcessAreaController.controlaDouble(price);
+		AcessAreaController.controlaInteiro(campoRemoverId);
+		AcessAreaController.controlaInteiro(CampoBuscarId);
 	}
 
 }

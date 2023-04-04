@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
+import br.jogoteca.system.application.acessarea.Tela;
 import br.jogoteca.system.controllers.GameItemControllers;
 import br.jogoteca.system.controllers.GamesController;
 import br.jogoteca.system.exceptions.ElementDoesNotExistException;

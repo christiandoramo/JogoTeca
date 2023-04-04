@@ -3,8 +3,9 @@ package br.jogoteca.system.application;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+import br.jogoteca.system.application.acessarea.Tela;
 import br.jogoteca.system.controllers.GameItemControllers;
-import br.jogoteca.system.controllers.OrdersController;
+import br.jogoteca.system.controllers.PedidoController;
 import br.jogoteca.system.controllers.UserController;
 import br.jogoteca.system.models.GameItem;
 import javafx.fxml.FXML;
@@ -13,7 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 
 public class CarrinhoController implements Initializable {
-	OrdersController oc = OrdersController.getInstance();
+	PedidoController oc = PedidoController.getInstance();
 	GameItemControllers gic = GameItemControllers.getInstance();
 	UserController uc = UserController.getInstance();
 	

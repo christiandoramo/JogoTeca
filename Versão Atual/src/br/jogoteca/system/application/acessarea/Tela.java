@@ -1,4 +1,4 @@
-package br.jogoteca.system.application;
+package br.jogoteca.system.application.acessarea;
 
 public enum Tela {
 	LOGIN, CADASTRO, LOGINCADASTRO,

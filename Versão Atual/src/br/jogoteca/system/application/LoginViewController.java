@@ -14,7 +14,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class LoginViewController implements Initializable {
+public class LoginViewController extends AcessAreaController implements Initializable {
 	
 	@FXML
     private TextField usernameField;

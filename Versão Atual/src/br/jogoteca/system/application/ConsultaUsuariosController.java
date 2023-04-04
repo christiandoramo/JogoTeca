@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.jogoteca.system.application.acessarea.Tela;
 import br.jogoteca.system.controllers.UserController;
 import br.jogoteca.system.exceptions.ElementDoesNotExistException;
 import br.jogoteca.system.exceptions.ElementsDoNotExistException;
