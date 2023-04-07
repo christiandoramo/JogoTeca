@@ -1,17 +1,18 @@
 package com.example.jogotecaintellij.controller;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
-
 import com.example.jogotecaintellij.data.GenericRepository;
 import com.example.jogotecaintellij.data.IGenericRepository;
+import com.example.jogotecaintellij.enums.Metodo;
+import com.example.jogotecaintellij.enums.OrderStatus;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.model.GameItem;
 import com.example.jogotecaintellij.model.Pedido;
 import com.example.jogotecaintellij.model.User;
+
+import java.time.LocalDate;
+import java.util.List;
 
 public class PedidoController {
 
@@ -33,9 +34,9 @@ public class PedidoController {
         return instance;
     }
 
-    public void adicionarPedido(LocalDateTime momento, List<GameItem> itens, User user) throws ElementAlreadyExistsException {
-        Pedido pedidos = new Pedido(lastId + 1, momento, itens, user);
-        pedidoRepositorio.insert(pedidos);
+
+    public void adicionarPedido(LocalDate vencimento, User user, List<GameItem> itens, OrderStatus status, Metodo metodoPagamento) throws ElementAlreadyExistsException {
+        Pedido pedidos = new Pedido(lastId + 1, vencimento, user, itens, status, metodoPagamento);
         lastId++;
     }
 
@@ -57,12 +58,12 @@ public class PedidoController {
         lastId--;
     }
 
-    public void updatePedidoById(int id, LocalDateTime momento, List<GameItem> itens, User user) throws ElementDoesNotExistException, ElementWithSameNameExistsException {
+    public void updatePedidoById(int id, LocalDate vencimento, List<GameItem> itens, User user) throws ElementDoesNotExistException, ElementWithSameNameExistsException {
         Pedido pedido = buscarPeloId(id);
         if (pedido != null) {
             if (itens != null) pedido.setItens(itens);
             if (user != null) pedido.setUser(user);
-            if (momento != null) pedido.setMomento(momento);
+            if (vencimento != null) pedido.setVencimento(vencimento);
             pedidoRepositorio.update(pedido);
         }
     }

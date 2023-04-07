@@ -28,7 +28,7 @@
 	
     <Button fx:id="confirmarButton" layoutX="274.0" layoutY="298.0" onAction="#confirmar" text="Confirmar" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="274.0" />
 
-    <Button fx:id="voltarButton" layoutX="285.0" layoutY="353.0" onAction="#OnHandleBotaoIrParaOLogin" text="Login" AnchorPane.bottomAnchor="64.0" AnchorPane.rightAnchor="269.0" />
+    <Button fx:id="voltarButton" layoutX="285.0" layoutY="353.0" onAction="#irParaLogin" text="Voltar a tela de Login" AnchorPane.bottomAnchor="64.0" AnchorPane.rightAnchor="269.0" />
     
      <Label fx:id="mensagemLabel" layoutX="208.0" layoutY="272.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" AnchorPane.bottomAnchor="153.0" />
 

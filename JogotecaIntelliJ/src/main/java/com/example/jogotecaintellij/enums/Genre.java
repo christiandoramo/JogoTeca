@@ -1,4 +1,4 @@
-package com.example.jogotecaintellij.model;
+package com.example.jogotecaintellij.enums;
 
 public enum Genre {
 	Action, RPG, Shooter,UNKNOWN

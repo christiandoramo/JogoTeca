@@ -16,7 +16,7 @@ public class User implements Serializable {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	private static final long serialVersionUID = 1L;
 	private String cpf;
-	private List<GameItem> carrinho;
+	private List<GameItem> wishlist;
 	
 	public String getCPF() {
 		return cpf;
@@ -26,16 +26,16 @@ public class User implements Serializable {
 		this.cpf = cpf;
 	}
 	
-	public List<GameItem> getCarrinho() {
-		return carrinho;
+	public List<GameItem> getWishlist() {
+		return wishlist;
 	}
 
-	public void setCarrinho(List<GameItem> carrinho) {
-		this.carrinho = carrinho;
+	public void setWishlist(List<GameItem> wishlist) {
+		this.wishlist = wishlist;
 	}
 
 	public User(int id, String cpf, String nome, String endereco, String telefone, String email, String login,
-			String senha, List<GameItem> carrinho) {
+			String senha, List<GameItem> wishlist) {
 		super();
 		this.id = id;
 		this.nome = nome;
@@ -45,7 +45,7 @@ public class User implements Serializable {
 		this.login = login;
 		this.senha = senha;
 		this.cpf = cpf;
-		this.carrinho = carrinho;
+		this.wishlist = wishlist;
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

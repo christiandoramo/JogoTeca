@@ -1,5 +1,8 @@
 package com.example.jogotecaintellij.model;
 
+import com.example.jogotecaintellij.enums.Genre;
+import com.example.jogotecaintellij.enums.StatusJogo;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
@@ -18,12 +21,9 @@ public class Game implements Serializable {
 	private String imageURL;
 	private String videoUrl;
 	private List<String> imagesUrl;
+	private StatusJogo status;
 
-//	(int id, String name, LocalDate releaseDate, String description,  String publicadora, String desenvolvedora,String imageURL, String videoUrl,
-//	List<String> imagesUrl, Genre genre,Double price);
-
-
-	public Game(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl) {
+	public Game(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl, StatusJogo status) {
 		this.id = id;
 		this.name = name;
 		this.releaseDate = releaseDate;
@@ -35,74 +35,103 @@ public class Game implements Serializable {
 		this.imageURL = imageURL;
 		this.videoUrl = videoUrl;
 		this.imagesUrl = imagesUrl;
+		this.status = status;
 	}
 
 	public String getVideoUrl() {
 		return videoUrl;
 	}
+
 	public void setVideoUrl(String videoUrl) {
 		this.videoUrl = videoUrl;
 	}
+
 	public List<String> getImagesUrl() {
 		return imagesUrl;
 	}
+
 	public void setImagesUrl(List<String> imagesUrl) {
 		this.imagesUrl = imagesUrl;
 	}
+
 	public String getPublicadora() {
 		return publicadora;
 	}
+
 	public void setPublicadora(String publicadora) {
 		this.publicadora = publicadora;
 	}
+
 	public String getDesenvolvedora() {
 		return desenvolvedora;
 	}
+
 	public void setDesenvolvedora(String desenvolvedora) {
 		this.desenvolvedora = desenvolvedora;
 	}
+
 	public Genre getGenre() {
 		return genre;
 	}
+
 	public void setGenre(Genre genre) {
 		this.genre = genre;
 	}
-	
+
 	public int getId() {
 		return id;
 	}
+
 	public void setId(int id) {
 		this.id = id;
 	}
+
 	public String getName() {
 		return name;
 	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
+
 	public LocalDate getReleaseDate() {
 		return releaseDate;
 	}
+
 	public void setReleaseDate(LocalDate releaseDate) {
 		this.releaseDate = releaseDate;
 	}
+
 	public String getDescription() {
 		return description;
 	}
+
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
 	public String getImageURL() {
 		return imageURL;
 	}
+
 	public void setImageURL(String imageURL) {
 		this.imageURL = imageURL;
 	}
+
 	public Double getPrice() {
 		return price;
 	}
+
 	public void setPrice(Double price) {
 		this.price = price;
+	}
+
+	public void setStatus(StatusJogo status) {
+		this.status = status;
+	}
+
+	public StatusJogo getStatus() {
+		return status;
 	}
 
 	@Override
@@ -112,6 +141,7 @@ public class Game implements Serializable {
 		result = prime * result + (int) (id ^ (id >>> 32));
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

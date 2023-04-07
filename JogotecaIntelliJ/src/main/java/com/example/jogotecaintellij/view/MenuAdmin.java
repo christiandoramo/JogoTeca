@@ -12,5 +12,4 @@ public class MenuAdmin extends AccessAreaController implements Initializable {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

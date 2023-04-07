@@ -19,7 +19,7 @@
       <Text fx:id="publicadora" layoutX="63.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Publicadora-------------------------------" wrappingWidth="324.4993591308594" />
       <Text fx:id="lancamento" layoutX="64.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lançamento-------------------------------" />
       <Text fx:id="desenvolvedora" layoutX="58.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desenvolvedora-------------------------------" />
-      <Button layoutX="45.0" layoutY="19.0" mnemonicParsing="false" onAction="#irParaFeedUsuario" prefHeight="37.0" prefWidth="136.0" text="Home" />
-      <Button layoutX="724.0" layoutY="20.0" mnemonicParsing="false" onAction="#irParaMeusJogos" prefHeight="37.0" prefWidth="136.0" text="Meus Jogos" />
+      <Button layoutX="45.0" layoutY="19.0" mnemonicParsing="false" onAction="#sairDoPerfilParaFeedUsuario" prefHeight="37.0" prefWidth="136.0" text="Home" />
+      <Button layoutX="724.0" layoutY="20.0" mnemonicParsing="false" onAction="#sairDoPerfilParaMeusJogos" prefHeight="37.0" prefWidth="136.0" text="Meus Jogos" />
    </children>
 </AnchorPane>

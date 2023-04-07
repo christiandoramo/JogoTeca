@@ -10,7 +10,7 @@ import com.example.jogotecaintellij.controller.GamesController;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.Game;
-import com.example.jogotecaintellij.model.Genre;
+import com.example.jogotecaintellij.enums.Genre;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -23,7 +23,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 
 public class CRUDJogos extends AccessAreaController implements Initializable {
 
