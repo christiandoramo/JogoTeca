@@ -14,7 +14,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class CadastroViewController extends AccessAreaController implements Initializable {
+public class Cadastro extends AccessAreaController implements Initializable {
 
 	
 	 @FXML

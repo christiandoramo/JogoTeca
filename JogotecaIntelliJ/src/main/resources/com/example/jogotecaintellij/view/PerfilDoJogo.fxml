@@ -6,19 +6,20 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="900.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PerfilDoJogo">
    <children>
-      <Button layoutX="716.0" layoutY="523.0" mnemonicParsing="false" prefHeight="37.0" prefWidth="136.0" text="Comprar agora" />
-      <Button layoutX="706.0" layoutY="461.0" mnemonicParsing="false" prefHeight="41.0" prefWidth="161.0" text="Adicionar à Wishlist" />
-      <Text layoutX="71.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição: -------------------------------" />
-      <Text layoutX="649.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preço: " />
-      <Text layoutX="71.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gênero--------------------------------: " />
-      <Text layoutX="645.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:" />
-      <ListView layoutX="19.0" layoutY="98.0" prefHeight="278.0" prefWidth="593.0" />
-      <ImageView fitHeight="171.0" fitWidth="235.0" layoutX="640.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
-      <Text layoutX="63.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Publicadora-------------------------------" wrappingWidth="324.4993591308594" />
-      <Text layoutX="64.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lançamento-------------------------------" />
-      <Text layoutX="58.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desenvolvedora-------------------------------" />
+      <Button layoutX="716.0" layoutY="523.0" mnemonicParsing="false" onAction="#comprarAgora" prefHeight="37.0" prefWidth="136.0" text="Comprar agora" />
+      <Button layoutX="706.0" layoutY="461.0" mnemonicParsing="false" onAction="#adicionarWishlist" prefHeight="41.0" prefWidth="161.0" text="Adicionar à Wishlist" />
+      <Text fx:id="descricao" layoutX="71.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição: -------------------------------" />
+      <Text fx:id="preco" layoutX="649.0" layoutY="380.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preço: " />
+      <Text fx:id="genero" layoutX="71.0" layoutY="401.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gênero--------------------------------: " />
+      <Text fx:id="nome" layoutX="645.0" layoutY="348.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Nome:" />
+      <ListView fx:id="listaDeMidia" layoutX="19.0" layoutY="98.0" prefHeight="278.0" prefWidth="593.0" />
+      <ImageView fx:id="imagemPerfil" fitHeight="171.0" fitWidth="235.0" layoutX="640.0" layoutY="140.0" pickOnBounds="true" preserveRatio="true" />
+      <Text fx:id="publicadora" layoutX="63.0" layoutY="510.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Publicadora-------------------------------" wrappingWidth="324.4993591308594" />
+      <Text fx:id="lancamento" layoutX="64.0" layoutY="458.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lançamento-------------------------------" />
+      <Text fx:id="desenvolvedora" layoutX="58.0" layoutY="484.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Desenvolvedora-------------------------------" />
+      <Button layoutX="45.0" layoutY="19.0" mnemonicParsing="false" onAction="#irParaFeedUsuario" prefHeight="37.0" prefWidth="136.0" text="Home" />
+      <Button layoutX="724.0" layoutY="20.0" mnemonicParsing="false" onAction="#irParaMeusJogos" prefHeight="37.0" prefWidth="136.0" text="Meus Jogos" />
    </children>
 </AnchorPane>

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 import com.example.jogotecaintellij.controller.GamesController;
-import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.Game;
@@ -26,7 +25,7 @@ import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class CRUDJogosController extends AccessAreaController implements Initializable {
+public class CRUDJogos extends AccessAreaController implements Initializable {
 
 	@FXML
 	protected MenuButton menuItens;
@@ -106,9 +105,7 @@ public class CRUDJogosController extends AccessAreaController implements Initial
 	@FXML
 	protected void voltarParaMenuAdmin(ActionEvent event) throws IOException {
 		limparTelaCRUD();
-		//AcessAreaController.changeScreen(Tela.PRINCIPALADMIN);
-    	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	handleBotaoIrMenuAdmin(event);
+    	irParaMenuAdmin(event);
 	}
 
 

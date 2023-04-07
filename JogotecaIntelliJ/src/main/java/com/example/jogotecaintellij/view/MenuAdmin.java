@@ -1,11 +1,11 @@
 package com.example.jogotecaintellij.view;
 
+import javafx.fxml.Initializable;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
-import javafx.fxml.Initializable;
-
-public class PefilDoJogoViewController extends AccessAreaController implements Initializable{
+public class MenuAdmin extends AccessAreaController implements Initializable {
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {

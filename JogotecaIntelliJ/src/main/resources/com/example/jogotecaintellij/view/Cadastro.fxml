@@ -5,7 +5,7 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="442.0" minWidth="434.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.CadastroViewController">
+<AnchorPane minHeight="442.0" minWidth="434.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.Cadastro">
 	
 	<Label layoutX="264.0" layoutY="27.0" text="Tela de Cadastro" />
     <Label layoutX="179.0" layoutY="75.0" text="CPF" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="75.0" />

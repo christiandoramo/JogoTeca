@@ -10,6 +10,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -57,28 +58,91 @@ private Stage stage;
         stage.setScene(scene);
         stage.show();
     }
-    // vai para o crud de jogos
+	@FXML
+	protected void irParaLogin(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	@FXML
+	protected void irParaCadastro(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		Parent root = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
     @FXML
-    protected void handleBotaoIrParaCRUDJogos(ActionEvent event) throws IOException {
+    protected void irParaCRUDJogos(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         Parent root = FXMLLoader.load(getClass().getResource("CRUDJogos.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
     }
-    
-    // vai para o menu admin
-    @FXML
-    protected void handleBotaoIrMenuAdmin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("MenuAdmin.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
-    }
-    
-    
-    
+	@FXML
+	protected void irParaPedidoPagamento(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		Parent root = FXMLLoader.load(getClass().getResource("PedidoPagamento.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	@FXML
+	protected void irParaMenuAdmin(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		Parent root = FXMLLoader.load(getClass().getResource("MenuAdmin.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	@FXML
+	protected void irParaPerfilDoJogo(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		Parent root = FXMLLoader.load(getClass().getResource("PerfilDoJogo.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	@FXML
+	protected void irParaFeedUsuario(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		Parent root = FXMLLoader.load(getClass().getResource("FeedUsuario.fxml"));
+		Scene scene = new Scene(root);
+		stage.setScene(scene);
+		stage.show();
+	}
+	@FXML
+	void irParaConsultaUsuarios(ActionEvent event) {
+//		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+//		Parent root = FXMLLoader.load(getClass().getResource("ConsultaUsuarios.fxml"));
+//		Scene scene = new Scene(root);
+//		stage.setScene(scene);
+//		stage.show();
+	}
+
+	@FXML
+	void irParaConsultaVendas(ActionEvent event) {
+//		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+//		Parent root = FXMLLoader.load(getClass().getResource("ConsultaCLientes.fxml"));
+//		Scene scene = new Scene(root);
+//		stage.setScene(scene);
+//		stage.show();
+	}
+	@FXML
+	void irParaMeusJogos(ActionEvent event) {
+//		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+//		Parent root = FXMLLoader.load(getClass().getResource("ConsultaCLientes.fxml"));
+//		Scene scene = new Scene(root);
+//		stage.setScene(scene);
+//		stage.show();
+	}
+
+
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
-    
+
 	// apenas permite que sejam digitados doubles - FUNCIONANDO
 	public static void controlaDouble(TextField tf) {
 		Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
