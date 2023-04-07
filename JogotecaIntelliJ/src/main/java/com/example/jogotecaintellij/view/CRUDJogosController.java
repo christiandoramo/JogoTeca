@@ -276,7 +276,7 @@ public class CRUDJogosController extends AccessAreaController implements Initial
 				}
 			} catch (Exception e) {
 				if (e instanceof ElementsDoNotExistException) {
-					readLog.setText("Erro: Nenhum usu�rio encontrado");
+					readLog.setText("Erro: Nenhum Jogo encontrado desse gênero");
 				} else {
 					readLog.setText("Ocorreu um erro. Tente novamente.");
 				}
@@ -299,7 +299,7 @@ public class CRUDJogosController extends AccessAreaController implements Initial
 				throw new ElementsDoNotExistException(allGames);
 		} catch (Exception e) {
 			if (e instanceof ElementsDoNotExistException) {
-				readLog.setText("Erro: Nenhum usu�rio encontrado");
+				readLog.setText("Erro: Nenhum Jogo encontrado");
 			} else {
 				readLog.setText("Ocorreu um erro. Tente novamente.");
 			}

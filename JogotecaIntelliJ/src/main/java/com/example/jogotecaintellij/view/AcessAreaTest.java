@@ -2,8 +2,6 @@ package com.example.jogotecaintellij.view;
 
 
 import java.io.IOException;
-import java.util.Objects;
-
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.stage.Stage;
@@ -14,8 +12,7 @@ public class AcessAreaTest extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws IOException {
-		Pane root;
-		root= FXMLLoader.load(getClass().getResource("TelaDeTestes.fxml"));// ERROR
+		Pane root= FXMLLoader.load(getClass().getResource("TelaDeTestes.fxml"));// ERROR
 		Scene scene = new Scene(root, root.getWidth(), root.getHeight());
 		primaryStage.setScene(scene);
 		primaryStage.show();
