@@ -42,8 +42,8 @@ public class GamesController {
                 System.out.println(game.getName());
     }
 //(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl, StatusJogo status
-    public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl, StatusJogo status) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-        Game novo = new Game(lastId + 1, name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl, imagesUrl, status);
+    public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+        Game novo = new Game(lastId + 1, name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl, status);
         gameRepository.insert(novo);
         lastId++;
     }

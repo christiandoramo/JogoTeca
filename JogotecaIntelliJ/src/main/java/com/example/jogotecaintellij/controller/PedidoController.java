@@ -7,12 +7,14 @@ import com.example.jogotecaintellij.enums.OrderStatus;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
+import com.example.jogotecaintellij.model.Game;
 import com.example.jogotecaintellij.model.GameItem;
 import com.example.jogotecaintellij.model.Pedido;
 import com.example.jogotecaintellij.model.User;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class PedidoController {
 
@@ -72,5 +74,16 @@ public class PedidoController {
         Pedido pedido = buscarPeloId(id);
         pedidoRepositorio.delete(pedido);
         lastId--;
+    }
+
+    public boolean checaSeUmJogoJaFoiComprado(User user, GameItem novoItem) {
+        List<GameItem> itemsDoUsuario = pedidoRepositorio.read()
+                .stream()
+                .filter(pedido -> pedido.getUser().equals(user))
+                .flatMap(pedido -> pedido.getItens().stream())
+                .collect(Collectors.toList());
+        List<Game> jogosDoUsuario = itemsDoUsuario.stream()
+                .map(item -> item.getGame()).collect(Collectors.toList());
+        return jogosDoUsuario.contains(novoItem);
     }
 }

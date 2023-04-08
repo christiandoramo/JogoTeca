@@ -1,34 +1,46 @@
 package com.example.jogotecaintellij.view;
 
+import com.example.jogotecaintellij.controller.GamesController;
+import com.example.jogotecaintellij.enums.Genre;
+import com.example.jogotecaintellij.enums.StatusJogo;
+import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
+import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
+import com.example.jogotecaintellij.model.Game;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.control.*;
+import javafx.scene.layout.AnchorPane;
+
 import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
-import com.example.jogotecaintellij.controller.GamesController;
-import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
-import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
-import com.example.jogotecaintellij.model.Game;
-import com.example.jogotecaintellij.enums.Genre;
-import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
-import javafx.scene.control.MenuButton;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputControl;
-import javafx.scene.layout.AnchorPane;
-
 public class CRUDJogos extends AccessAreaController implements Initializable {
+
+	// parte nova
+	@FXML
+	protected Label titulo;
+	@FXML
+	protected TextField desenvolvedora;
+	@FXML
+	protected TextField publicadora;
+	@FXML
+	protected TextField CampoTrocaVideo;
+	@FXML
+	protected TextField CampoTrocaDesenvolvedora;
+	@FXML
+	protected TextField CampoTrocaPublicadora;
+	@FXML
+	protected TextField urlVideo;
+	// parte nova
+
 
 	@FXML
 	protected MenuButton menuItens;
-
 	@FXML
 	protected AnchorPane telaInserir;
 	@FXML
@@ -230,10 +242,12 @@ public class CRUDJogos extends AccessAreaController implements Initializable {
 			LocalDate lancamento = releaseDate.getValue();
 			String imgUrl = urlImage.getText();
 			Double preco = Double.parseDouble(price.getText());
+			String videoUrl = urlVideo.getText();
+			String dev = desenvolvedora.getText();
+			String pub = publicadora.getText();
 			try {
 				if (!gc.contemNome(nome)) {
-//(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-					gc.insertGame(nome, lancamento, genero, descricao, null,null, preco, imgUrl,null,null);
+					gc.insertGame(nome, lancamento, genero, descricao, pub,dev, preco, imgUrl,videoUrl, StatusJogo.DISPONIVEL);
 					createLog.setText("Sucesso: Jogo inserido com sucesso");
 				} else
 					throw new ElementWithSameNameExistsException(nome);
@@ -402,7 +416,11 @@ public class CRUDJogos extends AccessAreaController implements Initializable {
 			return true;
 		if (CampoTrocaReleaseDate.getValue() != null)
 			return true;
-		if (!CampoTrocaDescricao.getText().trim().isEmpty())
+		if (!CampoTrocaDesenvolvedora.getText().trim().isEmpty())
+			return true;
+		if (!CampoTrocaPublicadora.getText().trim().isEmpty())
+			return true;
+		if (!CampoTrocaVideo.getText().trim().isEmpty())
 			return true;
 		return false;
 	}
@@ -412,6 +430,14 @@ public class CRUDJogos extends AccessAreaController implements Initializable {
 		AccessAreaController.escolherImagem(urlImage);
 	}
 
+	@FXML
+	protected void selecionarVideo() {
+		AccessAreaController.escolherVideo(urlVideo);
+	}
+	@FXML
+	protected void selecionarVideoAtualizar() {
+		AccessAreaController.escolherVideo(CampoTrocaVideo);
+	}
 	@FXML
 	protected void selecionarImagemAtualizar() {
 		AccessAreaController.escolherImagem(CampoTrocaImage);

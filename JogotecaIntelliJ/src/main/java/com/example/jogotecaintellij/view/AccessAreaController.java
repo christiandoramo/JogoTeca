@@ -334,6 +334,19 @@ public class AccessAreaController {
             campoUrl.setText(absolutePath);
         }
     }
+    public static void escolherVideo(TextField campoUrl) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Abrir Arquivo");
+        Stage stage = (Stage) campoUrl.getScene().getWindow();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters()
+                .add(new ExtensionFilter("Vídeos", "*.mp4", "*.avi", "*.mov", "*.wmv", "*.flv", "*.mkv"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            String absolutePath = selectedFile.getAbsolutePath();
+            campoUrl.setText(absolutePath);
+        }
+    }
 
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
     // PERFIL DO JOGO

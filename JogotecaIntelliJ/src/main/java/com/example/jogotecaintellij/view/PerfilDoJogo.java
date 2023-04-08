@@ -1,13 +1,17 @@
 package com.example.jogotecaintellij.view;
 
+import com.example.jogotecaintellij.controller.PedidoController;
 import com.example.jogotecaintellij.controller.UserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
-import javafx.scene.control.ListView;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 
 import java.io.File;
@@ -27,7 +31,7 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
     @FXML
     private Text lancamento;
     @FXML
-    private ListView<?> listaDeMidia;
+    private MediaView mediaView;
     @FXML
     private Text nome;
     @FXML
@@ -37,7 +41,11 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
     @FXML
     private Button btnWishList;
 
+    Media media;
+    MediaPlayer mediaPlayer;
+
     UserController uc = UserController.getInstance();
+    PedidoController pc = PedidoController.getInstance();
 
     @FXML
     protected void adicionarWishlist(ActionEvent event) {
@@ -46,25 +54,37 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
             uc.adicionarWishlist(getUsuarioAtual(), getNovoItem());
         } catch (Exception e) {
         }
-        habilitarDesabilitarBotaoWishList(true);
+        DesabilitarBotaoWishList();
         setNovoItem(null);
     }
 
     protected void carregarImagem() {
-        String caminhoDaImagem = "caminho/para/minha/imagem.png";
-        Image imagem = new Image(new File(caminhoDaImagem).toURI().toString());
+//        String caminhoDaImagem = getNovoItem().getGame().getImageURL();
+        String caminhoDaImagem = getClass().getResource("51EWX7C9B3L.jpg").getPath();
+        File arquivo = new File(caminhoDaImagem);
+        Image imagem = new Image(arquivo.toURI().toString());
         imagemPerfil.setImage(imagem);
     }
 
-    void carregarListaDeImagens() {
-
+    public void carregarVideo() {
+//       String videoPath = getNovoItem().getGame().getVideoUrl();
+        String caminhoDoVideo = getClass().getResource("PsxDigimonWorld2Trailer.mp4").getPath();
+        File arquivo = new File(caminhoDoVideo);
+        media = new Media(arquivo.toURI().toString());
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
+        mediaView.setFitWidth(400);
+        mediaView.setFitHeight(300);
+        mediaPlayer.setMute(true);
+        mediaPlayer.play();
     }
 
-    void carregarVideo() {
-
-    }
-    void habilitarDesabilitarBotaoWishList(boolean jaAdicionado) {
-        btnWishList.setDisable(jaAdicionado);
+    void DesabilitarBotaoWishList() {
+        if(getUsuarioAtual()!= null){
+            boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(getUsuarioAtual(), getNovoItem());
+            boolean jaContemNaWishList = getUsuarioAtual().getWishlist().contains(getNovoItem());
+            btnWishList.setDisable(jaComprado || jaContemNaWishList);
+        }
     }
 
     @FXML
@@ -85,15 +105,14 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
         irParaFeedUsuario(event);
     }
 
-    @Override
-    public void initialize(URL arg0, ResourceBundle arg1) {
-        // TODO Auto-generated method stub
-        if (getUsuarioAtual().getWishlist().contains(getNovoItem()))
-            habilitarDesabilitarBotaoWishList(true);
-        else
-            habilitarDesabilitarBotaoWishList(false);
+    void carregarTela() {
         carregarImagem();
         carregarVideo();
-        carregarListaDeImagens();
+    }
+
+    @Override
+    public void initialize(URL arg0, ResourceBundle arg1) {
+        carregarTela();
+        DesabilitarBotaoWishList();
     }
 }
