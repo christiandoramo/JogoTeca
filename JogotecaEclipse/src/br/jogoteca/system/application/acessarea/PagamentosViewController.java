@@ -5,7 +5,6 @@ import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-import br.jogoteca.system.controllers.GamesController;
 import br.jogoteca.system.controllers.PedidoController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,7 +46,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     @FXML
     private AnchorPane telaPix;
 
-    PedidoController gc = PedidoController.getInstance();
+    PedidoController pc = PedidoController.getInstance();
     
     @FXML
     void butaoMudaTela(ActionEvent event) throws IOException{
@@ -67,7 +66,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     @FXML
     void butaoVolta(ActionEvent event) throws IOException{
     	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	handleBotaoIrMenuAdmin(event);
+    	handleBotaoIrParaCRUDJogos(event);
     }
 
     @FXML
@@ -85,11 +84,6 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     	telaPix.setVisible(true);
     }
 
-	
-	
-	
-	
-	
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

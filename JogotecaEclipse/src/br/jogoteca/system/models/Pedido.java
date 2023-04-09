@@ -10,13 +10,24 @@ public class Pedido {
 	private LocalDateTime momento;
 	private List<GameItem> itens;
 	private User usuario;
+	private Metodo metodo;
 	
-	public Pedido(int id, LocalDateTime momento, List<GameItem> itens, User usuario) {
+	
+	//public Pedido(int id, LocalDateTime momento, List<GameItem> itens, User usuario) {
+		//super();
+		//this.id = id;
+		//this.momento = momento;
+		//this.itens = itens;
+		//this.usuario = usuario;
+	//}
+	
+	public Pedido(int id, LocalDateTime momento, List<GameItem> itens, User usuario,Metodo metodo) {
 		super();
 		this.id = id;
 		this.momento = momento;
 		this.itens = itens;
 		this.usuario = usuario;
+		this.metodo = metodo;
 	}
 	
 	
@@ -45,6 +56,14 @@ public class Pedido {
 	public void setUser(User usuario) {
 		this.usuario = usuario;
 	}
+	
+	public Metodo getMetodo() {
+		return metodo;
+	}
+	public void setMetodo(Metodo metodo) {
+		this.metodo = metodo;
+	}
+	
 					
 
 }
