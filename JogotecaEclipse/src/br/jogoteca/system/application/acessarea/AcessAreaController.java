@@ -83,6 +83,15 @@ private Stage stage;
         stage.show();
     }
     
+    // vai para o pagamento
+    @FXML
+    protected void handleBotaoIrPagamento(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Pagamento.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     
     
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////

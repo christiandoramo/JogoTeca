@@ -1,16 +1,23 @@
-package br.jogoteca.system.application;
+package br.jogoteca.system.application.acessarea;
 
+import java.io.IOException;
 import java.net.URL;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
+import br.jogoteca.system.controllers.GamesController;
+import br.jogoteca.system.controllers.PedidoController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
-public class PagamentosViewController implements Initializable {
+public class PagamentosViewController extends AcessAreaController implements Initializable {
 
 	
 	@FXML
@@ -40,9 +47,12 @@ public class PagamentosViewController implements Initializable {
     @FXML
     private AnchorPane telaPix;
 
+    PedidoController gc = PedidoController.getInstance();
+    
     @FXML
-    void butaoMudaTela(ActionEvent event) {
-
+    void butaoMudaTela(ActionEvent event) throws IOException{
+    	//setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+    	//handleBotaoIrFiscal(event);
     }
 
     @FXML
@@ -50,16 +60,19 @@ public class PagamentosViewController implements Initializable {
     		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     		alert.setTitle("confirmando");
     		alert.setContentText("Pagamento confirmado!");
+    		Optional<ButtonType> result = alert.showAndWait();
+    		
     }
 
     @FXML
-    void butaoVolta(ActionEvent event) {
-
+    void butaoVolta(ActionEvent event) throws IOException{
+    	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+    	handleBotaoIrMenuAdmin(event);
     }
 
     @FXML
-    void mostrarOpcoesCredito(ActionEvent event) {
-    	telaCredito.setVisible(true);
+    void mostrarOpcoesCredito(ActionEvent event) {   
+    	 telaCredito.setVisible(true);
     }
 
     @FXML

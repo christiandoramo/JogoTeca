@@ -12,7 +12,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.PagamentosViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.PagamentosViewController">
    <children>
       <Label layoutX="215.0" layoutY="28.0" text="Tela de pagamento">
          <font>
@@ -44,7 +44,7 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <AnchorPane fx:id="telaDebito" layoutY="120.0" nodeOrientation="LEFT_TO_RIGHT" prefHeight="222.0" prefWidth="600.0">
+      <AnchorPane fx:id="telaDebito" layoutY="120.0" prefHeight="222.0" prefWidth="600.0" visible="false">
          <children>
             <Text layoutX="192.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informações do cartão de débito">
                <font>
@@ -99,21 +99,21 @@
             </Text>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="telaPix" layoutY="109.0" prefHeight="222.0" prefWidth="600.0" visible="false">
+      <AnchorPane fx:id="telaPix" layoutY="116.0" prefHeight="231.0" prefWidth="600.0" visible="false">
          <children>
-            <Text layoutX="139.0" layoutY="44.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pix da empresa: jocoteca@gmail.com">
+            <Text layoutX="139.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pix da empresa: jocoteca@gmail.com">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="236.0" layoutY="210.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escanei o QR CODE">
+            <Text layoutX="236.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escanei o QR CODE">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <ImageView fitHeight="146.0" fitWidth="200.0" layoutX="233.0" layoutY="50.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="162.0" fitWidth="200.0" layoutX="220.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
                <image>
-                  <Image url="@../../../../../../../../Desktop/websiteQRCode_noFrame.png" />
+                  <Image url="@../../../../../../../../../Desktop/websiteQRCode_noFrame.png" />
                </image>
             </ImageView>
          </children>
