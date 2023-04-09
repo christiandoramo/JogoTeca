@@ -5,7 +5,6 @@ import com.example.jogotecaintellij.controller.UserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -49,17 +48,17 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
 
     @FXML
     protected void adicionarWishlist(ActionEvent event) {
-        // usar esse novoItem como estático
+        // usar esse itemAtual como estático
         try {
-            uc.adicionarWishlist(getUsuarioAtual(), getNovoItem());
+            uc.adicionarWishlist(usuarioAtual, itemAtual);
         } catch (Exception e) {
         }
         DesabilitarBotaoWishList();
-        setNovoItem(null);
+        itemAtual = null;
     }
 
     protected void carregarImagem() {
-//        String caminhoDaImagem = getNovoItem().getGame().getImageURL();
+//        String caminhoDaImagem = itemAtual.getGame().getImageURL();
         String caminhoDaImagem = getClass().getResource("51EWX7C9B3L.jpg").getPath();
         File arquivo = new File(caminhoDaImagem);
         Image imagem = new Image(arquivo.toURI().toString());
@@ -67,22 +66,21 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
     }
 
     public void carregarVideo() {
-//       String videoPath = getNovoItem().getGame().getVideoUrl();
+//       String caminhoDoVideo = itemAtual.getGame().getVideoUrl();
         String caminhoDoVideo = getClass().getResource("PsxDigimonWorld2Trailer.mp4").getPath();
         File arquivo = new File(caminhoDoVideo);
         media = new Media(arquivo.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
         mediaView.setFitWidth(400);
-        mediaView.setFitHeight(300);
         mediaPlayer.setMute(true);
         mediaPlayer.play();
     }
 
     void DesabilitarBotaoWishList() {
-        if(getUsuarioAtual()!= null){
-            boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(getUsuarioAtual(), getNovoItem());
-            boolean jaContemNaWishList = getUsuarioAtual().getWishlist().contains(getNovoItem());
+        if (usuarioAtual != null) {
+            boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(usuarioAtual, itemAtual);
+            boolean jaContemNaWishList = usuarioAtual.getWishlist().contains(itemAtual);
             btnWishList.setDisable(jaComprado || jaContemNaWishList);
         }
     }
@@ -90,18 +88,18 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
     @FXML
     void comprarAgora(ActionEvent event) throws IOException {
         irParaPedidoPagamento(event);
-        //leva o novoItem até a compra
+        //leva o itemAtual até a compra
     }
 
     @FXML
     void sairDoPerfilParaMeusJogos(ActionEvent event) throws IOException {
-        setNovoItem(null);
+        itemAtual = null;
         irParaMeusJogos(event);
     }
 
     @FXML
     void sairDoPerfilParaFeedUsuario(ActionEvent event) throws IOException {
-        setNovoItem(null);
+        itemAtual = null;
         irParaFeedUsuario(event);
     }
 

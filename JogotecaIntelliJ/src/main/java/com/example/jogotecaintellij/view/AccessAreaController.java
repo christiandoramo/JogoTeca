@@ -1,12 +1,9 @@
 package com.example.jogotecaintellij.view;
 
 import com.example.jogotecaintellij.controller.GamesController;
-import com.example.jogotecaintellij.controller.UserController;
-import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
-import com.example.jogotecaintellij.model.Game;
 import com.example.jogotecaintellij.enums.Genre;
-import com.example.jogotecaintellij.model.GameItem;
-import com.example.jogotecaintellij.model.User;
+import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
+import com.example.jogotecaintellij.model.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -36,8 +33,12 @@ import java.util.regex.Pattern;
 
 public class AccessAreaController {
     private Stage stage;
-    private static User usuarioAtual = null;
-    private static GameItem novoItem = null;
+    protected static User usuarioAtual = null;
+    protected static GameItem itemAtual = null;
+    protected static Game jogoAtual = null;
+    protected static Pedido pedidoAtual = null;
+    protected static Venda vendaAtual = null;
+
     public void setStage(Stage stage) {
         this.stage = stage;
     }
@@ -47,6 +48,8 @@ public class AccessAreaController {
     protected void handleBotaoCadastro(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
         Scene scene = new Scene(root);
+        String css = this.getClass().getResource("view.css").toExternalForm();
+        scene.getStylesheets().add(css);
         Stage cadastroStage = new Stage();
         cadastroStage.setScene(scene);
         cadastroStage.show();
@@ -58,100 +61,85 @@ public class AccessAreaController {
     protected void handleBotaoIrParaLogin(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene scene = new Scene(root);
+        String css = this.getClass().getResource("view.css").toExternalForm();
+        scene.getStylesheets().add(css);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    protected void irParaTela(ActionEvent event, String nomeArquivoFXML) throws IOException {
+        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+        Parent root = FXMLLoader.load(getClass().getResource(nomeArquivoFXML));
+        Scene scene = new Scene(root);
+        String css = this.getClass().getResource("view.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
     }
 
     @FXML
     protected void irParaLogin(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        irParaTela(event, "Login.fxml");
     }
 
     @FXML
     protected void irParaCadastro(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        irParaTela(event, "Cadastro.fxml");
     }
 
     @FXML
     protected void irParaCRUDJogos(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("CRUDJogos.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        irParaTela(event, "CRUDJogos.fxml");
     }
 
     @FXML
     protected void irParaPedidoPagamento(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("PedidoPagamento.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        irParaTela(event, "PedidoPagamento.fxml");
     }
 
     @FXML
     protected void irParaMenuAdmin(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("MenuAdmin.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        irParaTela(event, "MenuAdmin.fxml");
     }
 
     @FXML
     protected void irParaPerfilDoJogo(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("PerfilDoJogo.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        irParaTela(event, "PerfilDoJogo.fxml");
     }
 
     @FXML
     protected void irParaFeedUsuario(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource("FeedUsuario.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        irParaTela(event, "FeedUsuario.fxml");
     }
 
     @FXML
     void irParaConsultaUsuarios(ActionEvent event) {
-//		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-//		Parent root = FXMLLoader.load(getClass().getResource("ConsultaUsuarios.fxml"));
-//		Scene scene = new Scene(root);
-//		stage.setScene(scene);
-//		stage.show();
+        /*        irParaTela(event,"ConsultaUsuarios.fxml" );*/
     }
 
     @FXML
     void irParaConsultaVendas(ActionEvent event) {
-//		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-//		Parent root = FXMLLoader.load(getClass().getResource("ConsultaCLientes.fxml"));
-//		Scene scene = new Scene(root);
-//		stage.setScene(scene);
-//		stage.show();
+        /*        irParaTela(event,"ConsultaVendas.fxml" );*/
     }
 
     @FXML
     void irParaMeusJogos(ActionEvent event) {
-//		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-//		Parent root = FXMLLoader.load(getClass().getResource("ConsultaCLientes.fxml"));
-//		Scene scene = new Scene(root);
-//		stage.setScene(scene);
-//		stage.show();
+        /*	        irParaTela(event,"MeusJogos.fxml" );*/
     }
 
+    @FXML
+    void irParaWishlist(ActionEvent event) throws IOException {
+        /*
+                irParaTela(event,"Wishlist.fxml" );
+        */
+    }
+
+    @FXML
+    void irParaPerfilDoUsuario(ActionEvent event) throws IOException {
+        /*
+                irParaTela(event,"PerfilDoUsuario.fxml" );
+        */
+    }
 
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
 
@@ -334,6 +322,7 @@ public class AccessAreaController {
             campoUrl.setText(absolutePath);
         }
     }
+
     public static void escolherVideo(TextField campoUrl) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir Arquivo");
@@ -351,21 +340,5 @@ public class AccessAreaController {
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
     // PERFIL DO JOGO
 
-    public static User getUsuarioAtual() {
-        UserController uc = UserController.getInstance();
-        return usuarioAtual;
-    }
-    public static void setUsuarioAtual(User usuarioAtual) {
-        UserController uc = UserController.getInstance();
-        AccessAreaController.usuarioAtual = usuarioAtual;
-    }
-
-    public static GameItem getNovoItem() {
-        return novoItem;
-    }
-
-    public static void setNovoItem(GameItem novoItem) {
-        AccessAreaController.novoItem = novoItem;
-    }
 }
 

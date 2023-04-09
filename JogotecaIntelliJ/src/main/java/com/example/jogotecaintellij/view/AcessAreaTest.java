@@ -13,7 +13,7 @@ public class AcessAreaTest extends Application {
 	@Override
 	public void start(Stage primaryStage) throws IOException {
 		Pane root= FXMLLoader.load(getClass().getResource("TelaDeTestes.fxml"));// ERROR
-		Scene scene = new Scene(root, root.getWidth(), root.getHeight());
+		Scene scene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());
 
 		String css = this.getClass().getResource("view.css").toExternalForm();
 		scene.getStylesheets().add(css);

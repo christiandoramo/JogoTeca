@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.MenuAdmin">
+<AnchorPane styleClass="tela" maxHeight="-Infinity" maxWidth="-Infinity"  minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.MenuAdmin">
    <children>
       <Label layoutX="257.0" layoutY="40.0" text="Menu do Admin" />
       <Button layoutX="250.0" layoutY="141.0" mnemonicParsing="false" onAction="#irParaCRUDJogos" text="Gerenciar Jogos" />

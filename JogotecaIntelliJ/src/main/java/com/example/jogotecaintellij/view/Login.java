@@ -38,14 +38,14 @@ public class Login extends AccessAreaController implements Initializable {
         String password = passwordField.getText();
         try{
             if (uc.checaLoginESenha2(username,password)) {
-                setUsuarioAtual(uc.searchUserByLogin2(username));
+                usuarioAtual = uc.searchUserByLogin2(username);
                 irParaFeedUsuario(event);
             }else{
                 throw new CredenciaisIncorretasException();
             }
         }catch(Exception e){
             // mostrar mensagem de erro caso ocorra
-            errorMessageLabel.setText(e.getMessage());
+            errorMessageLabel.setText("Usuário ou senha inválidos");
             errorMessageLabel.setVisible(true);
         }
     }

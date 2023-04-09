@@ -57,7 +57,6 @@ public class CRUDJogos extends AccessAreaController implements Initializable {
 	protected TextField urlImage;
 	@FXML
 	protected ListView<Game> listaImagemJogo;
-
 	@FXML
 	protected AnchorPane telaBuscar;
 	@FXML
@@ -357,7 +356,9 @@ public class CRUDJogos extends AccessAreaController implements Initializable {
 					} else if (node instanceof DatePicker) {
 						((DatePicker) node).setValue(null);
 					} else if (node instanceof Label) {
-						((Label) node).setVisible(false);
+						Label label = ((Label) node);
+						if(label.getId() != null && !label.getId().equals("titulo"))
+							label.setVisible(false);
 					}
 				}
 			}
@@ -377,7 +378,9 @@ public class CRUDJogos extends AccessAreaController implements Initializable {
 					} else if (node instanceof DatePicker) {
 						((DatePicker) node).setValue(null);
 					} else if (node instanceof Label) {
-						((Label) node).setVisible(false);
+						Label label = ((Label) node);
+						if(label.getId() != null && !label.getId().equals("titulo"))
+							label.setVisible(false);
 					}
 				}
 			}

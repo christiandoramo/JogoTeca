@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.Login">
+<AnchorPane styleClass="tela" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.Login">
    <children>
       <Label layoutX="161.0" layoutY="114.0" text="Nome" />
       <Label layoutX="161.0" layoutY="162.0" text="Password" />
