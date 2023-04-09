@@ -34,11 +34,6 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="231.0" layoutY="349.0" mnemonicParsing="false" onAction="#butaoPagamento" text="Confimar o pagamento">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Button>
       <Button layoutX="460.0" layoutY="357.0" mnemonicParsing="false" onAction="#butaoMudaTela" text="ir para nota fiscal">
          <font>
             <Font size="13.0" />
@@ -69,7 +64,12 @@
             <TextField fx:id="textValidadeDebito" layoutX="321.0" layoutY="111.0" prefHeight="25.0" prefWidth="122.0" />
             <TextField fx:id="textDataDebito" layoutX="138.0" layoutY="111.0" prefHeight="25.0" prefWidth="164.0" />
             <TextField fx:id="textNumeroDebito" layoutX="138.0" layoutY="62.0" prefHeight="25.0" prefWidth="302.0" />
-            <CheckBox layoutX="6.0" layoutY="186.0" mnemonicParsing="false" text="Se a cobrança de débito falhar,você nos autoriza a tentar o crédito(caso o seu cartão tenha esta opção)" />
+            <CheckBox layoutX="17.0" layoutY="151.0" mnemonicParsing="false" text="Se a cobrança de débito falhar,você nos autoriza a tentar o crédito(caso o seu cartão tenha esta opção)" />
+            <Button layoutX="215.0" layoutY="184.0" mnemonicParsing="false" onAction="#butaoPagamento" text="Confimar o pagamento">
+               <font>
+                  <Font size="13.0" />
+               </font>
+            </Button>
          </children>
       </AnchorPane>
       <AnchorPane fx:id="telaCredito" layoutX="-1.0" layoutY="111.0" prefHeight="231.0" prefWidth="600.0" visible="false">
@@ -97,25 +97,27 @@
                   <Font size="20.0" />
                </font>
             </Text>
+            <Button layoutX="224.0" layoutY="192.0" mnemonicParsing="false" onAction="#butaoPagamento2" text="Confirmar o pagamento" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="telaPix" layoutY="116.0" prefHeight="231.0" prefWidth="600.0" visible="false">
+      <AnchorPane fx:id="telaPix" layoutY="116.0" prefHeight="241.0" prefWidth="600.0" visible="false">
          <children>
-            <Text layoutX="139.0" layoutY="33.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pix da empresa: jocoteca@gmail.com">
+            <Text layoutX="137.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pix da empresa: jocoteca@gmail.com">
                <font>
                   <Font size="20.0" />
                </font>
             </Text>
-            <Text layoutX="236.0" layoutY="218.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escanei o QR CODE">
+            <Text layoutX="237.0" layoutY="205.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Escanei o QR CODE">
                <font>
                   <Font size="15.0" />
                </font>
             </Text>
-            <ImageView fitHeight="162.0" fitWidth="200.0" layoutX="220.0" layoutY="41.0" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="162.0" fitWidth="200.0" layoutX="220.0" layoutY="27.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../../../../../../../../../Desktop/websiteQRCode_noFrame.png" />
                </image>
             </ImageView>
+            <Button layoutX="58.0" layoutY="108.0" mnemonicParsing="false" onAction="#butaoPagamento3" text="Confirmar o pagamento" />
          </children>
       </AnchorPane>
    </children>
