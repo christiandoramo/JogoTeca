@@ -13,23 +13,27 @@
     <Label fx:id="cpfLabel" layoutX="208.0" layoutY="96.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
 
     <Label layoutX="168.0" layoutY="117.0" text="Nome" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="117.0" />
+   <Label layoutX="175.0" layoutY="159.0" text="Login" AnchorPane.leftAnchor="173.0" />
+   <Label layoutX="173.0" layoutY="200.0" text="Senha" AnchorPane.leftAnchor="173.0" />
+   <TextField fx:id="senhaTextField" layoutX="240.0" layoutY="196.0" AnchorPane.leftAnchor="240.0" />
+   <TextField fx:id="loginTextField" layoutX="247.0" layoutY="155.0" AnchorPane.leftAnchor="240.0" />
    <Label fx:id="nomeLabel" layoutX="208.0" layoutY="138.0" prefWidth="200.0" style="-fx-text-fill: red;" />
     <TextField fx:id="nomeTextField" layoutX="240.0" layoutY="113.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="113.0" />
 
-    <Label layoutX="175.0" layoutY="159.0" text="Email" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="159.0" />
-    <TextField fx:id="emailTextField" layoutX="244.0" layoutY="155.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="155.0" />
-	<Label fx:id="emailLabel" layoutX="209.0" layoutY="180.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
+    <Label layoutX="173.0" layoutY="252.0" text="Email" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="252.0" />
+    <TextField fx:id="emailTextField" layoutX="240.0" layoutY="248.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="248.0" />
+	<Label fx:id="emailLabel" layoutX="209.0" layoutY="273.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
 	
-    <Label layoutX="173.0" layoutY="201.0" text="Telefone" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="201.0" />
-    <TextField fx:id="telefoneTextField" layoutX="247.0" layoutY="197.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="197.0" />
+    <Label layoutX="173.0" layoutY="294.0" text="Telefone" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="294.0" />
+    <TextField fx:id="telefoneTextField" layoutX="240.0" layoutY="290.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="290.0" />
 	
-    <Label layoutX="173.0" layoutY="240.0" text="Endereço" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="240.0" />
-    <TextField fx:id="enderecoTextField" layoutX="247.0" layoutY="236.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="236.0" />
+    <Label layoutX="173.0" layoutY="328.0" text="Endereço" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="328.0" />
+    <TextField fx:id="enderecoTextField" layoutX="240.0" layoutY="324.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="324.0" />
 	
-    <Button fx:id="confirmarButton" layoutX="274.0" layoutY="298.0" onAction="#confirmar" text="Confirmar" AnchorPane.bottomAnchor="119.0" AnchorPane.leftAnchor="274.0" />
+    <Button fx:id="confirmarButton" layoutX="175.0" layoutY="391.0" onAction="#confirmar" text="Confirmar" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="175.0" />
 
-    <Button fx:id="voltarButton" layoutX="285.0" layoutY="353.0" onAction="#OnHandleBotaoIrParaOLogin" text="Login" AnchorPane.bottomAnchor="64.0" AnchorPane.rightAnchor="269.0" />
+    <Button fx:id="voltarButton" layoutX="401.0" layoutY="391.0" onAction="#OnHandleBotaoIrParaOLogin" text="Login" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="153.0" />
     
-     <Label fx:id="mensagemLabel" layoutX="208.0" layoutY="272.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" AnchorPane.bottomAnchor="153.0" />
+     <Label fx:id="mensagemLabel" layoutX="200.0" layoutY="366.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" AnchorPane.bottomAnchor="59.0" />
 
 </AnchorPane>

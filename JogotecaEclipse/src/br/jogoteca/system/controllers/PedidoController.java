@@ -10,9 +10,9 @@ import br.jogoteca.system.exceptions.ElementAlreadyExistsException;
 import br.jogoteca.system.exceptions.ElementDoesNotExistException;
 import br.jogoteca.system.exceptions.ElementWithSameNameExistsException;
 import br.jogoteca.system.models.GameItem;
-import br.jogoteca.system.models.Order;
 import br.jogoteca.system.models.Pedido;
 import br.jogoteca.system.models.User;
+import br.jogoteca.system.models.Metodo;
 
 public class PedidoController {
 
@@ -34,9 +34,9 @@ public class PedidoController {
 		return instance;
 	}
 
-	public void adicionarPedido(LocalDateTime momento, List<GameItem> itens, User usuario)
+	public void adicionarPedido(LocalDateTime momento, List<GameItem> itens, User usuario,Metodo metodo)
 			throws ElementAlreadyExistsException {
-		Pedido pedidos = new Pedido(lastId + 1, momento, itens, usuario);
+		Pedido pedidos = new Pedido(lastId + 1, momento, itens, usuario,metodo);
 		pedidoRepositorio.insert(pedidos);
 		lastId++;
 	}
@@ -66,7 +66,7 @@ public class PedidoController {
 		lastId--;
 	}
 
-	public void updatePedidoById(int id, LocalDateTime momento, List<GameItem> itens, User usuario)
+	public void updatePedidoById(int id, LocalDateTime momento, List<GameItem> itens, User usuario,Metodo metodo)
 			throws ElementDoesNotExistException, ElementWithSameNameExistsException {
 		Pedido pedido = buscarPeloId(id);
 		if (pedido != null) {
@@ -76,6 +76,8 @@ public class PedidoController {
 				pedido.setUser(usuario);
 			if (momento != null)
 				pedido.setMomento(momento);
+			if (metodo != null)
+				pedido.setMetodo(metodo);
 			pedidoRepositorio.update(pedido);
 		}
 	}
@@ -90,4 +92,7 @@ public class PedidoController {
 	 * ElementDoesNotExistException { Order Order = buscarPeloId(id);
 	 * pedidoRepositorio.delete(pedido); lastId--; }
 	 */
+	
+	
+	
 }

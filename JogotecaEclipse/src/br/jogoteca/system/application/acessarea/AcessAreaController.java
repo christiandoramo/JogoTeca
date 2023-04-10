@@ -3,6 +3,7 @@ package br.jogoteca.system.application.acessarea;
 import java.io.File;
 import java.io.IOException;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.function.UnaryOperator;
@@ -11,8 +12,11 @@ import java.util.regex.Pattern;
 import br.jogoteca.system.controllers.GamesController;
 import br.jogoteca.system.exceptions.ElementDoesNotExistException;
 import br.jogoteca.system.models.Game;
+import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.Genre;
+import br.jogoteca.system.models.Pedido;
 import br.jogoteca.system.models.User;
+import br.jogoteca.system.models.Venda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -41,6 +45,13 @@ import javafx.util.converter.IntegerStringConverter;
 
 public class AcessAreaController {
 private Stage stage;
+
+protected static User usuarioAtual = null;
+protected static List<GameItem> itemAtual = null;
+protected static Pedido pedidoAtual = null;
+protected static Venda vendaAtual = null;
+protected static LocalDateTime vencimentoAtual = null;
+protected static List<String> dadoAtual = null;
     
     public void setStage(Stage stage) {
         this.stage = stage;
@@ -78,6 +89,15 @@ private Stage stage;
     @FXML
     protected void handleBotaoIrMenuAdmin(ActionEvent event) throws IOException {
         Parent root = FXMLLoader.load(getClass().getResource("MenuAdmin.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    // vai para o pagamento
+    @FXML
+    protected void handleBotaoIrPagamento(ActionEvent event) throws IOException {
+        Parent root = FXMLLoader.load(getClass().getResource("Pagamento.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

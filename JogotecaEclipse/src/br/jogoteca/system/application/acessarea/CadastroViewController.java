@@ -1,4 +1,5 @@
 package br.jogoteca.system.application.acessarea;
+import br.jogoteca.system.models.User;
 
 import java.io.IOException;
 import java.net.URL;
@@ -50,7 +51,11 @@ public class CadastroViewController extends AcessAreaController implements Initi
 	    @FXML
 	    private Label mensagemLabel;
 	    
+	    @FXML
+	    private TextField loginTextField;
 
+	    @FXML
+	    private TextField senhaTextField;
 	    
 	    @FXML
 	    private void confirmar() {
@@ -59,14 +64,20 @@ public class CadastroViewController extends AcessAreaController implements Initi
 	        String email = emailTextField.getText();
 	        String telefone = telefoneTextField.getText();
 	        String endereco = enderecoTextField.getText();
-	        boolean validaCpf, validaEmail;
+	        String login = loginTextField.getText();
+	        String senha = senhaTextField.getText();
 	        
+	        
+	        boolean validaCpf, validaEmail;
+	        //public User(int id, String nome, String endereco, String telefone, String email, String login, String senha) 
+	        User user = new User(0, nome, endereco, telefone, email, login, senha);
 	        // Validações
 	        if (!validarCPF(cpf)) {
 	            cpfLabel.setText("CPF inválido");
 	            validaCpf = false;
 	        }else {
 	            cpfLabel.setText("");
+	            user.setCPF(cpf);// após o cpf ser verificado
 	            validaCpf = true;
 	        }
 	        if (nome.isEmpty()) {
@@ -74,8 +85,7 @@ public class CadastroViewController extends AcessAreaController implements Initi
 	            
 	        }else {
 	            nomeLabel.setText("");	            
-	        }
-	        
+	        }	        
 	        
 	        if (!validarEmail(email)) {
 	            emailLabel.setText("Email inválido");	
@@ -87,8 +97,13 @@ public class CadastroViewController extends AcessAreaController implements Initi
 	        
 	        // TODO: Validar telefone e demais campos
 	        
-	       if(validaCpf && validaEmail) {
-	    	   mensagemLabel.setText("Cadastro realizado com sucesso!");
+	       if(validaCpf && validaEmail) {	    	   
+	    	  if(Cadastro.cadastrar(user)) {
+	    		  mensagemLabel.setText("Cadastro realizado com sucesso!");
+	    	  }else {
+	    		  mensagemLabel.setText("Não foi possivel realizar cadastro!");
+	    	  }
+	    	  
 	       }
 	       else {
 	    	   mensagemLabel.setText("Não foi possivel realizar cadastro!");

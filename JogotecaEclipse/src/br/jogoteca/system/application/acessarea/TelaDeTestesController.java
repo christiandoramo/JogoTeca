@@ -34,6 +34,13 @@ public class TelaDeTestesController extends AcessAreaController implements Initi
     	handleBotaoIrMenuAdmin(event);
 	}
 	
+	  @FXML
+	    void OnGoToPagamentoButtonAction(ActionEvent event)  throws IOException{
+		  setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		  handleBotaoIrPagamento(event);
+	    }
+	
+	
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 	}
