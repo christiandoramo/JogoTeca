@@ -78,9 +78,11 @@ public class PerfilDoJogo extends AcessAreaController implements Initializable {
 	}
 
 	void DesabilitarBotaoWishList() {
-			boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(usuarioAtual, itemAtual);
-			boolean jaContemNaWishList = usuarioAtual.getWishlist().contains(itemAtual);
-			btnWishList.setDisable(jaComprado || jaContemNaWishList);
+			if(itensAtuais!=null && !itensAtuais.isEmpty()) {
+				boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(usuarioAtual, itemAtual);
+				boolean jaContemNaWishList = usuarioAtual.getWishlist().contains(itemAtual);
+				btnWishList.setDisable(jaComprado || jaContemNaWishList);
+			}
 	}
 
 	@FXML

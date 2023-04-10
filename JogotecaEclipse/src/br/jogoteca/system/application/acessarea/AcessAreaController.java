@@ -26,6 +26,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.DateCell;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
@@ -213,29 +214,7 @@ protected static List<String> dadoAtual = null;
 		}
 	}
 	
-	public static void searchGameItemByNome(GamesController gc, GameItemControllers gic, TextField campo, ListView<GameItem> lista, Label log) {
-		String nome = campo.getText();
-		List<GameItem> gamesAchados = new ArrayList<>();
-		if (nome != null) {
-			try {
-				GameItem n = gic.searchAllGameItem()
-	                    .stream()
-	                    .filter(x -> x.getGame().getName().equals(nome))
-	                    .findFirst()
-	                    .orElse(null);
-				if (n != null) {
-					gamesAchados.add(n);
-					mostraGamesItensAchados(lista, gamesAchados);
-					gamesAchados.forEach(action -> System.out.println(action.getGame().getName()));
-					log.setVisible(false);
-				} else
-					throw new ElementDoesNotExistException(n);
-			} catch (Exception e) {
-				log.setText(e.getMessage());
-				log.setVisible(true);
-			}
-		}
-	}
+
 
 	public static void searchGameById(GamesController gc, TextField campo, ListView<Game> lista, Label log) {
 		int id = Integer.parseInt(campo.getText());
@@ -297,37 +276,7 @@ protected static List<String> dadoAtual = null;
 		listaUsers.setItems(data);
 	}
 
-	public static void mostraGamesItensAchados(ListView<GameItem> listaJogos, List<GameItem> gamesAchados) {
-		ObservableList<GameItem> data = FXCollections.observableArrayList();
-		data.addAll(gamesAchados);
 
-		listaJogos.setCellFactory(new Callback<ListView<GameItem>, ListCell<GameItem>>() {
-			@Override
-			public ListCell<GameItem> call(ListView<GameItem> param) {
-				ListCell<GameItem> cell = new ListCell<GameItem>() {
-					@Override
-					protected void updateItem(GameItem achado, boolean btl) {
-						super.updateItem(achado, btl);
-						if (achado != null) {
-							File file = new File(achado.getGame().getImageURL());
-							String imagePath = file.toURI().toString();
-							Image img = new Image(imagePath);
-							ImageView imgview = new ImageView(img);
-							imgview.setFitWidth(100);
-							imgview.setFitHeight(100);
-							setGraphic(imgview);
-							String legenda = "Preço: " + achado.getGame().getPrice() + "\nNome: " + achado.getGame().getName();
-							setText(legenda);
-							setTextAlignment(TextAlignment.JUSTIFY);
-
-						}
-					}
-				};
-				return cell;
-			}
-		});
-		listaJogos.setItems(data);
-	}
 	public static void mostraGamesAchados(ListView<Game> listaJogos, List<Game> gamesAchados) {
 		ObservableList<Game> data = FXCollections.observableArrayList();
 		data.addAll(gamesAchados);
