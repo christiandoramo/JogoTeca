@@ -37,16 +37,20 @@ public class LoginViewController extends AcessAreaController implements Initiali
 	}
 	
     @FXML
-    public void handleLoginButtonAction() {
+    public void handleLoginButtonAction(ActionEvent event) throws IOException{
         String username = usernameField.getText();
         String password = passwordField.getText();        
         
-        
         // implementar lógica de autenticação
-        
+        if(username.equals("admin") && password.equals("admin")) {
+        	
+        	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+        	handleBotaoIrMenuAdmin(event);
+        }else {
         // mostrar mensagem de erro caso ocorra
         errorMessageLabel.setText("Usuário ou senha inválidos");
         errorMessageLabel.setVisible(true);
+        }
     }
     
     @FXML
