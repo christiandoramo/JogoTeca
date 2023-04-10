@@ -141,6 +141,13 @@ public class AccessAreaController {
         */
     }
 
+    void irParaMeusPedidos(ActionEvent event) throws IOException {
+        /*
+                irParaTela(event,"MeusPedidos.fxml" );
+        */
+    }
+
+
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
 
     // apenas permite que sejam digitados doubles - FUNCIONANDO
