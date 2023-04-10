@@ -11,6 +11,10 @@ public class Pedido {
 	private List<GameItem> itens;
 	private User usuario;
 	private Metodo metodo;
+	//////////////    ///////////FALTANDO STATUS DO PEDIDO/////////////////
+	public Double totalValue() {
+		return itens.stream().mapToDouble(x -> x.getValue()).sum();
+	}
 	
 	
 	//public Pedido(int id, LocalDateTime momento, List<GameItem> itens, User usuario) {

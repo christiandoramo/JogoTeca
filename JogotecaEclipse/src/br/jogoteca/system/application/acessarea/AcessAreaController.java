@@ -95,7 +95,7 @@ protected static List<String> dadoAtual = null;
 
     @FXML
     protected void irParaPedidoPagamento(ActionEvent event) throws IOException {
-        irParaTela(event, "PedidoPagamento.fxml");
+        irParaTela(event, "Pagamento.fxml");
     }
 
     @FXML
@@ -147,6 +147,9 @@ protected static List<String> dadoAtual = null;
         /*
                 irParaTela(event,"MeusPedidos.fxml" );
         */
+    }
+    protected void irParaComprovante(ActionEvent event) throws IOException {
+    	  irParaTela(event, "Comprovante.fxml");
     }
     
     

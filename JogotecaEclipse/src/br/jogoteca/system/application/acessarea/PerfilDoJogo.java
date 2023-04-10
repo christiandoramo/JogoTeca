@@ -10,10 +10,12 @@ import br.jogoteca.system.controllers.UserController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 public class PerfilDoJogo extends AcessAreaController implements Initializable {
 	@FXML
@@ -78,6 +80,7 @@ public class PerfilDoJogo extends AcessAreaController implements Initializable {
 	}
 
 	void DesabilitarBotaoWishList() {
+		// checa se wishList tiver algo
 			if(itensAtuais!=null && !itensAtuais.isEmpty()) {
 				boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(usuarioAtual, itemAtual);
 				boolean jaContemNaWishList = usuarioAtual.getWishlist().contains(itemAtual);
@@ -87,6 +90,7 @@ public class PerfilDoJogo extends AcessAreaController implements Initializable {
 
 	@FXML
 	void comprarAgora(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 		irParaPedidoPagamento(event);
 		// leva o itemAtual até a compra
 	}
@@ -94,12 +98,16 @@ public class PerfilDoJogo extends AcessAreaController implements Initializable {
 	@FXML
 	void sairDoPerfilParaMeusJogos(ActionEvent event) throws IOException {
 		itemAtual = null;
+		jogoAtual = null;
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 		irParaMeusJogos(event);
 	}
 
 	@FXML
 	void sairDoPerfilParaFeedUsuario(ActionEvent event) throws IOException {
 		itemAtual = null;
+		jogoAtual = null;
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 		irParaFeedUsuario(event);
 	}
 

@@ -28,102 +28,117 @@ import javafx.stage.Stage;
 
 public class PagamentosViewController extends AcessAreaController implements Initializable {
 
-	
 	@FXML
-    private AnchorPane telaDebito;
+	private AnchorPane telaDebito;
 
-    @FXML
-    private TextField textValidadeDebito;
+	@FXML
+	private TextField textValidadeDebito;
 
-    @FXML
-    private TextField textDataDebito;
+	@FXML
+	private TextField textDataDebito;
 
-    @FXML
-    private TextField textNumeroDebito;
+	@FXML
+	private TextField textNumeroDebito;
 
-    @FXML
-    private AnchorPane telaCredito;
+	@FXML
+	private AnchorPane telaCredito;
 
-    @FXML
-    private TextField textNumeroCredito;
+	@FXML
+	private TextField textNumeroCredito;
 
-    @FXML
-    private TextField TextDataCredito;
+	@FXML
+	private TextField TextDataCredito;
 
-    @FXML
-    private TextField textValidadeCredito;
+	@FXML
+	private TextField textValidadeCredito;
 
-    @FXML
-    private AnchorPane telaPix;
-    
-    @FXML
-    private MenuButton menuPagamento;
+	@FXML
+	private AnchorPane telaPix;
 
+	@FXML
+	private MenuButton menuPagamento;
 
-    PedidoController pc = PedidoController.getInstance();
-    
-    VendaController vc = VendaController.getInstance();
-    
-   
-    private List<String> nova;
-    
-  
-    String mAtualiza = "";
+	PedidoController pc = PedidoController.getInstance();
+
+	VendaController vc = VendaController.getInstance();
+
+	private List<String> nova;
+
+	String mAtualiza = "";
 	String mRemove = "";
-    
-    @FXML
-    void butaoMudaTela(ActionEvent event) throws IOException{
-    	//setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	//handleBotaoIrFiscal(event);
-    }
 
-    @FXML
-    protected void butaoPagamento(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-    	if(preencheuEntradasInsercao()) {
-    		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-    		alert.setTitle("confirmando");
-    		alert.setContentText("Pagamento confirmado!");
-    		Optional<ButtonType> result = alert.showAndWait();
-    		String numero = textNumeroDebito.getText();
-    		String data = textNumeroDebito.getText();
-    		String validade = textNumeroDebito.getText();
-    		nova.add(numero);
-    		nova.add(data);
-    		nova.add(validade);
-    		vc.insertVenda(pedidoAtual,nova);
-    		pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.DEBITO);  
-    	}
-    }
-    
-    @FXML
-    protected void butaoPagamento2(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-    	if(preencheuEntradasInsercao2()) {
-    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+	@FXML
+	void butaoMudaTela(ActionEvent event) throws IOException {
+		// setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		// handleBotaoIrFiscal(event);
+	}
+
+	@FXML
+	protected void butaoPagamento(ActionEvent event)
+			throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+		if (preencheuEntradasInsercao()) {
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("confirmando");
+			alert.setContentText("Pagamento confirmado!");
+			Optional<ButtonType> result = alert.showAndWait();
+			String numero = textNumeroDebito.getText();
+			String data = textNumeroDebito.getText();
+			String validade = textNumeroDebito.getText();
+			nova.add(numero);
+			nova.add(data);
+			nova.add(validade);
+			vc.insertVenda(pedidoAtual, nova);
+			pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.DEBITO);
+			try {
+				irParaComprovante(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@FXML
+	protected void butaoPagamento2(ActionEvent event)
+			throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+		if (preencheuEntradasInsercao2()) {
+			Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+			alert.setTitle("confirmando");
+			alert.setContentText("Pagamento confirmado!");
+			Optional<ButtonType> result = alert.showAndWait();
+			String numero1 = textNumeroDebito.getText();
+			String data1 = textNumeroDebito.getText();
+			String validade1 = textNumeroDebito.getText();
+			nova.add(numero1);
+			nova.add(data1);
+			nova.add(validade1);
+			vc.insertVenda(pedidoAtual, nova);
+			pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.CREDITO);
+			try {
+				irParaComprovante(event);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	@FXML
+	protected void butaoPagamento3(ActionEvent event)
+			throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("confirmando");
 		alert.setContentText("Pagamento confirmado!");
 		Optional<ButtonType> result = alert.showAndWait();
-		String numero1 = textNumeroDebito.getText();
-		String data1 = textNumeroDebito.getText();
-		String validade1 = textNumeroDebito.getText();
-		nova.add(numero1);
-		nova.add(data1);
-		nova.add(validade1);
-		vc.insertVenda(pedidoAtual, nova);
-		pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.CREDITO);
-    	}	
-    }
-    
-    @FXML
-    protected void butaoPagamento3(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-    	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
-		alert.setTitle("confirmando");
-		alert.setContentText("Pagamento confirmado!");
-		Optional<ButtonType> result = alert.showAndWait();
-    	vc.insertVenda(pedidoAtual,dadoAtual);
-    	pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.PIX);
-    }
-    
-    public boolean preencheuEntradasInsercao() {
+		vc.insertVenda(pedidoAtual, dadoAtual);
+		pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.PIX);
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		try {
+			irParaComprovante(event);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public boolean preencheuEntradasInsercao() {
 		for (Node node : telaDebito.getChildren()) {
 			if (node instanceof TextField) {
 				TextField tf = (TextField) node;
@@ -134,8 +149,8 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 		}
 		return true;
 	}
-    
-    public boolean preencheuEntradasInsercao2() {
+
+	public boolean preencheuEntradasInsercao2() {
 		for (Node node : telaCredito.getChildren()) {
 			if (node instanceof TextField) {
 				TextField tf = (TextField) node;
@@ -146,44 +161,51 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 		}
 		return true;
 	}
-    
-    
-    @FXML
-    void butaoVolta(ActionEvent event) throws IOException{
-    	//setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	//handleBotaoIrParaWishList(event);
-    }
-    
-    @FXML
-    void butaoVolta2(ActionEvent event) throws IOException{
-    	//setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	//handleBotaoIrParaPerfilJogo(event);
-    }
-    
 
-    @FXML
-    protected void mostrarOpcoesCredito(ActionEvent event) {  
-    	menuPagamento.setText("Crédito");
-    	limparOperacaoCRUD(telaDebito);
-    	 
-    }
+	@FXML
+	void butaoVolta(ActionEvent event) throws IOException {
+		// setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		// handleBotaoIrParaWishList(event);
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		irParaWishlist(event);
+		itemAtual = null;
+		jogoAtual = null;
+	}
 
-    @FXML
-    protected void mostrarOpcoesDebito(ActionEvent event) {
-    	menuPagamento.setText("Débito");
-    	limparOperacaoCRUD(telaCredito);
-    	   	
-    }
+	@FXML
+	void butaoVolta2(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 
-    @FXML
-    protected void mostrarOpcoesPix(ActionEvent event) {
-    	menuPagamento.setText("Pix");
-    	limparOperacaoCRUD(telaPix);
-    	
-    }
-    
-    protected void limparOperacaoCRUD(AnchorPane telaOperacional) {
-		AnchorPane[] telasOperacionais = new AnchorPane[] { telaDebito, telaCredito, telaPix};
+		// ESSE BOTAO DEVE FICAR DESABILITADO OU INVISIVEL SE O USUARIO VINHER PELA TELA
+		// DA WISHLIST
+		// LOGO VAI PRECISAR DO id DO BOTAO
+		irParaPerfilDoJogo(event);
+		////////////////////////////////////////////////
+	}
+
+	@FXML
+	protected void mostrarOpcoesCredito(ActionEvent event) {
+		menuPagamento.setText("Crédito");
+		limparOperacaoCRUD(telaDebito);
+
+	}
+
+	@FXML
+	protected void mostrarOpcoesDebito(ActionEvent event) {
+		menuPagamento.setText("Débito");
+		limparOperacaoCRUD(telaCredito);
+
+	}
+
+	@FXML
+	protected void mostrarOpcoesPix(ActionEvent event) {
+		menuPagamento.setText("Pix");
+		limparOperacaoCRUD(telaPix);
+
+	}
+
+	protected void limparOperacaoCRUD(AnchorPane telaOperacional) {
+		AnchorPane[] telasOperacionais = new AnchorPane[] { telaDebito, telaCredito, telaPix };
 		mAtualiza = "";
 		mRemove = "";
 		for (AnchorPane tela : telasOperacionais)
@@ -203,11 +225,11 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 			}
 		telaOperacional.setVisible(true);
 	}
-	
+
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
