@@ -42,7 +42,7 @@
 
 /* Estilo para seletor de data */
 .date-picker {
-    -fx-background-color: #FFFFFF;;
+    -fx-background-color: #FFFFFF;
     -fx-text-fill: #000000;
     -fx-font-family: "Segoe UI";
     -fx-font-size: 12px;

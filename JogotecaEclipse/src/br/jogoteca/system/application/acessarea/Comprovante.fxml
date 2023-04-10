@@ -7,7 +7,7 @@
 <?import javafx.scene.text.Text?>
 
 
-<AnchorPane fx:controller="com.example.jogotecaintellij.view.ComprovanteController" xmlns="http://javafx.com/javafx/8.0.171" styleClass="tela" maxHeight="600.0" minHeight="600.0" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.ComprovanteController">
+<AnchorPane xmlns="http://javafx.com/javafx/8.0.171" styleClass="tela" maxHeight="600.0" minHeight="600.0" prefHeight="600.0" prefWidth="800.0" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.ComprovanteController">
    <children>
       <Button layoutX="53.0" layoutY="74.0" mnemonicParsing="false" onAction="#sairParaMeusJogos" prefHeight="49.0" prefWidth="200.0" text="Meus Jogos" />
       <Button layoutX="54.0" layoutY="189.0" mnemonicParsing="false" onAction="#sairParaMeusPedidos" prefHeight="53.0" prefWidth="200.0" text="Meus Pedidos" />

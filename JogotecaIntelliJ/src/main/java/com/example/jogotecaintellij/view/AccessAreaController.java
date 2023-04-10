@@ -113,35 +113,35 @@ public class AccessAreaController {
     }
 
     @FXML
-    void irParaConsultaUsuarios(ActionEvent event) {
+    protected void irParaConsultaUsuarios(ActionEvent event) {
         /*        irParaTela(event,"ConsultaUsuarios.fxml" );*/
     }
 
     @FXML
-    void irParaConsultaVendas(ActionEvent event) {
+    protected void irParaConsultaVendas(ActionEvent event) {
         /*        irParaTela(event,"ConsultaVendas.fxml" );*/
     }
 
     @FXML
-    void irParaMeusJogos(ActionEvent event) {
+    protected void irParaMeusJogos(ActionEvent event) {
         /*	        irParaTela(event,"MeusJogos.fxml" );*/
     }
 
     @FXML
-    void irParaWishlist(ActionEvent event) throws IOException {
+    protected void irParaWishlist(ActionEvent event) throws IOException {
         /*
                 irParaTela(event,"Wishlist.fxml" );
         */
     }
 
     @FXML
-    void irParaPerfilDoUsuario(ActionEvent event) throws IOException {
+    protected void irParaPerfilDoUsuario(ActionEvent event) throws IOException {
         /*
                 irParaTela(event,"PerfilDoUsuario.fxml" );
         */
     }
 
-    void irParaMeusPedidos(ActionEvent event) throws IOException {
+    protected void irParaMeusPedidos(ActionEvent event) throws IOException {
         /*
                 irParaTela(event,"MeusPedidos.fxml" );
         */

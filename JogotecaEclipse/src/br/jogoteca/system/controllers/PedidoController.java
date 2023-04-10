@@ -10,6 +10,7 @@ import br.jogoteca.system.data.IGenericRepository;
 import br.jogoteca.system.exceptions.ElementAlreadyExistsException;
 import br.jogoteca.system.exceptions.ElementDoesNotExistException;
 import br.jogoteca.system.exceptions.ElementWithSameNameExistsException;
+import br.jogoteca.system.exceptions.ElementsDoNotExistException;
 import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.Pedido;
@@ -41,6 +42,10 @@ public class PedidoController {
 		Pedido pedidos = new Pedido(lastId + 1, momento, itens, usuario,metodo);
 		pedidoRepositorio.insert(pedidos);
 		lastId++;
+	}
+	
+	public List<Pedido> buscarTodos() throws ElementsDoNotExistException {
+		return pedidoRepositorio.read();
 	}
 
 	public Pedido buscarPeloId(int id) throws ElementDoesNotExistException {

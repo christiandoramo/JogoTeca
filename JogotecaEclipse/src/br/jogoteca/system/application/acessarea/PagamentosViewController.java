@@ -1,8 +1,8 @@
 package br.jogoteca.system.application.acessarea;
 
 import java.io.IOException;
-
 import java.net.URL;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -87,10 +87,16 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 			nova.add(numero);
 			nova.add(data);
 			nova.add(validade);
-			vc.insertVenda(pedidoAtual, nova);
-			pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.DEBITO);
 			try {
+				itensAtuais = Arrays.asList(itemAtual);
+				pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.DEBITO);
+				pedidoAtual = pc.buscarTodos().get(pc.buscarTodos().size()-1);
+				vc.insertVenda(pedidoAtual, nova);
+				vendaAtual = vc.searchAllVendas().get(vc.searchAllVendas().size()-1);
+				setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 				irParaComprovante(event);
+				itemAtual = null;
+				jogoAtual = null;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -111,10 +117,16 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 			nova.add(numero1);
 			nova.add(data1);
 			nova.add(validade1);
-			vc.insertVenda(pedidoAtual, nova);
-			pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.CREDITO);
 			try {
+				itensAtuais = Arrays.asList(itemAtual);
+				pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.CREDITO);
+				pedidoAtual = pc.buscarTodos().get(pc.buscarTodos().size()-1);
+				vc.insertVenda(pedidoAtual, nova);
+				vendaAtual = vc.searchAllVendas().get(vc.searchAllVendas().size()-1);
+				setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 				irParaComprovante(event);
+				itemAtual = null;
+				jogoAtual = null;
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -123,16 +135,21 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 
 	@FXML
 	protected void butaoPagamento3(ActionEvent event)
-			throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+			throws ElementAlreadyExistsException, ElementWithSameNameExistsException, IOException {
 		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("confirmando");
 		alert.setContentText("Pagamento confirmado!");
 		Optional<ButtonType> result = alert.showAndWait();
-		vc.insertVenda(pedidoAtual, dadoAtual);
-		pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.PIX);
-		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 		try {
+			itensAtuais = Arrays.asList(itemAtual);
+			pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.PIX);
+			pedidoAtual = pc.buscarTodos().get(pc.buscarTodos().size()-1);
+			vc.insertVenda(pedidoAtual, nova);
+			vendaAtual = vc.searchAllVendas().get(vc.searchAllVendas().size()-1);
+			setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
 			irParaComprovante(event);
+			itemAtual = null;
+			jogoAtual = null;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -170,6 +187,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 		irParaWishlist(event);
 		itemAtual = null;
 		jogoAtual = null;
+		vendaAtual = null;
 	}
 
 	@FXML
@@ -180,6 +198,9 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 		// DA WISHLIST
 		// LOGO VAI PRECISAR DO id DO BOTAO
 		irParaPerfilDoJogo(event);
+		itemAtual = null;
+		jogoAtual = null;
+		vendaAtual = null;
 		////////////////////////////////////////////////
 	}
 
