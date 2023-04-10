@@ -3,7 +3,6 @@ package br.jogoteca.system.application.acessarea;
 import java.io.IOException;
 
 import java.net.URL;
-import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.ResourceBundle;
@@ -12,12 +11,7 @@ import br.jogoteca.system.controllers.PedidoController;
 import br.jogoteca.system.controllers.VendaController;
 import br.jogoteca.system.exceptions.ElementAlreadyExistsException;
 import br.jogoteca.system.exceptions.ElementWithSameNameExistsException;
-import br.jogoteca.system.models.Game;
-import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.Metodo;
-import br.jogoteca.system.models.Pedido;
-import br.jogoteca.system.models.User;
-import br.jogoteca.system.models.Venda;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -61,6 +55,10 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 
     @FXML
     private AnchorPane telaPix;
+    
+    @FXML
+    private MenuButton menuPagamento;
+
 
     PedidoController pc = PedidoController.getInstance();
     
@@ -80,7 +78,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     }
 
     @FXML
-    void butaoPagamento(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+    protected void butaoPagamento(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
     	if(preencheuEntradasInsercao()) {
     		Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
     		alert.setTitle("confirmando");
@@ -98,7 +96,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     }
     
     @FXML
-    void butaoPagamento2(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+    protected void butaoPagamento2(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
     	if(preencheuEntradasInsercao2()) {
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("confirmando");
@@ -116,7 +114,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     }
     
     @FXML
-    void butaoPagamento3(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+    protected void butaoPagamento3(ActionEvent event) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
     	Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
 		alert.setTitle("confirmando");
 		alert.setContentText("Pagamento confirmado!");
@@ -150,33 +148,38 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 	}
     
     
-
     @FXML
     void butaoVolta(ActionEvent event) throws IOException{
-    	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	handleBotaoIrParaCRUDJogos(event);
+    	//setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+    	//handleBotaoIrParaWishList(event);
     }
+    
+    @FXML
+    void butaoVolta2(ActionEvent event) throws IOException{
+    	//setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+    	//handleBotaoIrParaPerfilJogo(event);
+    }
+    
 
     @FXML
-    void mostrarOpcoesCredito(ActionEvent event) {  
+    protected void mostrarOpcoesCredito(ActionEvent event) {  
+    	menuPagamento.setText("Crédito");
     	limparOperacaoCRUD(telaDebito);
-    	 //telaCredito.setVisible(true);
-    	 
-    	 
     	 
     }
 
     @FXML
-    void mostrarOpcoesDebito(ActionEvent event) {
+    protected void mostrarOpcoesDebito(ActionEvent event) {
+    	menuPagamento.setText("Débito");
     	limparOperacaoCRUD(telaCredito);
-    	//telaDebito.setVisible(true);
-    	
+    	   	
     }
 
     @FXML
-    void mostrarOpcoesPix(ActionEvent event) {
+    protected void mostrarOpcoesPix(ActionEvent event) {
+    	menuPagamento.setText("Pix");
     	limparOperacaoCRUD(telaPix);
-    	//telaPix.setVisible(true);
+    	
     }
     
     protected void limparOperacaoCRUD(AnchorPane telaOperacional) {
@@ -200,7 +203,6 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 			}
 		telaOperacional.setVisible(true);
 	}
-
 	
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {

@@ -19,7 +19,7 @@
             <Font size="20.0" />
          </font>
       </Label>
-      <MenuButton layoutX="160.0" layoutY="75.0" mnemonicParsing="false" text="Selecione uma forma de pagamento">
+      <MenuButton fx:id="menuPagamento" layoutX="160.0" layoutY="75.0" mnemonicParsing="false" text="Selecione uma forma de pagamento">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesDebito" text="Cartão de débito" />
           <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesCredito" text="Cartão de crédito" />
@@ -29,7 +29,7 @@
             <Font size="15.0" />
          </font>
       </MenuButton>
-      <Button layoutX="47.0" layoutY="28.0" mnemonicParsing="false" onAction="#butaoVolta" text="voltar">
+      <Button layoutX="14.0" layoutY="29.0" mnemonicParsing="false" onAction="#butaoVolta" text="Tela wishlist">
          <font>
             <Font size="13.0" />
          </font>
@@ -120,5 +120,6 @@
             <Button layoutX="58.0" layoutY="108.0" mnemonicParsing="false" onAction="#butaoPagamento3" text="Confirmar o pagamento" />
          </children>
       </AnchorPane>
+      <Button layoutX="14.0" layoutY="63.0" mnemonicParsing="false" onAction="#butaoVolta2" text="Tela de perfil do jogo" />
    </children>
 </AnchorPane>
