@@ -25,8 +25,10 @@ import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.MenuButton;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputControl;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -68,7 +70,8 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     private List<String> nova;
     
   
-    
+    String mAtualiza = "";
+	String mRemove = "";
     
     @FXML
     void butaoMudaTela(ActionEvent event) throws IOException{
@@ -155,8 +158,9 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     }
 
     @FXML
-    void mostrarOpcoesCredito(ActionEvent event) {   
-    	 telaCredito.setVisible(true);
+    void mostrarOpcoesCredito(ActionEvent event) {  
+    	limparOperacaoCRUD(telaDebito);
+    	 //telaCredito.setVisible(true);
     	 
     	 
     	 
@@ -164,14 +168,38 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 
     @FXML
     void mostrarOpcoesDebito(ActionEvent event) {
-    	telaDebito.setVisible(true);
+    	limparOperacaoCRUD(telaCredito);
+    	//telaDebito.setVisible(true);
     	
     }
 
     @FXML
     void mostrarOpcoesPix(ActionEvent event) {
-    	telaPix.setVisible(true);
+    	limparOperacaoCRUD(telaPix);
+    	//telaPix.setVisible(true);
     }
+    
+    protected void limparOperacaoCRUD(AnchorPane telaOperacional) {
+		AnchorPane[] telasOperacionais = new AnchorPane[] { telaDebito, telaCredito, telaPix};
+		mAtualiza = "";
+		mRemove = "";
+		for (AnchorPane tela : telasOperacionais)
+			if (tela.isVisible()) {
+				tela.setVisible(false);
+				for (Node node : telaOperacional.getChildren()) {
+					if (node instanceof TextInputControl) {
+						((TextInputControl) node).setText(null);
+					} else if (node instanceof MenuButton) {
+						((MenuButton) node).setText("Selecionar Genero");
+					} else if (node instanceof DatePicker) {
+						((DatePicker) node).setValue(null);
+					} else if (node instanceof Label) {
+						((Label) node).setVisible(false);
+					}
+				}
+			}
+		telaOperacional.setVisible(true);
+	}
 
 	
 	@Override
