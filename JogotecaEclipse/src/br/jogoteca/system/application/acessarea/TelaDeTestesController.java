@@ -11,36 +11,36 @@ import javafx.scene.Node;
 import javafx.stage.Stage;
 
 public class TelaDeTestesController extends AcessAreaController implements Initializable {
-    @FXML
-    private void OnGoToLoginButtonAction(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        handleBotaoIrParaLogin(event);
-    }
-    @FXML
-    public void OnGoToRegisterButtonAction(ActionEvent event) throws IOException {
-    	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        handleBotaoCadastro(event);
-    }
-    
+	@FXML
+	private void OnGoToLoginButtonAction(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		irParaLogin(event);
+	}
+
+	@FXML
+	public void OnGoToRegisterButtonAction(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		irParaCadastro(event);
+	}
+
 	@FXML
 	protected void OnGoToCRUDJogosButtonAction(ActionEvent event) throws IOException {
-    	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	handleBotaoIrParaCRUDJogos(event);
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		irParaCRUDJogos(event);
 	}
-    
+
 	@FXML
 	protected void OnGoToMenuAdminButtonAction(ActionEvent event) throws IOException {
-    	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	handleBotaoIrMenuAdmin(event);
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		irParaMenuAdmin(event);
 	}
-	
-	  @FXML
-	    void OnGoToPagamentoButtonAction(ActionEvent event)  throws IOException{
-		  setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-		  handleBotaoIrPagamento(event);
-	    }
-	
-	
+
+	@FXML
+	void OnGoToPagamentoButtonAction(ActionEvent event) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+		irParaPagamento(event);
+	}
+
 	@Override
 	public void initialize(URL url, ResourceBundle rb) {
 	}

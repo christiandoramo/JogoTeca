@@ -6,6 +6,7 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class Cadastro {
     private static List<User> users = new ArrayList<>();
     private static File file = new File("users.dat");
@@ -33,6 +34,7 @@ public class Cadastro {
         salvar();
         return true;
     }
+    
 
     public static List<User> listar() {
         return new ArrayList<>(users);

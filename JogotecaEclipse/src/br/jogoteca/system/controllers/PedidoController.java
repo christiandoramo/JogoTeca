@@ -3,12 +3,14 @@ package br.jogoteca.system.controllers;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 import br.jogoteca.system.data.GenericRepository;
 import br.jogoteca.system.data.IGenericRepository;
 import br.jogoteca.system.exceptions.ElementAlreadyExistsException;
 import br.jogoteca.system.exceptions.ElementDoesNotExistException;
 import br.jogoteca.system.exceptions.ElementWithSameNameExistsException;
+import br.jogoteca.system.models.Game;
 import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.Pedido;
 import br.jogoteca.system.models.User;
@@ -87,12 +89,18 @@ public class PedidoController {
 		pedidoRepositorio.delete(pedido);
 		lastId--;
 	}
-	/*
-	 * public void destroyCurrentUserOrder(int id) throws
-	 * ElementDoesNotExistException { Order Order = buscarPeloId(id);
-	 * pedidoRepositorio.delete(pedido); lastId--; }
-	 */
-	
+
+
+    public boolean checaSeUmJogoJaFoiComprado(User user, GameItem novoItem) {
+        List<GameItem> itemsDoUsuario = pedidoRepositorio.read()
+                .stream()
+                .filter(pedido -> pedido.getUser().equals(user))
+                .flatMap(pedido -> pedido.getItens().stream())
+                .collect(Collectors.toList());
+        List<Game> jogosDoUsuario = itemsDoUsuario.stream()
+                .map(item -> item.getGame()).collect(Collectors.toList());
+        return jogosDoUsuario.contains(novoItem);
+    }
 	
 	
 }

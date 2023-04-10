@@ -48,8 +48,9 @@ public class GamesController {
 				imageURL, videoUrl, imagesUrl);
 		gameRepository.insert(novo);
 		lastId++;
+		GameItemControllers gic = GameItemControllers.getInstance();
+		gic.insertGameItem(novo.getPrice(), novo);
 	}
-
 	public Game searchGameById(int id) throws ElementDoesNotExistException {
 		return gameRepository.read().stream().filter(game -> game.getId() == id).findFirst().orElse(null);
 	}

@@ -91,7 +91,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
     		nova.add(data);
     		nova.add(validade);
     		vc.insertVenda(pedidoAtual,nova);
-    		pc.adicionarPedido(vencimentoAtual, itemAtual, usuarioAtual, Metodo.DEBITO);  
+    		pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.DEBITO);  
     	}
     }
     
@@ -109,7 +109,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 		nova.add(data1);
 		nova.add(validade1);
 		vc.insertVenda(pedidoAtual, nova);
-		pc.adicionarPedido(vencimentoAtual, itemAtual, usuarioAtual, Metodo.CREDITO);
+		pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.CREDITO);
     	}	
     }
     
@@ -120,7 +120,7 @@ public class PagamentosViewController extends AcessAreaController implements Ini
 		alert.setContentText("Pagamento confirmado!");
 		Optional<ButtonType> result = alert.showAndWait();
     	vc.insertVenda(pedidoAtual,dadoAtual);
-    	pc.adicionarPedido(vencimentoAtual, itemAtual, usuarioAtual, Metodo.PIX);
+    	pc.adicionarPedido(vencimentoAtual, itensAtuais, usuarioAtual, Metodo.PIX);
     }
     
     public boolean preencheuEntradasInsercao() {

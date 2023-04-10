@@ -8,6 +8,7 @@ import br.jogoteca.system.exceptions.ElementAlreadyExistsException;
 import br.jogoteca.system.exceptions.ElementDoesNotExistException;
 import br.jogoteca.system.exceptions.ElementWithSameCPFExistsException;
 import br.jogoteca.system.exceptions.ElementsDoNotExistException;
+import br.jogoteca.system.models.GameItem;
 import br.jogoteca.system.models.User;
 
 public class UserController {
@@ -31,8 +32,31 @@ public class UserController {
 		}
 		return instance;
 	}
+	  public void adicionarWishlist(User user, GameItem item) throws ElementDoesNotExistException {
+	        user.getWishlist().add(item);
+	        userRepository.update(user);
+	    }
 
 	//
+    public boolean emailJaRegistrado(String email) {
+        return userRepository.read().stream().anyMatch(u -> u.getEmail().equals(email));
+    }
+    public boolean loginJaRegistrado(String login) {
+        return userRepository.read().stream().anyMatch(u -> u.getLogin().equals(login));
+    }
+    public boolean cpfJaRegistrado(String  cpf) {
+        return userRepository.read().stream().anyMatch(u -> u.getCPF().equals(cpf));
+    }
+    public boolean checaLoginESenha2(String login, String senha) throws ElementDoesNotExistException {
+        User user = searchUserByLogin2(login);
+        if (senha.equals(user.getSenha()))
+            return true;
+        return false;
+    }
+    public User searchUserByLogin2(String login) throws ElementDoesNotExistException {
+        return userRepository.read().stream().filter(x -> x.getLogin().equals(login)).findFirst().orElse(null);
+    }
+    
 	public void insertUser2(String cpf, String nome, String endereco, String telefone, String email, String login,
 			String senha) throws ElementAlreadyExistsException, ElementWithSameCPFExistsException {
 		User novo = new User(lastId + 1, cpf, nome, endereco, telefone, email, login, senha, new ArrayList<>());

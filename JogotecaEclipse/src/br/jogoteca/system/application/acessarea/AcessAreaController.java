@@ -9,6 +9,7 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
+import br.jogoteca.system.controllers.GameItemControllers;
 import br.jogoteca.system.controllers.GamesController;
 import br.jogoteca.system.exceptions.ElementDoesNotExistException;
 import br.jogoteca.system.models.Game;
@@ -22,6 +23,7 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.DateCell;
@@ -46,63 +48,105 @@ import javafx.util.converter.IntegerStringConverter;
 public class AcessAreaController {
 private Stage stage;
 
+// FALSO CONTROLADOR DE SESSOES DE USUARIO/////////////////////////////
 protected static User usuarioAtual = null;
-protected static List<GameItem> itemAtual = null;
+protected static List<GameItem> itensAtuais= null;
+protected static GameItem itemAtual= null;
+protected static Game jogoAtual = null;
 protected static Pedido pedidoAtual = null;
 protected static Venda vendaAtual = null;
 protected static LocalDateTime vencimentoAtual = null;
 protected static List<String> dadoAtual = null;
+//FALSO CONTROLADOR DE SESSOES DE USUARIO/////////////////////////////
     
     public void setStage(Stage stage) {
         this.stage = stage;
     }
-    
-    // vai para o cadastro
+
     @FXML
-	protected void handleBotaoCadastro(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
-        Scene scene = new Scene(root);
-        Stage cadastroStage = new Stage();
-        cadastroStage.setScene(scene);
-        cadastroStage.show();
-        stage.close();
+    protected void irParaPagamento(ActionEvent event) throws IOException {
+        irParaTela(event, "Pagamento.fxml");
     }
-    
-    // vai para o login
-    @FXML
-    protected void handleBotaoIrParaLogin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+    protected void irParaTela(ActionEvent event, String nomeArquivoFXML) throws IOException {
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+        Parent root = FXMLLoader.load(getClass().getResource(nomeArquivoFXML));
         Scene scene = new Scene(root);
+        String css = this.getClass().getResource("view.css").toExternalForm();
+        scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
     }
-    // vai para o crud de jogos
+
     @FXML
-    protected void handleBotaoIrParaCRUDJogos(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("CRUDJogos.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    protected void irParaLogin(ActionEvent event) throws IOException {
+        irParaTela(event, "Login.fxml");
     }
-    
-    // vai para o menu admin
+
     @FXML
-    protected void handleBotaoIrMenuAdmin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("MenuAdmin.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    protected void irParaCadastro(ActionEvent event) throws IOException {
+        irParaTela(event, "Cadastro.fxml");
     }
-    
-    // vai para o pagamento
+
     @FXML
-    protected void handleBotaoIrPagamento(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Pagamento.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+    protected void irParaCRUDJogos(ActionEvent event) throws IOException {
+        irParaTela(event, "CRUDJogos.fxml");
     }
-    
+
+    @FXML
+    protected void irParaPedidoPagamento(ActionEvent event) throws IOException {
+        irParaTela(event, "PedidoPagamento.fxml");
+    }
+
+    @FXML
+    protected void irParaMenuAdmin(ActionEvent event) throws IOException {
+        irParaTela(event, "MenuAdmin.fxml");
+    }
+
+    @FXML
+    protected void irParaPerfilDoJogo(ActionEvent event) throws IOException {
+    	
+        irParaTela(event, "PerfilDoJogo.fxml");
+    }
+
+    @FXML
+    protected void irParaFeedUsuario(ActionEvent event) throws IOException {
+        irParaTela(event, "FeedUsuario.fxml");
+    }
+
+    @FXML
+    protected void irParaConsultaUsuarios(ActionEvent event) {
+        /*        irParaTela(event,"ConsultaUsuarios.fxml" );*/
+    }
+
+    @FXML
+    protected void irParaConsultaVendas(ActionEvent event) {
+        /*        irParaTela(event,"ConsultaVendas.fxml" );*/
+    }
+
+    @FXML
+    protected void irParaMeusJogos(ActionEvent event) {
+        /*	        irParaTela(event,"MeusJogos.fxml" );*/
+    }
+
+    @FXML
+    protected void irParaWishlist(ActionEvent event) throws IOException {
+        /*
+                irParaTela(event,"Wishlist.fxml" );
+        */
+    }
+
+    @FXML
+    protected void irParaPerfilDoUsuario(ActionEvent event) throws IOException {
+        /*
+                irParaTela(event,"PerfilDoUsuario.fxml" );
+        */
+    }
+
+    protected void irParaMeusPedidos(ActionEvent event) throws IOException {
+        /*
+                irParaTela(event,"MeusPedidos.fxml" );
+        */
+    }
     
     
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
@@ -159,6 +203,30 @@ protected static List<String> dadoAtual = null;
 					gamesAchados.add(n);
 					mostraGamesAchados(lista, gamesAchados);
 					gamesAchados.forEach(action -> System.out.println(action.getName()));
+					log.setVisible(false);
+				} else
+					throw new ElementDoesNotExistException(n);
+			} catch (Exception e) {
+				log.setText(e.getMessage());
+				log.setVisible(true);
+			}
+		}
+	}
+	
+	public static void searchGameItemByNome(GamesController gc, GameItemControllers gic, TextField campo, ListView<GameItem> lista, Label log) {
+		String nome = campo.getText();
+		List<GameItem> gamesAchados = new ArrayList<>();
+		if (nome != null) {
+			try {
+				GameItem n = gic.searchAllGameItem()
+	                    .stream()
+	                    .filter(x -> x.getGame().getName().equals(nome))
+	                    .findFirst()
+	                    .orElse(null);
+				if (n != null) {
+					gamesAchados.add(n);
+					mostraGamesItensAchados(lista, gamesAchados);
+					gamesAchados.forEach(action -> System.out.println(action.getGame().getName()));
 					log.setVisible(false);
 				} else
 					throw new ElementDoesNotExistException(n);
@@ -229,6 +297,37 @@ protected static List<String> dadoAtual = null;
 		listaUsers.setItems(data);
 	}
 
+	public static void mostraGamesItensAchados(ListView<GameItem> listaJogos, List<GameItem> gamesAchados) {
+		ObservableList<GameItem> data = FXCollections.observableArrayList();
+		data.addAll(gamesAchados);
+
+		listaJogos.setCellFactory(new Callback<ListView<GameItem>, ListCell<GameItem>>() {
+			@Override
+			public ListCell<GameItem> call(ListView<GameItem> param) {
+				ListCell<GameItem> cell = new ListCell<GameItem>() {
+					@Override
+					protected void updateItem(GameItem achado, boolean btl) {
+						super.updateItem(achado, btl);
+						if (achado != null) {
+							File file = new File(achado.getGame().getImageURL());
+							String imagePath = file.toURI().toString();
+							Image img = new Image(imagePath);
+							ImageView imgview = new ImageView(img);
+							imgview.setFitWidth(100);
+							imgview.setFitHeight(100);
+							setGraphic(imgview);
+							String legenda = "Preço: " + achado.getGame().getPrice() + "\nNome: " + achado.getGame().getName();
+							setText(legenda);
+							setTextAlignment(TextAlignment.JUSTIFY);
+
+						}
+					}
+				};
+				return cell;
+			}
+		});
+		listaJogos.setItems(data);
+	}
 	public static void mostraGamesAchados(ListView<Game> listaJogos, List<Game> gamesAchados) {
 		ObservableList<Game> data = FXCollections.observableArrayList();
 		data.addAll(gamesAchados);
@@ -286,6 +385,19 @@ protected static List<String> dadoAtual = null;
 			campoUrl.setText(absolutePath);
 		}
 	}
+    public static void escolherVideo(TextField campoUrl) {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("Abrir Arquivo");
+        Stage stage = (Stage) campoUrl.getScene().getWindow();
+        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
+        fileChooser.getExtensionFilters()
+                .add(new ExtensionFilter("Vídeos", "*.mp4", "*.avi", "*.mov", "*.wmv", "*.flv", "*.mkv"));
+        File selectedFile = fileChooser.showOpenDialog(stage);
+        if (selectedFile != null) {
+            String absolutePath = selectedFile.getAbsolutePath();
+            campoUrl.setText(absolutePath);
+        }
+    }
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
     
     

@@ -3,7 +3,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.TelaDeTestesController">
+<AnchorPane  styleClass="tela"  minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.TelaDeTestesController">
    <children>
       <Button layoutX="234.0" layoutY="33.0" mnemonicParsing="false" onAction="#OnGoToLoginButtonAction" text="Tela de Login" />
       <Button layoutX="225.0" layoutY="87.0" mnemonicParsing="false" onAction="#OnGoToRegisterButtonAction" text="Tela de Cadastro" />

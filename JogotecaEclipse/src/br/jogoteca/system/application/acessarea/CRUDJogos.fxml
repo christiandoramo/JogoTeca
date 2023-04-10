@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.CRUDJogosController">
+<AnchorPane styleClass="tela"  minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.CRUDJogosController">
    <children>
       <Label layoutX="219.0" layoutY="15.0" text="Tela de CRUD de Jogos" textAlignment="CENTER">
          <font>

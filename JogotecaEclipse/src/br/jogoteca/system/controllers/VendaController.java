@@ -48,7 +48,7 @@ public class VendaController {
 
 	    public void updateVenda(Venda venda, LocalDateTime dataNova, List<String> dadosBancarios) throws ElementDoesNotExistException {
 	        if (venda != null) {
-	            if (dataNova != null && !dataNova.equals(""))
+	            if (dataNova != null)
 	                venda.setMomento(dataNova);
 	            if (dadosBancarios != null)
 	                venda.setDadosBancarios(dadosBancarios);

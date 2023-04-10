@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="400.0" minWidth="600.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.MenuAdminController">
+<AnchorPane styleClass="tela" maxHeight="-Infinity" maxWidth="-Infinity"  minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.361" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.MenuAdmin">
    <children>
-      <Label layoutX="237.0" layoutY="42.0" text="Tela Principal do Admin" />
+      <Label layoutX="257.0" layoutY="40.0" text="Menu do Admin" />
+      <Button layoutX="250.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnirParaCRUDJogos" text="Gerenciar Jogos" />
+      <Button layoutX="251.0" layoutY="332.0" mnemonicParsing="false" onAction="#deslogarAdmin" text="Encerrar Sessão" />
+      <Button layoutX="246.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnirParaConsultaVendas" text="Consultar Vendas" />
+      <Button layoutX="243.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnirParaConsultaUsuarios" text="Consultar Usuários" />
    </children>
 </AnchorPane>

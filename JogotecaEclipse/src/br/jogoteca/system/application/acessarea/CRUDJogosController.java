@@ -6,6 +6,7 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import br.jogoteca.system.controllers.GameItemControllers;
 import br.jogoteca.system.controllers.GamesController;
 import br.jogoteca.system.exceptions.ElementWithSameNameExistsException;
 import br.jogoteca.system.exceptions.ElementsDoNotExistException;
@@ -105,9 +106,8 @@ public class CRUDJogosController extends AcessAreaController implements Initiali
 	@FXML
 	protected void voltarParaMenuAdmin(ActionEvent event) throws IOException {
 		limparTelaCRUD();
-		//AcessAreaController.changeScreen(Tela.PRINCIPALADMIN);
-    	setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-    	handleBotaoIrMenuAdmin(event);
+		setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+    	irParaMenuAdmin(event);
 	}
 
 
