@@ -191,7 +191,7 @@ Para o funcionamento do mediaplayer vai precisar também adicionar em library es
 
 ### Tópicos
 
-:o: [Contribuidores](#contribuidores-do-projeto)
+:o: [Contribuidores](#contribuidores)
 
 :o: [Descrição geral](#descrição-geral-pencil)
 
