@@ -1,0 +1,9 @@
+id da Venda: 1
+id do Pedido: 1
+Forma de Pagamento: PIX
+Momento da Compra: 16:49:13 11 abril 2023
+Dados Bancários: Dados Bancários: 
+CPF do Comprador: 12312312311
+Nome do Comprador: josepio
+Valor da Compra: 10,00
+Nome do Jogo: digomo

@@ -12,29 +12,29 @@ import com.example.jogotecaintellij.model.Venda;
 import java.time.LocalDateTime;
 import java.util.List;
 
-public class VendasController {
+public class VendaController {
     private IGenericRepository<Venda> vendasRepository;
-    private int lastId;
 
-    private static VendasController instance;
+    private static VendaController instance;
 
-    private VendasController() {
+    private VendaController() {
         this.vendasRepository = new GenericRepository<>("vendas.dat");
-        lastId = vendasRepository.read().size();
     }
 
-    public static VendasController getInstance() {
+    public static VendaController getInstance() {
         if (instance == null) {
-            instance = new VendasController();
+            instance = new VendaController();
         }
         return instance;
     }
 
     //(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl, StatusJogo status
     public void insertVenda(Pedido pedido, List<String> dadosBancarios) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-        Venda novo = new Venda(lastId + 1, LocalDateTime.now(), pedido, dadosBancarios);
+        Venda novo = new Venda( pedido, dadosBancarios);
         vendasRepository.insert(novo);
-        lastId++;
+    }
+    public void insertVenda(Venda venda) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+        vendasRepository.insert(venda);
     }
 
 
@@ -57,14 +57,10 @@ public class VendasController {
     }
 
     public void updateVendaById(int id, LocalDateTime dataNova, List<String> dadosBancarios) throws ElementDoesNotExistException, ElementWithSameNameExistsException {
-        Venda venda = searchVendaById(id);
-        updateVenda(venda, dataNova, dadosBancarios);
+        updateVenda(searchVendaById(id), dataNova, dadosBancarios);
     }
 
     public void destroyVendaById(int id) throws ElementDoesNotExistException {
-        Venda venda = searchVendaById(id);
-        vendasRepository.delete(venda);
-        lastId--;
-
+        vendasRepository.delete(searchVendaById(id));
     }
 }

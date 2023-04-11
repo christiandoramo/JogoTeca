@@ -1,10 +1,11 @@
 package com.example.jogotecaintellij.view;
 
 import com.example.jogotecaintellij.controller.PedidoController;
-import com.example.jogotecaintellij.controller.UserController;
+import com.example.jogotecaintellij.controller.UsuarioController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -12,13 +13,15 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.Collections;
 import java.util.ResourceBundle;
 
-public class PerfilDoJogo extends AccessAreaController implements Initializable {
+public class PerfilDoJogo extends ViewController implements Initializable {
     @FXML
     private Text descricao;
     @FXML
@@ -38,36 +41,33 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
     @FXML
     private Text publicadora;
     @FXML
-    private Button btnWishList;
+    private Button btnAdicionarWishlist;
 
     Media media;
     MediaPlayer mediaPlayer;
 
-    UserController uc = UserController.getInstance();
+    UsuarioController uc = UsuarioController.getInstance();
     PedidoController pc = PedidoController.getInstance();
 
     @FXML
-    protected void adicionarWishlist(ActionEvent event) {
-        // usar esse itemAtual como estático
+    protected void adicionarAMinhaWishlist(ActionEvent event) {
         try {
-            uc.adicionarWishlist(usuarioAtual, itemAtual);
+            uc.adicionarWishlist(suc.getUsuarioCorrente(), suc.getItemCorrente());
         } catch (Exception e) {
+            e.printStackTrace();
         }
         DesabilitarBotaoWishList();
-        itemAtual = null;
     }
 
     protected void carregarImagem() {
-//        String caminhoDaImagem = itemAtual.getGame().getImageURL();
-        String caminhoDaImagem = getClass().getResource("51EWX7C9B3L.jpg").getPath();
+        String caminhoDaImagem = suc.getItemCorrente().getGame().getImageURL();
         File arquivo = new File(caminhoDaImagem);
         Image imagem = new Image(arquivo.toURI().toString());
         imagemPerfil.setImage(imagem);
     }
 
     public void carregarVideo() {
-//       String caminhoDoVideo = itemAtual.getGame().getVideoUrl();
-        String caminhoDoVideo = getClass().getResource("PsxDigimonWorld2Trailer.mp4").getPath();
+        String caminhoDoVideo = suc.getItemCorrente().getGame().getVideoUrl();
         File arquivo = new File(caminhoDoVideo);
         media = new Media(arquivo.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
@@ -78,28 +78,33 @@ public class PerfilDoJogo extends AccessAreaController implements Initializable 
     }
 
     void DesabilitarBotaoWishList() {
-        if (usuarioAtual != null) {
-            boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(usuarioAtual, itemAtual);
-            boolean jaContemNaWishList = usuarioAtual.getWishlist().contains(itemAtual);
-            btnWishList.setDisable(jaComprado || jaContemNaWishList);
-        }
+        boolean jaComprado;
+        boolean jaContemNaWishList;
+        jaComprado = pc.checaSeUmJogoJaFoiComprado(suc.getUsuarioCorrente(), suc.getItemCorrente());
+        jaContemNaWishList = suc.getUsuarioCorrente().getWishlist().contains(suc.getItemCorrente());
+        btnAdicionarWishlist.setDisable(jaComprado || jaContemNaWishList);
     }
 
     @FXML
     void comprarAgora(ActionEvent event) throws IOException {
+        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         irParaPedidoPagamento(event);
-        //leva o itemAtual até a compra
+        ///////// lista de compra atual é adicionada aqui
+        suc.setItensCorrentes(Collections.singletonList(suc.getItemCorrente()));
+        // lista de um jogo só para comprar
     }
 
     @FXML
     void sairDoPerfilParaMeusJogos(ActionEvent event) throws IOException {
-        itemAtual = null;
+        suc.setItemCorrente(null);
+        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         irParaMeusJogos(event);
     }
 
     @FXML
     void sairDoPerfilParaFeedUsuario(ActionEvent event) throws IOException {
-        itemAtual = null;
+        suc.setItemCorrente(null);
+        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         irParaFeedUsuario(event);
     }
 

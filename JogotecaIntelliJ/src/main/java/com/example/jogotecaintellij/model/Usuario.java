@@ -3,7 +3,7 @@ package com.example.jogotecaintellij.model;
 import java.io.Serializable;
 import java.util.List;
 
-public class User implements Serializable {
+public class Usuario implements Serializable {
 
 	private int id;
 	private String nome;
@@ -16,7 +16,7 @@ public class User implements Serializable {
 	/////////////////////////////////////////////////////////////////////////////////////////////////////
 	private static final long serialVersionUID = 1L;
 	private String cpf;
-	private List<GameItem> wishlist;
+	private List<ItemJogo> wishlist;
 	
 	public String getCPF() {
 		return cpf;
@@ -26,18 +26,17 @@ public class User implements Serializable {
 		this.cpf = cpf;
 	}
 	
-	public List<GameItem> getWishlist() {
+	public List<ItemJogo> getWishlist() {
 		return wishlist;
 	}
 
-	public void setWishlist(List<GameItem> wishlist) {
+	public void setWishlist(List<ItemJogo> wishlist) {
 		this.wishlist = wishlist;
 	}
 
-	public User(int id, String cpf, String nome, String endereco, String telefone, String email, String login,
-			String senha, List<GameItem> wishlist) {
+	public Usuario(String cpf, String nome, String endereco, String telefone, String email, String login,
+				   String senha, List<ItemJogo> wishlist) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.endereco = endereco;
 		this.telefone = telefone;
@@ -49,8 +48,7 @@ public class User implements Serializable {
 	}
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public User(int id, String nome, String endereco, String telefone, String email, String login, String senha) {
-		this.id = id;
+	public Usuario( String nome, String endereco, String telefone, String email, String login, String senha) {
 		this.nome = nome;
 		this.endereco = endereco;
 		this.telefone = telefone;
@@ -89,8 +87,16 @@ public class User implements Serializable {
 
 	@Override
 	public String toString() {
-		return "User [Id = " + id + ", Nome = " + nome + ", Endere�o = " + endereco + ", Telefone = " + telefone
-				+ ", E-mail = " + email + ", Login = " + login + ", Senha = " + senha + "]";
+		return "Usuario{" +
+				"id=" + id +
+				", nome='" + nome + '\'' +
+				", endereco='" + endereco + '\'' +
+				", telefone='" + telefone + '\'' +
+				", email='" + email + '\'' +
+				", login='" + login + '\'' +
+				", senha='" + senha + '\'' +
+				", cpf='" + cpf + '\'' +
+				'}';
 	}
 
 	/////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -110,7 +116,7 @@ public class User implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		Usuario other = (Usuario) obj;
 		if (id != other.id)
 			return false;
 		return true;

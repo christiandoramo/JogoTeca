@@ -6,4 +6,6 @@ module com.example.jogotecaintellij {
 
     opens com.example.jogotecaintellij.view to javafx.fxml;
     exports com.example.jogotecaintellij.view;
+    exports com.example.jogotecaintellij.controller;
+    opens com.example.jogotecaintellij.controller to javafx.fxml;
 }

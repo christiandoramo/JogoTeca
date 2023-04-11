@@ -9,7 +9,7 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" styleClass="tela" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PerfilDoJogo">
    <children>
       <Button layoutX="541.0" layoutY="515.0" mnemonicParsing="false" onAction="#comprarAgora" prefHeight="37.0" prefWidth="228.0" text="Comprar agora" />
-      <Button layoutX="538.0" layoutY="451.0" mnemonicParsing="false" onAction="#adicionarWishlist" prefHeight="41.0" prefWidth="228.0" text="Adicionar à Wishlist" />
+      <Button  fx:id="btnAdicionarWishlist" layoutX="538.0" layoutY="451.0" mnemonicParsing="false" onAction="#adicionarAMinhaWishlist" prefHeight="41.0" prefWidth="228.0" text="Adicionar à Wishlist" />
       <Text fx:id="descricao" layoutX="68.0" layoutY="457.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Descrição: -------------------------------" wrappingWidth="359.06768798828125" />
       <Text fx:id="preco" layoutX="555.0" layoutY="421.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Preço: " wrappingWidth="210.2974853515625" />
       <Text fx:id="genero" layoutX="66.0" layoutY="429.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gênero--------------------------------: " wrappingWidth="354.228515625" />

@@ -3,37 +3,30 @@ package com.example.jogotecaintellij.model;
 import com.example.jogotecaintellij.enums.Metodo;
 import com.example.jogotecaintellij.enums.OrderStatus;
 
+import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
-public class Pedido {
+public class Pedido implements Serializable {
+    private static final long serialVersionUID = 1L;
     private int id;
     private LocalDate vencimento;
-    private User user;
-    private List<GameItem> itens;
+    private Usuario user;
+    private List<ItemJogo> itens;
     private OrderStatus status;
-    private Metodo metodoPagamento;
+    private Metodo metodo;
 
-    public Pedido(int id, LocalDate vencimento, User user, List<GameItem> itens, OrderStatus status, Metodo metodoPagamento) {
-        this.id = id;
+    public Pedido(LocalDate vencimento, Usuario user, List<ItemJogo> itens, OrderStatus status, Metodo metodo) {
         this.vencimento = vencimento;
         this.user = user;
         this.itens = itens;
         this.status = status;
-        this.metodoPagamento = metodoPagamento;
-    }
-
-
-    public Double totalValue() {
-        return itens.stream().mapToDouble(x -> x.getValue()).sum();
+        this.metodo = metodo;
     }
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public LocalDate getVencimento() {
@@ -44,19 +37,15 @@ public class Pedido {
         this.vencimento = vencimento;
     }
 
-    public User getUser() {
+    public Usuario getUser() {
         return user;
     }
 
-    public void setUser(User user) {
-        this.user = user;
-    }
-
-    public List<GameItem> getItens() {
+    public List<ItemJogo> getItens() {
         return itens;
     }
 
-    public void setItens(List<GameItem> itens) {
+    public void setItens(List<ItemJogo> itens) {
         this.itens = itens;
     }
 
@@ -69,13 +58,13 @@ public class Pedido {
         this.status = status;
     }
 
-    public Metodo getMetodoPagamento() {
-        return metodoPagamento;
+    public Metodo getMetodo() {
+        return metodo;
     }
 
 
-    public void setMetodoPagamento(Metodo metodoPagamento) {
-        this.metodoPagamento = metodoPagamento;
+    public void setMetodo(Metodo metodo) {
+        this.metodo = metodo;
     }
 
     @Override
@@ -100,4 +89,13 @@ public class Pedido {
         return true;
     }
 
+    public double totalValue() {
+        if (itens != null)
+            return itens.stream().mapToDouble(ItemJogo::getValue).sum();
+        return 0.0;
+    }
+
+    public void setUser(Usuario user) {
+        this.user = user;
+    }
 }

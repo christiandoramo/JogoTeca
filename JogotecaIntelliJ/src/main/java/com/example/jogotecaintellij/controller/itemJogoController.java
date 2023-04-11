@@ -8,67 +8,69 @@ import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.model.Game;
-import com.example.jogotecaintellij.model.GameItem;
+import com.example.jogotecaintellij.model.ItemJogo;
 
-public class GameItemControllers {
+public class itemJogoController {
 
-	private ArrayList<GameItem> gameItemList;
+	private ArrayList<ItemJogo> gameItemList;
 
-	private static GameItemControllers instance;
+	private static itemJogoController instance;
 
-	public GameItemControllers() {
-		this.gameItemList = new ArrayList<GameItem>();
+	public itemJogoController() {
+		this.gameItemList = new ArrayList<ItemJogo>();
 		//////////////////////////////////////////////////////////////
-		this.gameItemRepository = new GenericRepository<>("gameItems.dat");
-		lastId = gameItemRepository.read().size();
+		this.gameItemRepository = new GenericRepository<>("itemJogos.dat");
 		//////////////////////////////////////////////////////////////
 	}
 
-	public ArrayList<GameItem> showGameItemList() {
+	public ArrayList<ItemJogo> showGameItemList() {
 		return this.gameItemList;
 	}
 
-	public void addGameItem(GameItem gameItem) {
+	public void addGameItem(ItemJogo gameItem) {
 		gameItemList.add(gameItem);
 	}
 
-	public void attGameItem(GameItem gameItem1, GameItem gameItem2) {
+	public void attGameItem(ItemJogo gameItem1, ItemJogo gameItem2) {
 		gameItemList.remove(gameItem1);
 		gameItemList.add(gameItem2);
 	}
 
-	public void removeGameItem(GameItem gameItem) {
+	public void removeGameItem(ItemJogo gameItem) {
 		gameItemList.remove(gameItem);
 	}
 
 	///////////////////////////////////////////////////////////////////////////////////////////////////
-	private int lastId;
-	private GenericRepository<GameItem> gameItemRepository;
+	private GenericRepository<ItemJogo> gameItemRepository;
 
-	public static GameItemControllers getInstance() {
+	public static itemJogoController getInstance() {
 		if (instance == null) {
-			instance = new GameItemControllers();
+			instance = new itemJogoController();
 		}
 		return instance;
 	}
 
 	public void insertGameItem(double value, Game game) throws ElementAlreadyExistsException {
-		GameItem gameItem = new GameItem(lastId + 1, value, game);
+		ItemJogo gameItem = new ItemJogo( value, game);
 		gameItemRepository.insert(gameItem);
-		lastId++;
 	}
 
-	public GameItem searchGameItemById(int id) throws ElementDoesNotExistException {
+	public ItemJogo searchGameItemById(int id) throws ElementDoesNotExistException {
 		return gameItemRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
 	}
 
-	public List<GameItem> searchAllGameItem() throws ElementsDoNotExistException {
+	public List<ItemJogo> searchAllGameItem() throws ElementsDoNotExistException {
 		return gameItemRepository.read();
 	}
 	
 	public void destroyAllGameItem() throws ElementsDoNotExistException, ElementDoesNotExistException {
-		for (GameItem item : gameItemRepository.read())
+		for (ItemJogo item : gameItemRepository.read())
 			gameItemRepository.delete(item);
+	}
+
+	public void destroyGameItemById(int id) throws ElementDoesNotExistException{
+		ItemJogo item = gameItemRepository.read().stream().filter(x->x.getId()==id).findFirst().orElse(null);
+		gameItemRepository.delete(item);
 	}
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 }

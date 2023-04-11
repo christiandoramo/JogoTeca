@@ -104,7 +104,7 @@ public class PedidoController {
                 .collect(Collectors.toList());
         List<Game> jogosDoUsuario = itemsDoUsuario.stream()
                 .map(item -> item.getGame()).collect(Collectors.toList());
-        return jogosDoUsuario.contains(novoItem);
+        return jogosDoUsuario.contains(novoItem.getGame());
     }
 	
 	

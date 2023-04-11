@@ -1,15 +1,15 @@
 package com.example.jogotecaintellij.model;
 
+
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GameItem implements Serializable {
-
+public class ItemJogo implements Serializable {
+	private static final long serialVersionUID = 1L;
 	private int id;
 	private double value;
 	private ArrayList<Game> games;
 	//////////////////////////////////////////////////////////////////////////////////
-	private static final long serialVersionUID = 560634059532769584L;
 	private Game game;
 	public Game getGame() {
 		return game;
@@ -19,9 +19,8 @@ public class GameItem implements Serializable {
 		this.game = game;
 	}
 
-	public GameItem(int id, double value, Game game) {
+	public ItemJogo( double value, Game game) {
 		super();
-		this.id = id;
 		this.value = value;
 		this.game = game;
 	}
@@ -62,7 +61,7 @@ public class GameItem implements Serializable {
 		this.id = id;
 	}
 
-	public GameItem(int id, double value, ArrayList<Game> games) {
+	public ItemJogo(int id, double value, ArrayList<Game> games) {
 		this.id = id;
 		this.value = value;
 		this.games = games;
@@ -84,7 +83,7 @@ public class GameItem implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		GameItem other = (GameItem) obj;
+		ItemJogo other = (ItemJogo) obj;
 		if (id != other.id)
 			return false;
 		return true;

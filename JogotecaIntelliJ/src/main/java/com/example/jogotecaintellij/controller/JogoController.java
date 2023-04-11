@@ -14,20 +14,18 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class GamesController {
+public class JogoController {
     private IGenericRepository<Game> gameRepository;
-    private int lastId;
 
-    private static GamesController instance;
+    private static JogoController instance;
 
-    private GamesController() {
-        this.gameRepository = new GenericRepository<>("games.dat");
-        lastId = gameRepository.read().size();
+    private JogoController() {
+        this.gameRepository = new GenericRepository<>("jogos.dat");
     }
 
-    public static GamesController getInstance() {
+    public static JogoController getInstance() {
         if (instance == null) {
-            instance = new GamesController();
+            instance = new JogoController();
         }
         return instance;
     }
@@ -36,6 +34,7 @@ public class GamesController {
         return gameRepository.read().stream().anyMatch(item -> item.getName().equals(nome));
     }
 
+    //apenas para testes
     public void mostrarGameRepository() {
         if (!gameRepository.read().isEmpty())
             for (Game game : gameRepository.read())
@@ -43,9 +42,10 @@ public class GamesController {
     }
 //(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl, StatusJogo status
     public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-        Game novo = new Game(lastId + 1, name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl, status);
+        Game novo = new Game( name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl, status);
         gameRepository.insert(novo);
-        lastId++;
+        itemJogoController gic = itemJogoController.getInstance();
+        gic.insertGameItem(novo.getPrice(), novo);
     }
 
 
@@ -98,15 +98,10 @@ public class GamesController {
     }
 
     public void destroyGameById(int id) throws ElementDoesNotExistException {
-        Game game = searchGameById(id);
-        gameRepository.delete(game);
-        lastId--;
-
+        gameRepository.delete(searchGameById(id));
     }
 
     public void destroyGameByName(String name) throws ElementDoesNotExistException {
-        Game game = searchGameByName(name);
-        gameRepository.delete(game);
-        lastId--;
+        gameRepository.delete(searchGameByName(name));
     }
 }

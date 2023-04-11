@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane styleClass="tela"  minHeight="442.0" minWidth="434.0" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="br.jogoteca.system.application.acessarea.CadastroViewController">
+	
+	<Label layoutX="264.0" layoutY="27.0" text="Tela de Cadastro" />
+    <Label layoutX="179.0" layoutY="75.0" text="CPF" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="75.0" />
+    <TextField fx:id="cpfTextField" layoutX="240.0" layoutY="71.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="71.0" />
+    <Label fx:id="cpfLabel" layoutX="389.0" layoutY="75.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
+
+    <Label layoutX="168.0" layoutY="117.0" text="Nome" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="117.0" />
+   <Label layoutX="175.0" layoutY="159.0" text="Login" AnchorPane.leftAnchor="173.0" />
+   <Label layoutX="173.0" layoutY="200.0" text="Senha" AnchorPane.leftAnchor="173.0" />
+   <TextField fx:id="senhaTextField" layoutX="240.0" layoutY="196.0" AnchorPane.leftAnchor="240.0" />
+   <TextField fx:id="loginTextField" layoutX="247.0" layoutY="155.0" AnchorPane.leftAnchor="240.0" />
+   <Label fx:id="nomeLabel" layoutX="389.0" layoutY="117.0" prefWidth="200.0" style="-fx-text-fill: red;" />
+    <TextField fx:id="nomeTextField" layoutX="240.0" layoutY="113.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="113.0" />
+
+    <Label layoutX="173.0" layoutY="252.0" text="Email" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="252.0" />
+    <TextField fx:id="emailTextField" layoutX="240.0" layoutY="248.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="248.0" />
+	<Label fx:id="emailLabel" layoutX="389.0" layoutY="252.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
+	
+    <Label layoutX="173.0" layoutY="294.0" text="Telefone" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="294.0" />
+    <TextField fx:id="telefoneTextField" layoutX="240.0" layoutY="290.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="290.0" />
+	
+    <Label layoutX="173.0" layoutY="328.0" text="Endereço" AnchorPane.leftAnchor="173.0" AnchorPane.topAnchor="328.0" />
+    <TextField fx:id="enderecoTextField" layoutX="240.0" layoutY="324.0" AnchorPane.leftAnchor="240.0" AnchorPane.topAnchor="324.0" />
+	
+    <Button fx:id="confirmarButton" layoutX="175.0" layoutY="391.0" onAction="#confirmar" text="Confirmar" AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="175.0" />
+
+    <Button fx:id="voltarButton" layoutX="401.0" layoutY="391.0" onAction="#OnHandleBotaoIrParaOLogin" text="Login" AnchorPane.bottomAnchor="26.0" AnchorPane.rightAnchor="153.0" />
+    
+     <Label fx:id="mensagemLabel" layoutX="200.0" layoutY="366.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" AnchorPane.bottomAnchor="59.0" />
+   <Label fx:id="loginLabel" layoutX="389.0" layoutY="159.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
+   <Label fx:id="senhaLabel" layoutX="389.0" layoutY="200.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
+   <Label fx:id="enderecoLabel" layoutX="400.0" layoutY="328.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
+   <Label fx:id="telefoneLabel" layoutX="400.0" layoutY="294.0" prefWidth="200.0" style="-fx-text-fill: red;" text="" />
+
+</AnchorPane>

@@ -22,8 +22,7 @@ public class Game implements Serializable {
     private String videoUrl;
     private StatusJogo status;
 
-    public Game(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) {
-        this.id = id;
+    public Game( String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.genre = genre;

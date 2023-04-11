@@ -6,12 +6,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
-<AnchorPane maxHeight="600.0" minHeight="600.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.ComprovanteController">
+<AnchorPane maxHeight="600.0" minHeight="600.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.Comprovante">
    <children>
-      <Button layoutX="53.0" layoutY="74.0" mnemonicParsing="false" onAction="#sairParaMeusJogos" prefHeight="49.0" prefWidth="200.0" text="Meus Jogos" />
-      <Button layoutX="54.0" layoutY="189.0" mnemonicParsing="false" onAction="#sairParaMeusPedidos" prefHeight="53.0" prefWidth="200.0" text="Meus Pedidos" />
-      <VBox fx:id="compravanteDeCompra" alignment="TOP_RIGHT" layoutX="362.0" layoutY="35.0" prefHeight="533.0" prefWidth="376.0" styleClass="comprovante">
+      <Button layoutX="54.0" layoutY="329.0" mnemonicParsing="false" onAction="#sairParaMeusJogos" prefHeight="49.0" prefWidth="200.0" text="Meus Jogos" />
+      <Button layoutX="54.0" layoutY="403.0" mnemonicParsing="false" onAction="#sairParaMeusPedidos" prefHeight="53.0" prefWidth="200.0" text="Meus Pedidos" />
+      <VBox fx:id="comprovanteDeCompra" alignment="TOP_RIGHT" layoutX="362.0" layoutY="35.0" prefHeight="533.0" prefWidth="376.0" styleClass="comprovante">
          <children>
             <Text fx:id="idVenda" strokeType="OUTSIDE" strokeWidth="0.0" text="idVenda" textAlignment="RIGHT" wrappingWidth="94.77273559570312">
                <VBox.margin>
@@ -61,5 +60,6 @@
          </children>
       </VBox>
       <Button layoutX="51.0" layoutY="507.0" mnemonicParsing="false" onAction="#imprimirComprovante" prefHeight="36.0" prefWidth="194.0" text="Imprimir Comprovante" />
+      <Button layoutX="54.0" layoutY="21.0" mnemonicParsing="false" onAction="#sairParaPerfilDoJogo" prefHeight="53.0" prefWidth="200.0" text="Voltar ao Perfil do Jogo" />
    </children>
 </AnchorPane>

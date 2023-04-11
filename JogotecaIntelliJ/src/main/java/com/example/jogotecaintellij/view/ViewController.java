@@ -1,6 +1,7 @@
 package com.example.jogotecaintellij.view;
 
-import com.example.jogotecaintellij.controller.GamesController;
+import com.example.jogotecaintellij.controller.JogoController;
+import com.example.jogotecaintellij.controller.SessaoUsuarioController;
 import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.model.*;
@@ -31,47 +32,25 @@ import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
 
-public class AccessAreaController {
+public class ViewController {
     private Stage stage;
-    protected static User usuarioAtual = null;
-    protected static GameItem itemAtual = null;
-    protected static Game jogoAtual = null;
-    protected static Pedido pedidoAtual = null;
-    protected static Venda vendaAtual = null;
+    protected static SessaoUsuarioController suc;
+    // GERENCIADOR DE SESSOES DE USUARIOS
 
     public void setStage(Stage stage) {
         this.stage = stage;
     }
 
-    // vai para o cadastro
     @FXML
-    protected void handleBotaoCadastro(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("view.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        Stage cadastroStage = new Stage();
-        cadastroStage.setScene(scene);
-        cadastroStage.show();
-        stage.close();
-    }
-
-    // vai para o login
-    @FXML
-    protected void handleBotaoIrParaLogin(ActionEvent event) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("view.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
+    protected void irParaPagamento(ActionEvent event) throws IOException {
+        irParaTela(event, "Pagamento.fxml");
     }
 
     protected void irParaTela(ActionEvent event, String nomeArquivoFXML) throws IOException {
         setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         Parent root = FXMLLoader.load(getClass().getResource(nomeArquivoFXML));
         Scene scene = new Scene(root);
-        String css = this.getClass().getResource("view.css").toExternalForm();
+        String css = this.getClass().getResource("estilos/view.css").toExternalForm();
         scene.getStylesheets().add(css);
         stage.setScene(scene);
         stage.show();
@@ -94,7 +73,7 @@ public class AccessAreaController {
 
     @FXML
     protected void irParaPedidoPagamento(ActionEvent event) throws IOException {
-        irParaTela(event, "PedidoPagamento.fxml");
+        irParaTela(event, "Pagamento.fxml");
     }
 
     @FXML
@@ -147,6 +126,10 @@ public class AccessAreaController {
         */
     }
 
+    protected void irParaComprovante(ActionEvent event) throws IOException {
+        irParaTela(event, "Comprovante.fxml");
+    }
+
 
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
 
@@ -192,7 +175,7 @@ public class AccessAreaController {
         }
     }
 
-    public static void searchGameByNome(GamesController gc, TextField campo, ListView<Game> lista, Label log) {
+    public static void searchGameByNome(JogoController gc, TextField campo, ListView<Game> lista, Label log) {
         String nome = campo.getText();
         List<Game> gamesAchados = new ArrayList<>();
         if (nome != null) {
@@ -212,7 +195,8 @@ public class AccessAreaController {
         }
     }
 
-    public static void searchGameById(GamesController gc, TextField campo, ListView<Game> lista, Label log) {
+
+    public static void searchGameById(JogoController gc, TextField campo, ListView<Game> lista, Label log) {
         int id = Integer.parseInt(campo.getText());
         List<Game> gamesAchados = new ArrayList<>();
         if (id > 0) {
@@ -234,21 +218,21 @@ public class AccessAreaController {
         }
     }
 
-    public static void mostraUsuariosAchados(ListView<User> listaUsers, List<User> usersAchados) {
-        ObservableList<User> data = FXCollections.observableArrayList();
+    public static void mostraUsuariosAchados(ListView<Usuario> listaUsers, List<Usuario> usersAchados) {
+        ObservableList<Usuario> data = FXCollections.observableArrayList();
         data.addAll(usersAchados);
 
-        listaUsers.setCellFactory(new Callback<ListView<User>, ListCell<User>>() {
+        listaUsers.setCellFactory(new Callback<ListView<Usuario>, ListCell<Usuario>>() {
             @Override
-            public ListCell<User> call(ListView<User> param) {
-                ListCell<User> cell = new ListCell<User>() {
+            public ListCell<Usuario> call(ListView<Usuario> param) {
+                ListCell<Usuario> cell = new ListCell<Usuario>() {
                     @Override
-                    protected void updateItem(User achado, boolean btl) {
+                    protected void updateItem(Usuario achado, boolean btl) {
                         super.updateItem(achado, btl);
                         if (achado != null) {
                             File file = new File(
-                                    "C:\\Users\\chris\\Desktop\\repo\\Projeto-IP2\\Vers�o Atual\\src\\br\\jogoteca\\system\\data\\images\\51EWX7C9B3L.jpg");// perfis
-                            // n�o
+                                    "C:\\Users\\chris\\Desktop\\repo\\Projeto-IP2\\Versão Atual\\src\\br\\jogoteca\\system\\data\\images\\51EWX7C9B3L.jpg");// perfis
+                            // não
                             // possuem
                             // //
                             // imagem
@@ -271,6 +255,7 @@ public class AccessAreaController {
         });
         listaUsers.setItems(data);
     }
+
 
     public static void mostraGamesAchados(ListView<Game> listaJogos, List<Game> gamesAchados) {
         ObservableList<Game> data = FXCollections.observableArrayList();
@@ -343,9 +328,5 @@ public class AccessAreaController {
             campoUrl.setText(absolutePath);
         }
     }
-
     ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
-    // PERFIL DO JOGO
-
 }
-

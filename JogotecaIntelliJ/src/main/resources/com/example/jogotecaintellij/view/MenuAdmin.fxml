@@ -8,7 +8,7 @@
    <children>
       <Label layoutX="257.0" layoutY="40.0" text="Menu do Admin" />
       <Button layoutX="250.0" layoutY="141.0" mnemonicParsing="false" onAction="#btnirParaCRUDJogos" text="Gerenciar Jogos" />
-      <Button layoutX="251.0" layoutY="332.0" mnemonicParsing="false" onAction="#btnirParaLogin" text="Encerrar Sessão" />
+      <Button layoutX="251.0" layoutY="332.0" mnemonicParsing="false" onAction="#deslogarAdmin" text="Encerrar Sessão" />
       <Button layoutX="246.0" layoutY="97.0" mnemonicParsing="false" onAction="#btnirParaConsultaVendas" text="Consultar Vendas" />
       <Button layoutX="243.0" layoutY="200.0" mnemonicParsing="false" onAction="#btnirParaConsultaUsuarios" text="Consultar Usuários" />
    </children>

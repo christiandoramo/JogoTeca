@@ -5,30 +5,29 @@ import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameCPFExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
-import com.example.jogotecaintellij.model.GameItem;
-import com.example.jogotecaintellij.model.User;
+import com.example.jogotecaintellij.model.ItemJogo;
+import com.example.jogotecaintellij.model.Usuario;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class UserController {
+public class UsuarioController {
 
-    private ArrayList<User> users;
+    private ArrayList<Usuario> users;
 
     //////////////////////////////////////////////////////////////////////////////////////////////////////////////
     // Para leitura e gera��o de arquivos
-    private GenericRepository<User> userRepository;
-    private static UserController instance;
-    private int lastId;
+    private GenericRepository<Usuario> userRepository;
+    private static UsuarioController instance;
     //
 
-    // private UserController() {
-    // this.userRepository = new GenericRepository<>("users.dat");
-    // }
-    //
-    public static UserController getInstance() {
+     private UsuarioController() {
+         this.userRepository = new GenericRepository<>("users.dat");
+     }
+
+    public static UsuarioController getInstance() {
         if (instance == null) {
-            instance = new UserController();
+            instance = new UsuarioController();
         }
         return instance;
     }
@@ -36,75 +35,79 @@ public class UserController {
     //
     public void insertUser2(String cpf, String nome, String endereco, String telefone, String email, String login,
                             String senha) throws ElementAlreadyExistsException, ElementWithSameCPFExistsException {
-        User novo = new User(lastId + 1, cpf, nome, endereco, telefone, email, login, senha, new ArrayList<>());
+        Usuario novo = new Usuario( cpf, nome, endereco, telefone, email, login, senha, new ArrayList<>());
         userRepository.insert(novo);
-        lastId++;
     }
 
     public boolean contemCPF2(String cpf) {
         return userRepository.read().stream().anyMatch(item -> item.getCPF().equals(cpf));
     }
 
-    public User searchUserById2(int id) throws ElementDoesNotExistException {
+    public Usuario searchUserById2(int id) throws ElementDoesNotExistException {
         return userRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
     }
 
-    public User searchUserByCPF2(String cpf) throws ElementDoesNotExistException {
+    public Usuario searchUserByCPF2(String cpf) throws ElementDoesNotExistException {
         return userRepository.read().stream().filter(x -> x.getCPF().equals(cpf)).findFirst().orElse(null);
     }
 
-    public User searchUserByLogin2(String login) throws ElementDoesNotExistException {
+    public Usuario searchUserByLogin2(String login) throws ElementDoesNotExistException {
         return userRepository.read().stream().filter(x -> x.getLogin().equals(login)).findFirst().orElse(null);
     }
 
-    public User searchUserByName2(String nome) throws ElementDoesNotExistException {
+    public Usuario searchUserByName2(String nome) throws ElementDoesNotExistException {
         return userRepository.read().stream().filter(x -> x.getNome().equals(nome)).findFirst().orElse(null);
     }
 
-    public List<User> searchAllUsers2() throws ElementsDoNotExistException {
+    public List<Usuario> searchAllUsers2() throws ElementsDoNotExistException {
         return userRepository.read();
     }
 
-    public void adicionarWishlist(User user, GameItem item) throws ElementDoesNotExistException {
+    public void adicionarWishlist(Usuario user, ItemJogo item) throws ElementDoesNotExistException {
         user.getWishlist().add(item);
         userRepository.update(user);
     }
 
-    public void removerDaWishlist(User user, GameItem item) throws ElementDoesNotExistException {
+    public void removerDaWishlist(Usuario user, ItemJogo item) {
+        user.getWishlist().removeIf(x -> x.equals(item));
     }
 
-    public void limparWishlist(User user) throws ElementDoesNotExistException {
+
+    public void limparWishlist(Usuario user) throws ElementDoesNotExistException {
+        user.setWishlist(new ArrayList<>());
+    }
+    public boolean emailJaRegistrado(String email) {
+        return userRepository.read().stream().anyMatch(u -> u.getEmail().equals(email));
+    }
+    public boolean loginJaRegistrado(String login) {
+        return userRepository.read().stream().anyMatch(u -> u.getLogin().equals(login));
+    }
+    public boolean cpfJaRegistrado(String  cpf) {
+        return userRepository.read().stream().anyMatch(u -> u.getCPF().equals(cpf));
     }
 
     public boolean checaLoginESenha2(String login, String senha) throws ElementDoesNotExistException {
-        User user = searchUserByLogin2(login);
-        if (senha.equals(user.getSenha()))
-            return true;
-        return false;
+        Usuario user = searchUserByLogin2(login);
+        return senha.equals(user.getSenha());
     }
 
     public void destroyUserById2(int id) throws ElementDoesNotExistException {
-        User user = searchUserById2(id);
+        Usuario user = searchUserById2(id);
         userRepository.delete(user);
-        lastId--;
     }
     //
     //////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-    public UserController() {
-        this.users = new ArrayList<User>();
-        //
-        this.userRepository = new GenericRepository<>("users.dat");
-        lastId = userRepository.read().size();
-        //
-    }
+//    public UserController() {
+//        this.users = new ArrayList<User>();
+//    }
 
-    public void insertUser(User user) {
+    public void insertUser(Usuario user) {
         this.users.add(user);
     }
 
-    public User searchUserById(int id) {
-        for (User user : this.users) {
+    public Usuario searchUserById(int id) {
+        for (Usuario user : this.users) {
             if (user.getId() == id) {
                 return user;
             }
@@ -112,7 +115,7 @@ public class UserController {
         return null;
     }
 
-    public void updateUserById(int id, User updatedUser) {
+    public void updateUserById(int id, Usuario updatedUser) {
         for (int i = 0; i < this.users.size(); i++) {
             if (this.users.get(i).getId() == id) {
                 this.users.set(i, updatedUser);
@@ -128,7 +131,7 @@ public class UserController {
         }
     }
 
-    public ArrayList<User> getAllUsers() {
+    public ArrayList<Usuario> getAllUsers() {
         return this.users;
     }
 }
