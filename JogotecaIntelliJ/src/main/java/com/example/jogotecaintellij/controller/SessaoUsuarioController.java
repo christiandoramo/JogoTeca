@@ -2,11 +2,13 @@ package com.example.jogotecaintellij.controller;
 
 import com.example.jogotecaintellij.data.GenericRepository;
 import com.example.jogotecaintellij.data.IGenericRepository;
-import com.example.jogotecaintellij.exception.*;
+import com.example.jogotecaintellij.exception.CredenciaisIncorretasException;
+import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class SessaoUsuarioController {
     private IGenericRepository<SessaoUsuario> sessaoRepository;
@@ -141,13 +143,31 @@ public class SessaoUsuarioController {
         return usuarioLogado();
     }
 
+    public List<Pedido> buscarListaPedidosUsuarioAtual() throws ElementsDoNotExistException {
+        // função usada em meus pedidos
+        PedidoController pc = PedidoController.getInstance();
+        return pc.buscarTodos().stream().filter(x -> x.getUser().equals(usuarioCorrente)).collect(Collectors.toList());
+    }
+
+    public List<ItemJogo> buscarListaItensJogosCompradosUsuarioAtual() throws ElementsDoNotExistException {
+        // função usada em meus jogos
+        VendaController vc = VendaController.getInstance();
+        List<Venda> compras = vc.buscarListaDeComprasDoUsuario(usuarioCorrente);
+        return compras
+                .stream()
+                .filter(compra -> compra.getPedido().getUser().equals(usuarioCorrente))
+                .flatMap(x -> x.getPedido().getItens().stream())
+                .collect(Collectors.toList());
+        // retorna uma lista List<ItemJogo> e não uma lista List<List<ItemJogo>>
+    }
+
     public void deslogarUsuario() {
         // setar data do log e gerar o arquivo da sessao
         // como no codigo de imprimir o comprovante
-        try{
+        try {
             sessao.setLogoff();
             sessaoRepository.update(sessao);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
         sessao = null;

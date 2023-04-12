@@ -7,10 +7,12 @@ import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.Pedido;
+import com.example.jogotecaintellij.model.Usuario;
 import com.example.jogotecaintellij.model.Venda;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class VendaController {
     private IGenericRepository<Venda> vendasRepository;
@@ -44,6 +46,9 @@ public class VendaController {
 
     public List<Venda> searchAllVendas() throws ElementsDoNotExistException {
         return vendasRepository.read();
+    }
+    public List<Venda> buscarListaDeComprasDoUsuario(Usuario usuario) throws ElementsDoNotExistException {
+        return searchAllVendas().stream().filter(x -> x.getPedido().getUser().equals(usuario)).collect(Collectors.toList());
     }
 
     public void updateVenda(Venda venda, LocalDateTime dataNova, List<String> dadosBancarios) throws ElementDoesNotExistException {

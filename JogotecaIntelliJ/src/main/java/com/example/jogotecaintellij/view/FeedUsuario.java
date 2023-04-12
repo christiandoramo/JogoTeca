@@ -1,12 +1,11 @@
 package com.example.jogotecaintellij.view;
 
-import com.example.jogotecaintellij.controller.itemJogoController;
+import com.example.jogotecaintellij.controller.ItemJogoController;
 import com.example.jogotecaintellij.controller.JogoController;
 import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.ItemJogo;
-import com.example.jogotecaintellij.model.SessaoUsuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -40,57 +39,6 @@ public class FeedUsuario extends ViewController implements Initializable {
     @FXML
     protected ListView<ItemJogo> listaDeJogos;
 
-    protected void mostraGamesItensAchados(ListView<ItemJogo> listaJogos, List<ItemJogo> gamesAchados) {
-        ObservableList<ItemJogo> data = FXCollections.observableArrayList();
-        data.addAll(gamesAchados);
-
-        listaJogos.setCellFactory(new Callback<ListView<ItemJogo>, ListCell<ItemJogo>>() {
-            @Override
-            public ListCell<ItemJogo> call(ListView<ItemJogo> param) {
-                ListCell<ItemJogo> cell = new ListCell<ItemJogo>() {
-                    @Override
-                    protected void updateItem(ItemJogo achado, boolean btl) {
-                        super.updateItem(achado, btl);
-                        if (achado != null) {
-                            File file = new File(achado.getGame().getImageURL());
-                            String imagePath = file.toURI().toString();
-                            Image img = new Image(imagePath);
-                            ImageView imgview = new ImageView(img);
-                            imgview.setFitWidth(100);
-                            imgview.setFitHeight(100);
-                            String legenda = "Preço: " + achado.getGame().getPrice() + "\nNome: " + achado.getGame().getName();
-                            setText(legenda);
-                            setTextAlignment(TextAlignment.JUSTIFY);
-
-                            Button button = new Button("Ver Jogo");
-                            button.setOnAction(event -> {
-                                try {
-                                    suc.setItemCorrente(achado);
-                                    irAoPerfilDoJogoSelecionado(event);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
-                                }
-                            });
-                            HBox hbox = new HBox();
-                            hbox.setAlignment(Pos.CENTER_LEFT);
-                            hbox.getChildren().add(imgview);
-                            hbox.getChildren().add(button);
-                            setGraphic(hbox);
-                        }
-                    }
-                };
-                return cell;
-            }
-        });
-        listaJogos.setItems(data);
-    }
-
-    @FXML
-    void irAoPerfilDoJogoSelecionado(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        irParaPerfilDoJogo(event);
-    }
-
     @FXML
     void deslogar(ActionEvent event) throws IOException {
         setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
@@ -112,11 +60,11 @@ public class FeedUsuario extends ViewController implements Initializable {
 
     @FXML
     protected void listarTodos() {
-        itemJogoController gic = itemJogoController.getInstance();
+        ItemJogoController gic = ItemJogoController.getInstance();
         try {
             List<ItemJogo> allGameItem = gic.searchAllGameItem();
             if (!allGameItem.isEmpty()) {
-                mostraGamesItensAchados(listaDeJogos, allGameItem);
+                mostraGamesItensAchados(listaDeJogos, allGameItem, true, false);
                 readLog.setVisible(false);
             } else
                 throw new ElementsDoNotExistException(allGameItem);
@@ -133,7 +81,7 @@ public class FeedUsuario extends ViewController implements Initializable {
     @FXML
     protected void buscarPorGenero() {
         Genre genero = (Genre) campoBuscarGenero.getUserData();
-        itemJogoController gic = itemJogoController.getInstance();
+        ItemJogoController gic = ItemJogoController.getInstance();
         try {
             List<ItemJogo> gamesAchados = gic.searchAllGameItem().stream()
                     .filter(x -> x.getGame().getGenre() == genero).collect(Collectors.toList());
@@ -141,7 +89,7 @@ public class FeedUsuario extends ViewController implements Initializable {
                 // Comparator<GameItem> nameComparator =
                 // Comparator.comparing(GameItem::getGame);
                 // gamesAchados.sort(nameComparator);
-                this.mostraGamesItensAchados(listaDeJogos, gamesAchados);
+                mostraGamesItensAchados(listaDeJogos, gamesAchados, true,false);
                 readLog.setVisible(false);
             } else
                 throw new ElementsDoNotExistException(gamesAchados);
@@ -155,7 +103,7 @@ public class FeedUsuario extends ViewController implements Initializable {
         }
     }
 
-    protected void searchGameItemByNome(JogoController gc, itemJogoController gic, TextField campo, ListView<ItemJogo> lista, Label log) {
+    protected void searchGameItemByNome(JogoController gc, ItemJogoController gic, TextField campo, ListView<ItemJogo> lista, Label log) {
         String nome = campo.getText();
         List<ItemJogo> gamesAchados = new ArrayList<>();
         if (nome != null) {
@@ -167,7 +115,7 @@ public class FeedUsuario extends ViewController implements Initializable {
                         .orElse(null);
                 if (n != null) {
                     gamesAchados.add(n);
-                    this.mostraGamesItensAchados(lista, gamesAchados);
+                    this.mostraGamesItensAchados(lista, gamesAchados, true,false);
                     gamesAchados.forEach(action -> System.out.println(action.getGame().getName()));
                     log.setVisible(false);
                 } else
@@ -181,14 +129,13 @@ public class FeedUsuario extends ViewController implements Initializable {
 
     @FXML
     protected void buscarPorNome() {
-        itemJogoController gic = itemJogoController.getInstance();
+        ItemJogoController gic = ItemJogoController.getInstance();
         JogoController gc = JogoController.getInstance();
         this.searchGameItemByNome(gc, gic, campoBuscarNome, listaDeJogos, readLog);
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        ViewController AcessAreaController;
         preencheMenuGeneros(campoBuscarGenero);
         listarTodos();
     }

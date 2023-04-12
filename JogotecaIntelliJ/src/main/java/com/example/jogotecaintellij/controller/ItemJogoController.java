@@ -10,13 +10,13 @@ import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.model.Game;
 import com.example.jogotecaintellij.model.ItemJogo;
 
-public class itemJogoController {
+public class ItemJogoController {
 
 	private ArrayList<ItemJogo> gameItemList;
 
-	private static itemJogoController instance;
+	private static ItemJogoController instance;
 
-	public itemJogoController() {
+	public ItemJogoController() {
 		this.gameItemList = new ArrayList<ItemJogo>();
 		//////////////////////////////////////////////////////////////
 		this.gameItemRepository = new GenericRepository<>("itemJogos.dat");
@@ -43,9 +43,9 @@ public class itemJogoController {
 	///////////////////////////////////////////////////////////////////////////////////////////////////
 	private GenericRepository<ItemJogo> gameItemRepository;
 
-	public static itemJogoController getInstance() {
+	public static ItemJogoController getInstance() {
 		if (instance == null) {
-			instance = new itemJogoController();
+			instance = new ItemJogoController();
 		}
 		return instance;
 	}

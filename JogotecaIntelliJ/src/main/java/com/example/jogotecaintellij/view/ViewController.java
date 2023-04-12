@@ -4,18 +4,22 @@ import com.example.jogotecaintellij.controller.JogoController;
 import com.example.jogotecaintellij.controller.SessaoUsuarioController;
 import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
-import com.example.jogotecaintellij.model.*;
+import com.example.jogotecaintellij.model.Game;
+import com.example.jogotecaintellij.model.ItemJogo;
+import com.example.jogotecaintellij.model.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
@@ -102,15 +106,13 @@ public class ViewController {
     }
 
     @FXML
-    protected void irParaMeusJogos(ActionEvent event) {
-        /*	        irParaTela(event,"MeusJogos.fxml" );*/
+    protected void irParaMeusJogos(ActionEvent event) throws IOException {
+        irParaTela(event, "MeusJogos.fxml");
     }
 
     @FXML
     protected void irParaWishlist(ActionEvent event) throws IOException {
-        /*
-                irParaTela(event,"Wishlist.fxml" );
-        */
+        irParaTela(event, "Wishlist.fxml");
     }
 
     @FXML
@@ -121,9 +123,7 @@ public class ViewController {
     }
 
     protected void irParaMeusPedidos(ActionEvent event) throws IOException {
-        /*
-                irParaTela(event,"MeusPedidos.fxml" );
-        */
+        irParaTela(event, "MeusPedidos.fxml");
     }
 
     protected void irParaComprovante(ActionEvent event) throws IOException {
@@ -289,6 +289,61 @@ public class ViewController {
         listaJogos.setItems(data);
     }
 
+    protected void mostraGamesItensAchados(ListView<ItemJogo> listaJogos, List<ItemJogo> gamesAchados, boolean mostrarPreco, boolean mostrarPlay) {
+        // public por vai usar uma função local em uma não subclasse
+        ObservableList<ItemJogo> data = FXCollections.observableArrayList();
+        data.addAll(gamesAchados);
+
+        listaJogos.setCellFactory(new Callback<ListView<ItemJogo>, ListCell<ItemJogo>>() {
+            @Override
+            public ListCell<ItemJogo> call(ListView<ItemJogo> param) {
+                ListCell<ItemJogo> cell = new ListCell<ItemJogo>() {
+                    @Override
+                    protected void updateItem(ItemJogo achado, boolean btl) {
+                        super.updateItem(achado, btl);
+                        if (achado != null) {
+                            File file = new File(achado.getGame().getImageURL());
+                            String imagePath = file.toURI().toString();
+                            Image img = new Image(imagePath);
+                            ImageView imgview = new ImageView(img);
+                            imgview.setFitWidth(100);
+                            imgview.setFitHeight(100);
+                            String legenda = "";
+                            if (mostrarPreco)
+                                legenda = legenda.concat("Preço: " + achado.getGame().getPrice() + "\n");
+                            legenda = legenda.concat("Nome: " + achado.getGame().getName() + "\n");
+                            legenda = legenda.concat("Gênero: " + achado.getGame().getGenre().name().toLowerCase());
+                            setText(legenda);
+                            setTextAlignment(TextAlignment.LEFT);
+
+                            Button btnVerJogo = new Button("Ver Jogo");
+                            btnVerJogo.setOnAction(event -> {
+                                try {
+                                    suc.setItemCorrente(achado);
+                                    irParaPerfilDoJogo(event);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
+                            });
+                            HBox hbox = new HBox();
+                            hbox.setAlignment(Pos.CENTER_LEFT);
+                            hbox.getChildren().add(imgview);
+                            hbox.getChildren().add(btnVerJogo);
+                            if (mostrarPlay) {
+                                Button btnJogarAgora = new Button("Jogar Agora");
+                                // com mais tempo poderia haver a função de abrir o jogo
+                                hbox.getChildren().add(btnJogarAgora);
+                            }
+                            setGraphic(hbox);
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+        listaJogos.setItems(data);
+    }
+
     public static void desabilitarDatasFuturas(DatePicker dp) {
         dp.setDayCellFactory(picker -> new DateCell() {
             @Override
@@ -328,5 +383,4 @@ public class ViewController {
             campoUrl.setText(absolutePath);
         }
     }
-    ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
 }

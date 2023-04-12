@@ -44,7 +44,7 @@ public class JogoController {
     public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
         Game novo = new Game( name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl, status);
         gameRepository.insert(novo);
-        itemJogoController gic = itemJogoController.getInstance();
+        ItemJogoController gic = ItemJogoController.getInstance();
         gic.insertGameItem(novo.getPrice(), novo);
     }
 

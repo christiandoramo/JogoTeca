@@ -50,16 +50,11 @@ public class PedidoController {
         return pedidoRepositorio.read();
     }
 
+    public List<Pedido> buscarListaPedidosDoUsuario(Usuario usuario) throws ElementsDoNotExistException {
+        return buscarTodos().stream().filter(x -> x.getUser().equals(usuario)).collect(Collectors.toList());
+    }
     public Pedido buscarPeloId(int id) throws ElementDoesNotExistException {
         return pedidoRepositorio.read().stream().filter(pedido -> pedido.getId() == id).findFirst().orElse(null);
-    }
-
-    public Pedido buscarPelouser(Usuario user) throws ElementDoesNotExistException {
-        return pedidoRepositorio.read().stream().filter(pedido -> pedido.getUser().equals(user)).findFirst().orElse(null);
-    }
-
-    public Pedido buscarPeloGameItem(List<ItemJogo> itens) throws ElementDoesNotExistException {
-        return pedidoRepositorio.read().stream().filter(pedido -> pedido.getItens().equals(itens)).findFirst().orElse(null);
     }
 
     public void removerPedidoId(int id) throws ElementDoesNotExistException {

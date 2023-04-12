@@ -12,14 +12,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane  maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PedidoPagamento">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PedidoPagamento">
    <children>
-      <Label layoutX="215.0" layoutY="28.0" text="Tela de pagamento">
+      <Label layoutX="308.0" layoutY="18.0" text="Efetuar pagamento">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuPagamento" layoutX="160.0" layoutY="75.0" mnemonicParsing="false" text="Selecione uma forma de pagamento">
+      <MenuButton fx:id="menuPagamento" layoutX="255.0" layoutY="139.0" mnemonicParsing="false" text="Selecione uma forma de pagamento">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesDebito" text="Cartão de débito" />
           <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesCredito" text="Cartão de crédito" />
@@ -29,17 +29,12 @@
             <Font size="15.0" />
          </font>
       </MenuButton>
-      <Button layoutX="14.0" layoutY="29.0" mnemonicParsing="false" onAction="#butaoVolta" text="Tela wishlist">
+      <Button fx:id="btnwishlist" layoutX="639.0" layoutY="46.0" mnemonicParsing="false" onAction="#btnIrParaWishlist" text="voltar a Wishlist">
          <font>
             <Font size="13.0" />
          </font>
       </Button>
-      <Button layoutX="460.0" layoutY="357.0" mnemonicParsing="false" onAction="#butaoMudaTela" text="ir para nota fiscal">
-         <font>
-            <Font size="13.0" />
-         </font>
-      </Button>
-      <AnchorPane fx:id="telaDebito" layoutY="120.0" prefHeight="222.0" prefWidth="600.0" visible="false">
+      <AnchorPane fx:id="telaDebito" layoutX="95.0" layoutY="197.0" prefHeight="243.0" prefWidth="609.0">
          <children>
             <Text layoutX="192.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informações do cartão de débito">
                <font>
@@ -120,6 +115,6 @@
             <Button layoutX="58.0" layoutY="108.0" mnemonicParsing="false" onAction="#butaoPagamento3" text="Confirmar o pagamento" />
          </children>
       </AnchorPane>
-      <Button layoutX="14.0" layoutY="63.0" mnemonicParsing="false" onAction="#butaoVolta2" text="Tela de perfil do jogo" />
+      <Button fx:id="btnperfil" layoutX="43.0" layoutY="47.0" mnemonicParsing="false" onAction="#btnIrParaPerfilDoJogo" text="voltar ao Perfil do Jogo" />
    </children>
 </AnchorPane>

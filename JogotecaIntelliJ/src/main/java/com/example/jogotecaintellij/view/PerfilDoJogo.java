@@ -87,7 +87,6 @@ public class PerfilDoJogo extends ViewController implements Initializable {
 
     @FXML
     void comprarAgora(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         irParaPedidoPagamento(event);
         ///////// lista de compra atual é adicionada aqui
         suc.setItensCorrentes(Collections.singletonList(suc.getItemCorrente()));
@@ -97,14 +96,12 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     @FXML
     void sairDoPerfilParaMeusJogos(ActionEvent event) throws IOException {
         suc.setItemCorrente(null);
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         irParaMeusJogos(event);
     }
 
     @FXML
     void sairDoPerfilParaFeedUsuario(ActionEvent event) throws IOException {
         suc.setItemCorrente(null);
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         irParaFeedUsuario(event);
     }
 
