@@ -66,22 +66,22 @@ public class Comprovante extends ViewController implements Initializable {
 
     @FXML
     void sairParaMeusJogos(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         irParaMeusJogos(event);
         suc.setItemCorrente(null);
+        suc.setItensCorrentes(null);
     }
 
     @FXML
     void sairParaMeusPedidos(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
         irParaMeusPedidos(event);
         suc.setItemCorrente(null);
+        suc.setItensCorrentes(null);
     }
 
     @FXML
     void sairParaPerfilDoJogo(ActionEvent event) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        sairParaPerfilDoJogo(event);
+        irParaPerfilDoJogo(event);
+        suc.setItensCorrentes(null);
     }
 
     void carregarComprovante(Venda venda) {

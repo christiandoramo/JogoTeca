@@ -7,6 +7,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.media.Media;
@@ -52,7 +53,8 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     @FXML
     protected void adicionarAMinhaWishlist(ActionEvent event) {
         try {
-            uc.adicionarWishlist(suc.getUsuarioCorrente(), suc.getItemCorrente());
+            suc.getUsuarioCorrente().getWishlist().add(suc.getItemCorrente());
+            suc.atualizarWishlist();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -80,9 +82,16 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     void DesabilitarBotaoWishList() {
         boolean jaComprado;
         boolean jaContemNaWishList;
+//        ToggleButton tg = new ToggleButton(); USAR TOGGLE AO INVES DE BUTTON  para adicionar e remover
+//        tg.setSelected(true);
         jaComprado = pc.checaSeUmJogoJaFoiComprado(suc.getUsuarioCorrente(), suc.getItemCorrente());
         jaContemNaWishList = suc.getUsuarioCorrente().getWishlist().contains(suc.getItemCorrente());
         btnAdicionarWishlist.setDisable(jaComprado || jaContemNaWishList);
+    }
+
+    void DesabilitarBotaoComprarAgora() {
+        boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(suc.getUsuarioCorrente(), suc.getItemCorrente());
+        btnAdicionarWishlist.setDisable(jaComprado);
     }
 
     @FXML
@@ -114,5 +123,6 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         carregarTela();
         DesabilitarBotaoWishList();
+        DesabilitarBotaoComprarAgora();
     }
 }

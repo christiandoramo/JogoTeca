@@ -3,6 +3,7 @@ package com.example.jogotecaintellij.controller;
 import com.example.jogotecaintellij.data.GenericRepository;
 import com.example.jogotecaintellij.data.IGenericRepository;
 import com.example.jogotecaintellij.exception.CredenciaisIncorretasException;
+import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.*;
 
@@ -142,6 +143,13 @@ public class SessaoUsuarioController {
         }
         return usuarioLogado();
     }
+
+    public void atualizarWishlist() throws ElementDoesNotExistException {
+        UsuarioController uc = UsuarioController.getInstance();
+        uc.updateUser2(usuarioCorrente);
+    }
+
+
 
     public List<Pedido> buscarListaPedidosUsuarioAtual() throws ElementsDoNotExistException {
         // função usada em meus pedidos

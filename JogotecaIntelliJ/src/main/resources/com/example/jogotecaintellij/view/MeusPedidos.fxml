@@ -9,13 +9,20 @@
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" styleClass="tela" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.MeusPedidos">
    <children>
       <Label layoutX="365.0" layoutY="30.0" styleClass="titulo" text="Meus Pedidos" />
-      <TableView fx:id="tabelaMeusPedidos" layoutX="28.0" layoutY="67.0" prefHeight="494.0" prefWidth="742.0" styleClass="tabela">
+      <TableView fx:id="tabelaMeusPedidos" layoutX="22.0" layoutY="65.0" prefHeight="494.0" prefWidth="742.0" styleClass="tabela">
         <columns>
-          <TableColumn prefWidth="75.0" text="C1" />
-          <TableColumn prefWidth="75.0" text="C2" />
+          <TableColumn fx:id="colunaId" prefWidth="75.0" text="id" />
+          <TableColumn fx:id="colunaItensJogosNomes" prefWidth="75.0" text="nomes" />
+            <TableColumn fx:id="colunaPrecoPedido" prefWidth="75.0" text="valor" />
+            <TableColumn fx:id="colunaVencimento" prefWidth="75.0" text="data de vencimento" />
+            <TableColumn fx:id="colunaStatus" prefWidth="75.0" text="status" />
+            <TableColumn fx:id="colunaMetodo" prefWidth="75.0" text="metodo" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
       <Button layoutX="34.0" layoutY="25.0" mnemonicParsing="false" onAction="#voltarAoMeuPerfil" text="Meu Perfil" />
-      <Label styleClass="log" fx:id="meusPedidoLog" alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="565.0" prefHeight="26.0" prefWidth="264.0" text="Label" visible="false" />
+      <Label fx:id="meusPedidoLog" alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="565.0" prefHeight="26.0" prefWidth="264.0" styleClass="log" text="Label" visible="false" />
    </children>
 </AnchorPane>

@@ -9,8 +9,8 @@
    <children>
       <Label layoutX="385.0" layoutY="29.0" styleClass="titulo" text="Wishlist" />
       <ListView fx:id="listaDeItens" layoutX="86.0" layoutY="112.0" prefHeight="450.0" prefWidth="353.0" />
-      <Button fx:id="btnLimparWishlist" layoutX="557.0" layoutY="133.0" mnemonicParsing="false" onAction="#limparWishlist" text="Limpar Wishlist" />
-      <Button fx:id="btnComprarWishlist" layoutX="552.0" layoutY="452.0" mnemonicParsing="false" onAction="#comprarWishlist" text="Comprar Wishlist" />
+      <Button layoutX="557.0" layoutY="133.0" mnemonicParsing="false" onAction="#limparWishlist" text="Limpar Wishlist" />
+      <Button layoutX="552.0" layoutY="452.0" mnemonicParsing="false" onAction="#comprarSelecionados" text="Comprar Wishlist" />
       <Button layoutX="31.0" layoutY="58.0" mnemonicParsing="false" onAction="#voltarAoMeuFeed" text="Voltar ao meu Feed" />
       <Label styleClass="log" fx:id="wishlistLog" alignment="CENTER" layoutX="481.0" layoutY="537.0" prefHeight="25.0" prefWidth="250.0" text="Label" textAlignment="CENTER" visible="false" />
    </children>

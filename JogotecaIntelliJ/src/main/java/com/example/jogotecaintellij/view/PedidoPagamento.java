@@ -22,6 +22,8 @@ import java.util.*;
 
 public class PedidoPagamento extends ViewController implements Initializable {
     @FXML
+    public Button btnperfil;
+    @FXML
     private AnchorPane telaDebito;
 
     @FXML
@@ -66,6 +68,16 @@ public class PedidoPagamento extends ViewController implements Initializable {
     }
 
     @FXML
+    void btnIrParaWishlist(ActionEvent event) throws IOException {
+        irParaWishlist(event);
+    }
+
+    @FXML
+    public void btnIrParaPerfilDoJogo(ActionEvent event)throws IOException {
+        irParaPerfilDoJogo(event);
+    }
+
+    @FXML
     protected void butaoPagamento(ActionEvent event)
             throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
         if (preencheuEntradasInsercao()) {
@@ -80,14 +92,14 @@ public class PedidoPagamento extends ViewController implements Initializable {
             nova.add(data);
             nova.add(validade);
             try {
-                Pedido novoPedido = new Pedido(pc.novoPrazo(1),suc.getUsuarioCorrente(),suc.getItensCorrentes(), OrderStatus.PAGO, Metodo.DEBITO);
+                Pedido novoPedido = new Pedido(pc.novoPrazo(1), suc.getUsuarioCorrente(), suc.getItensCorrentes(), OrderStatus.PAGO, Metodo.DEBITO);
                 pc.adicionarPedido(novoPedido);
                 suc.setPedidoCorrente(novoPedido);
                 Venda novaVenda = new Venda(novoPedido, nova);
                 vc.insertVenda(novaVenda);
                 suc.setVendaCorrente(novaVenda);
-                suc.setItemCorrente(null);
-                suc.setItensCorrentes(null);
+//                suc.setItemCorrente(null);
+//                suc.setItensCorrentes(null);
                 setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
                 irParaComprovante(event);
             } catch (Exception e) {
@@ -111,14 +123,14 @@ public class PedidoPagamento extends ViewController implements Initializable {
             nova.add(data1);
             nova.add(validade1);
             try {
-                Pedido novoPedido = new Pedido(pc.novoPrazo(1),suc.getUsuarioCorrente(),suc.getItensCorrentes(), OrderStatus.PAGO, Metodo.CREDITO);
+                Pedido novoPedido = new Pedido(pc.novoPrazo(1), suc.getUsuarioCorrente(), suc.getItensCorrentes(), OrderStatus.PAGO, Metodo.CREDITO);
                 pc.adicionarPedido(novoPedido);
                 suc.setPedidoCorrente(novoPedido);
                 Venda novaVenda = new Venda(novoPedido, nova);
                 vc.insertVenda(novaVenda);
                 suc.setVendaCorrente(novaVenda);
-                suc.setItemCorrente(null);
-                suc.setItensCorrentes(null);
+//                suc.setItemCorrente(null);
+//                suc.setItensCorrentes(null);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -133,14 +145,14 @@ public class PedidoPagamento extends ViewController implements Initializable {
         alert.setContentText("Pagamento confirmado!");
         Optional<ButtonType> result = alert.showAndWait();
         try {
-            Pedido novoPedido = new Pedido(pc.novoPrazo(1),suc.getUsuarioCorrente(),suc.getItensCorrentes(), OrderStatus.PAGO, Metodo.PIX);
+            Pedido novoPedido = new Pedido(pc.novoPrazo(1), suc.getUsuarioCorrente(), suc.getItensCorrentes(), OrderStatus.PAGO, Metodo.PIX);
             pc.adicionarPedido(novoPedido);
             suc.setPedidoCorrente(novoPedido);
             Venda novaVenda = new Venda(novoPedido, nova);
             vc.insertVenda(novaVenda);
             suc.setVendaCorrente(novaVenda);
-            suc.setItemCorrente(null);
-            suc.setItensCorrentes(null);
+//            suc.setItemCorrente(null);
+//            suc.setItensCorrentes(null);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -235,4 +247,6 @@ public class PedidoPagamento extends ViewController implements Initializable {
         // TODO Auto-generated method stub
 
     }
+
+
 }

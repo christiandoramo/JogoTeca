@@ -2,6 +2,7 @@ package com.example.jogotecaintellij.view;
 
 import com.example.jogotecaintellij.controller.JogoController;
 import com.example.jogotecaintellij.controller.SessaoUsuarioController;
+import com.example.jogotecaintellij.controller.UsuarioController;
 import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.model.Game;
@@ -117,9 +118,7 @@ public class ViewController {
 
     @FXML
     protected void irParaPerfilDoUsuario(ActionEvent event) throws IOException {
-        /*
-                irParaTela(event,"PerfilDoUsuario.fxml" );
-        */
+        irParaTela(event, "PerfilDoUsuario.fxml");
     }
 
     protected void irParaMeusPedidos(ActionEvent event) throws IOException {
@@ -293,7 +292,6 @@ public class ViewController {
         // public por vai usar uma função local em uma não subclasse
         ObservableList<ItemJogo> data = FXCollections.observableArrayList();
         data.addAll(gamesAchados);
-
         listaJogos.setCellFactory(new Callback<ListView<ItemJogo>, ListCell<ItemJogo>>() {
             @Override
             public ListCell<ItemJogo> call(ListView<ItemJogo> param) {

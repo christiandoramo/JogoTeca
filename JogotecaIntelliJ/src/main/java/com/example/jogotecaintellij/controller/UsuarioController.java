@@ -46,6 +46,9 @@ public class UsuarioController {
     public Usuario searchUserById2(int id) throws ElementDoesNotExistException {
         return userRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
     }
+    public void updateUser2(Usuario user) throws  ElementDoesNotExistException{
+         userRepository.update(user);
+    }
 
     public Usuario searchUserByCPF2(String cpf) throws ElementDoesNotExistException {
         return userRepository.read().stream().filter(x -> x.getCPF().equals(cpf)).findFirst().orElse(null);
@@ -61,15 +64,6 @@ public class UsuarioController {
 
     public List<Usuario> searchAllUsers2() throws ElementsDoNotExistException {
         return userRepository.read();
-    }
-
-    public void adicionarWishlist(Usuario user, ItemJogo item) throws ElementDoesNotExistException {
-        user.getWishlist().add(item);
-        userRepository.update(user);
-    }
-
-    public void removerDaWishlist(Usuario user, ItemJogo item) {
-        user.getWishlist().removeIf(x -> x.equals(item));
     }
 
 
