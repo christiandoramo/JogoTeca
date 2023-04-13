@@ -15,11 +15,21 @@ public class SessaoUsuarioController {
     private IGenericRepository<SessaoUsuario> sessaoRepository;
     private static SessaoUsuarioController instance;
     private static final long serialVersionUID = 1L;
+    PedidoController pc;
+    ItemJogoController ijc;
+    JogoController jc;
+    VendaController vc;
+    UsuarioController uc;
 
     private SessaoUsuarioController() {
         // construtor privado para impedir criação de objetos fora da classe
         this.sessaoRepository = new GenericRepository<>("sessoes.dat");
         usuarioCorrente = null;
+        pc = PedidoController.getInstance();
+        ijc = ItemJogoController.getInstance();
+        jc = JogoController.getInstance();
+        vc = VendaController.getInstance();
+        uc = UsuarioController.getInstance();
     }
 
     public static SessaoUsuarioController getInstance() {
@@ -126,10 +136,8 @@ public class SessaoUsuarioController {
 
     public boolean logarUsuario(String login, String senha) throws CredenciaisIncorretasException {
         // validar usuário e senha, etc.
-        UsuarioController uc = UsuarioController.getInstance();
         try {
             Usuario usuario = uc.searchUserByLogin2(login);
-
             // improvisando os logs, quando da exception aqui vai aponta usuario não registrado
             if (usuario != null)
                 if (uc.checaLoginESenha2(login, senha)) {
@@ -144,11 +152,26 @@ public class SessaoUsuarioController {
         return usuarioLogado();
     }
 
-    public void atualizarWishlist() throws ElementDoesNotExistException {
-        UsuarioController uc = UsuarioController.getInstance();
-        uc.updateUser2(usuarioCorrente);
+    public boolean checaSeUmJogoJaFoiComprado(Usuario user, ItemJogo novoItem) throws ElementsDoNotExistException {
+        List<Pedido> pedidosDoUsuario = pc.buscarListaPedidosDoUsuario(getUsuarioCorrente());
+        List<ItemJogo> itensTotais = ijc.searchAllGameItem();
+        if (pedidosDoUsuario != null && !pedidosDoUsuario.isEmpty())
+            for (Pedido pedido : pedidosDoUsuario)
+                for (ItemJogo item : pedido.getItens())
+                    if (itensTotais.contains(item)) return true;
+        return false;
     }
 
+    public boolean jogoJaAdicionadoAWishList( ItemJogo item) {
+        if(!usuarioCorrente.getWishlist().isEmpty())
+            return usuarioCorrente.getWishlist().contains(item);
+        return false;
+    }
+
+
+    public void atualizarWishlist() throws ElementDoesNotExistException {
+        uc.updateUser2(usuarioCorrente);
+    }
 
 
     public List<Pedido> buscarListaPedidosUsuarioAtual() throws ElementsDoNotExistException {

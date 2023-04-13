@@ -1,6 +1,7 @@
 package com.example.jogotecaintellij.view;
 
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
+import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.ItemJogo;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -54,7 +55,7 @@ public class Wishlist extends ViewController implements Initializable {
 
     void carregarWishlist() {
         wishlistLog.setText("Nenhum jogo registrado");
-        if (suc.getUsuarioCorrente().getWishlist().isEmpty())
+        if (!suc.getUsuarioCorrente().getWishlist().isEmpty())
             wishlistLog.setVisible(false);
         mostraGamesItensAchados(listaDeItens, suc.getUsuarioCorrente().getWishlist());
     }
@@ -126,9 +127,9 @@ public class Wishlist extends ViewController implements Initializable {
                                     // Botão foi desselecionado
                                     suc.getUsuarioCorrente().getWishlist().remove(achado);
                                 }
-                                try{
+                                try {
                                     suc.atualizarWishlist();
-                                }catch(Exception e){
+                                } catch (Exception e) {
                                     e.printStackTrace();
                                 }
 
@@ -147,6 +148,12 @@ public class Wishlist extends ViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        try {
+            suc.atualizarWishlist();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         carregarWishlist();
     }
 }

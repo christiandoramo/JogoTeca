@@ -77,22 +77,4 @@ public class PedidoController {
         Pedido pedido = buscarPeloId(id);
         pedidoRepositorio.delete(pedido);
     }
-
-    public boolean checaSeUmJogoJaFoiComprado(Usuario user, ItemJogo novoItem) {
-        List<ItemJogo> itemsDoUsuario = null;
-        List<Game> jogosDoUsuario = null;
-        if (pedidoRepositorio.read() != null && !pedidoRepositorio.read().isEmpty()) {
-            itemsDoUsuario = pedidoRepositorio.read()
-                    .stream()
-                    .filter(pedido -> pedido.getUser().equals(user))
-                    .flatMap(pedido -> pedido.getItens().stream())
-                    .collect(Collectors.toList());
-        }
-        if (itemsDoUsuario != null && !itemsDoUsuario.isEmpty()) {
-            jogosDoUsuario = itemsDoUsuario.stream()
-                    .map(item -> item.getGame()).collect(Collectors.toList());
-            return jogosDoUsuario.contains(novoItem.getGame());
-        }
-        return false;
-    }
 }

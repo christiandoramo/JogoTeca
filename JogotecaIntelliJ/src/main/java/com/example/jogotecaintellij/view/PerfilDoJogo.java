@@ -1,11 +1,9 @@
 package com.example.jogotecaintellij.view;
 
-import com.example.jogotecaintellij.controller.PedidoController;
-import com.example.jogotecaintellij.controller.UsuarioController;
+import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
@@ -14,12 +12,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.time.format.DateTimeFormatter;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.ResourceBundle;
 
 public class PerfilDoJogo extends ViewController implements Initializable {
@@ -42,23 +41,15 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     @FXML
     private Text publicadora;
     @FXML
-    private Button btnAdicionarWishlist;
-
+    private ToggleButton btnAdicionarWishlist;
+    @FXML
+    private Button btnComprarAgora;
     Media media;
     MediaPlayer mediaPlayer;
 
-    UsuarioController uc = UsuarioController.getInstance();
-    PedidoController pc = PedidoController.getInstance();
-
     @FXML
     protected void adicionarAMinhaWishlist(ActionEvent event) {
-        try {
-            suc.getUsuarioCorrente().getWishlist().add(suc.getItemCorrente());
-            suc.atualizarWishlist();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        DesabilitarBotaoWishList();
+
     }
 
     protected void carregarImagem() {
@@ -79,19 +70,22 @@ public class PerfilDoJogo extends ViewController implements Initializable {
         mediaPlayer.play();
     }
 
-    void DesabilitarBotaoWishList() {
-        boolean jaComprado;
-        boolean jaContemNaWishList;
-//        ToggleButton tg = new ToggleButton(); USAR TOGGLE AO INVES DE BUTTON  para adicionar e remover
-//        tg.setSelected(true);
-        jaComprado = pc.checaSeUmJogoJaFoiComprado(suc.getUsuarioCorrente(), suc.getItemCorrente());
-        jaContemNaWishList = suc.getUsuarioCorrente().getWishlist().contains(suc.getItemCorrente());
-        btnAdicionarWishlist.setDisable(jaComprado || jaContemNaWishList);
+    public void carregarTextos() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("pt", "BR"));
+        descricao.setText("Descrição: " + suc.getItemCorrente().getGame().getDescription());
+        desenvolvedora.setText("Desenvolvedora: " + suc.getItemCorrente().getGame().getDesenvolvedora());
+        genero.setText("Gênero: " + suc.getItemCorrente().getGame().getGenre().name());
+        nome.setText("Nome: " + suc.getItemCorrente().getGame().getName());
+        publicadora.setText("Publicadora: " + suc.getItemCorrente().getGame().getPublicadora());
+        lancamento.setText("Data de Lançamento: " + suc.getItemCorrente().getGame().getReleaseDate().format(formatter));
+        preco.setText("Preço: " + String.format("%.2f", suc.getItemCorrente().getGame().getPrice()));
     }
 
-    void DesabilitarBotaoComprarAgora() {
-        boolean jaComprado = pc.checaSeUmJogoJaFoiComprado(suc.getUsuarioCorrente(), suc.getItemCorrente());
-        btnAdicionarWishlist.setDisable(jaComprado);
+    void desabilitarBotoes() throws ElementsDoNotExistException {
+        boolean jaComprado;
+        jaComprado = suc.checaSeUmJogoJaFoiComprado(suc.getUsuarioCorrente(), suc.getItemCorrente());
+        btnAdicionarWishlist.setDisable(jaComprado || suc.jogoJaAdicionadoAWishList(suc.getItemCorrente()));
+        btnComprarAgora.setDisable(jaComprado);
     }
 
     @FXML
@@ -117,12 +111,34 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     void carregarTela() {
         carregarImagem();
         carregarVideo();
+        carregarTextos();
     }
 
     @Override
     public void initialize(URL arg0, ResourceBundle arg1) {
+        btnAdicionarWishlist.setOnAction(eventoLambda -> {
+            try {
+                if (!btnComprarAgora.isDisabled())
+                    if (btnAdicionarWishlist.isSelected()) {
+                        suc.getUsuarioCorrente().getWishlist().add(suc.getItemCorrente());
+                    } else if (btnAdicionarWishlist.isSelected()) {
+                        suc.getUsuarioCorrente().getWishlist().remove(suc.getItemCorrente());
+                    }
+                suc.atualizarWishlist();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        });
+        if (suc.jogoJaAdicionadoAWishList(suc.getItemCorrente())) {
+            btnAdicionarWishlist.setDisable(true);
+        }
+
+        try {
+            desabilitarBotoes();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         carregarTela();
-        DesabilitarBotaoWishList();
-        DesabilitarBotaoComprarAgora();
     }
 }
