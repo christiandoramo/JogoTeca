@@ -18,6 +18,8 @@ import javafx.util.Callback;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -74,9 +76,11 @@ public class Wishlist extends ViewController implements Initializable {
                     protected void updateItem(ItemJogo achado, boolean btl) {
                         super.updateItem(achado, btl);
                         if (achado != null) {
-                            File file = new File(achado.getGame().getImageURL());
-                            String imagePath = file.toURI().toString();
-                            Image img = new Image(imagePath);
+//                            File file = new File(achado.getGame().getImageURL());
+//                            String imagePath = file.toURI().toString();
+//                            Image img = new Image(imagePath);
+                            Path imagePath = Paths.get(achado.getGame().getImageURL()).toAbsolutePath();
+                            Image img = new Image(imagePath.toUri().toString());
                             ImageView imgview = new ImageView(img);
                             imgview.setFitWidth(100);
                             imgview.setFitHeight(100);

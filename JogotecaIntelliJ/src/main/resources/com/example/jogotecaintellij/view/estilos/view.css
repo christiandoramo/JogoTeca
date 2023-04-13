@@ -1,3 +1,4 @@
+/*
 .root{
     -fx-color: #FFFFFF;
 }
@@ -12,7 +13,6 @@
     -fx-text-fill: #FF0000;
 }
 
-/* Estilo para botões */
 .button {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #000000;
@@ -30,7 +30,6 @@
      -fx-cursor: hand;
 }
 
-/* Estilo para campos de texto */
 .text-field {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #000000;
@@ -40,7 +39,6 @@
     -fx-background-radius: 10px;
 }
 
-/* Estilo para seletor de data */
 .date-picker {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #000000;
@@ -49,7 +47,6 @@
     -fx-background-radius: 10px;
 }
 
-/* Estilo para botão de menu */
 .menu-button {
     -fx-color: #000000;
     -fx-background-color: #FFFFFF;
@@ -70,8 +67,6 @@
     -fx-text-fill: #FFFFFF;
 }
 
-/* Estilo para item de menu */
-
 .menu-item {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #000000;
@@ -90,7 +85,6 @@
     -fx-text-fill: #FFFFFF;
 }
 
-/* Estilo para área de texto */
 .text-area {
     -fx-background-color: #FFFFFF;
     -fx-text-fill: #000000;
@@ -98,3 +92,5 @@
     -fx-font-size: 12px;
     -fx-background-radius: 10px;
 }
+
+*/

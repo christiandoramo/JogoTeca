@@ -5,7 +5,9 @@ import com.example.jogotecaintellij.enums.StatusJogo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class Game implements Serializable {
 
@@ -22,7 +24,7 @@ public class Game implements Serializable {
     private String videoUrl;
     private StatusJogo status;
 
-    public Game( String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) {
+    public Game(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.genre = genre;
@@ -145,4 +147,21 @@ public class Game implements Serializable {
         return true;
     }
 
+    @Override
+    public String toString() {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("pt", "BR"));
+
+        return
+                "id:" + id +
+                        "\nname: " + name +
+                        "\nreleaseDate: " + releaseDate.format(formatter) +
+                        "\ngenre: " + genre.name() +
+                        "\ndescription: " + description +
+                        "\npublicadora: " + publicadora +
+                        "\ndesenvolvedora: " + desenvolvedora +
+                        "\nprice: " + String.format("%.2f",price) +
+                        "\nimageURL: " + imageURL  +
+                        "\nvideoUrl: " + videoUrl +
+                        "\nstatus: " + status.name();
+    }
 }

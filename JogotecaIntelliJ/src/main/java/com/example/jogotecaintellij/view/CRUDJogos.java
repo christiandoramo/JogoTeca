@@ -419,7 +419,7 @@ public class CRUDJogos extends ViewController implements Initializable {
 
     @FXML
     protected void selecionarVideo() {
-        ViewController.escolherVideo(urlVideo);
+        escolherVideo(urlVideo);
     }
 
     @FXML

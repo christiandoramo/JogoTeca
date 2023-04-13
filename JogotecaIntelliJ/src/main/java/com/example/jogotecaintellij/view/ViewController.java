@@ -2,7 +2,6 @@ package com.example.jogotecaintellij.view;
 
 import com.example.jogotecaintellij.controller.JogoController;
 import com.example.jogotecaintellij.controller.SessaoUsuarioController;
-import com.example.jogotecaintellij.controller.UsuarioController;
 import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.model.Game;
@@ -31,8 +30,13 @@ import javafx.util.converter.IntegerStringConverter;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.UnaryOperator;
 import java.util.regex.Pattern;
@@ -267,18 +271,21 @@ public class ViewController {
                     @Override
                     protected void updateItem(Game achado, boolean btl) {
                         super.updateItem(achado, btl);
-                        if (achado != null) {
-                            File file = new File(achado.getImageURL());
-                            String imagePath = file.toURI().toString();
-                            Image img = new Image(imagePath);
-                            ImageView imgview = new ImageView(img);
-                            imgview.setFitWidth(100);
-                            imgview.setFitHeight(100);
-                            setGraphic(imgview);
-                            String legenda = "Id: " + achado.getId() + "\nNome: " + achado.getName();
-                            setText(legenda);
-                            setTextAlignment(TextAlignment.JUSTIFY);
-
+                        try {
+                            if (achado != null) {
+                                String imageUrl = achado.getImageURL(); // caminho relativo da imagem, por exemplo: "midias/imagem.jpg"
+                                Path absoluto = Paths.get(imageUrl).toAbsolutePath();
+                                System.out.println(absoluto.toUri().toString());
+                                Image img = new Image(absoluto.toUri().toString());
+                                ImageView imgview = new ImageView(img);
+                                imgview.setFitWidth(100);
+                                imgview.setFitHeight(100);
+                                setGraphic(imgview);
+                                setText(achado.toString());
+                                setTextAlignment(TextAlignment.JUSTIFY);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 };
@@ -288,8 +295,8 @@ public class ViewController {
         listaJogos.setItems(data);
     }
 
-    protected void mostraGamesItensAchados(ListView<ItemJogo> listaJogos, List<ItemJogo> gamesAchados, boolean mostrarPreco, boolean mostrarPlay) {
-        // public por vai usar uma função local em uma não subclasse
+    protected void mostraGamesItensAchados(ListView<ItemJogo> listaJogos, List<ItemJogo> gamesAchados,
+                                           boolean mostrarPreco, boolean mostrarPlay) {
         ObservableList<ItemJogo> data = FXCollections.observableArrayList();
         data.addAll(gamesAchados);
         listaJogos.setCellFactory(new Callback<ListView<ItemJogo>, ListCell<ItemJogo>>() {
@@ -299,40 +306,45 @@ public class ViewController {
                     @Override
                     protected void updateItem(ItemJogo achado, boolean btl) {
                         super.updateItem(achado, btl);
-                        if (achado != null) {
-                            File file = new File(achado.getGame().getImageURL());
-                            String imagePath = file.toURI().toString();
-                            Image img = new Image(imagePath);
-                            ImageView imgview = new ImageView(img);
-                            imgview.setFitWidth(100);
-                            imgview.setFitHeight(100);
-                            String legenda = "";
-                            if (mostrarPreco)
-                                legenda = legenda.concat("Preço: " + achado.getGame().getPrice() + "\n");
-                            legenda = legenda.concat("Nome: " + achado.getGame().getName() + "\n");
-                            legenda = legenda.concat("Gênero: " + achado.getGame().getGenre().name().toLowerCase());
-                            setText(legenda);
-                            setTextAlignment(TextAlignment.LEFT);
+                        try {
+                            if (achado != null) {
+                                String imageUrl = achado.getGame().getImageURL(); // caminho relativo da imagem, por exemplo: "midias/imagem.jpg"
+                                Path absoluto = Paths.get(imageUrl).toAbsolutePath();
+                                Image img = new Image(absoluto.toString());
+                                ImageView imgview = new ImageView(img);
+                                imgview.setFitWidth(100);
+                                imgview.setFitHeight(100);
+                                String legenda = "";
+                                if (mostrarPreco)
+                                    legenda = legenda.concat("Preço: " + achado.getGame().getPrice() + "\n");
+                                legenda = legenda.concat("Nome: " + achado.getGame().getName() + "\n");
+                                legenda = legenda.concat("Gênero: " + achado.getGame().getGenre().name().toLowerCase());
+                                setText(legenda);
+                                setTextAlignment(TextAlignment.LEFT);
 
-                            Button btnVerJogo = new Button("Ver Jogo");
-                            btnVerJogo.setOnAction(event -> {
-                                try {
-                                    suc.setItemCorrente(achado);
-                                    irParaPerfilDoJogo(event);
-                                } catch (Exception e) {
-                                    e.printStackTrace();
+                                Button btnVerJogo = new Button("Ver Jogo");
+                                btnVerJogo.setOnAction(event -> {
+                                    try {
+                                        suc.setItemCorrente(achado);
+                                        irParaPerfilDoJogo(event);
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+                                });
+                                HBox hbox = new HBox();
+                                hbox.setAlignment(Pos.CENTER_LEFT);
+                                hbox.getChildren().add(imgview);
+                                hbox.getChildren().add(btnVerJogo);
+                                if (mostrarPlay) {
+                                    Button btnJogarAgora = new Button("Jogar Agora");
+                                    // com mais tempo poderia haver a função de abrir o jogo
+                                    hbox.getChildren().add(btnJogarAgora);
                                 }
-                            });
-                            HBox hbox = new HBox();
-                            hbox.setAlignment(Pos.CENTER_LEFT);
-                            hbox.getChildren().add(imgview);
-                            hbox.getChildren().add(btnVerJogo);
-                            if (mostrarPlay) {
-                                Button btnJogarAgora = new Button("Jogar Agora");
-                                // com mais tempo poderia haver a função de abrir o jogo
-                                hbox.getChildren().add(btnJogarAgora);
+                                setGraphic(hbox);
                             }
-                            setGraphic(hbox);
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 };
@@ -355,30 +367,27 @@ public class ViewController {
     }
 
     public static void escolherImagem(TextField campoUrl) {
-        FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("Abrir Arquivo");
-        Stage stage = (Stage) campoUrl.getScene().getWindow();
-        fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
-        fileChooser.getExtensionFilters()
-                .add(new ExtensionFilter("Imagens", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"));
-        File selectedFile = fileChooser.showOpenDialog(stage);
-        if (selectedFile != null) {
-            String absolutePath = selectedFile.getAbsolutePath();
-            campoUrl.setText(absolutePath);
-        }
+        escolherMidia(campoUrl, Arrays.asList("Imagens", "*.png", "*.jpg", "*.jpeg", "*.gif", "*.bmp"));
     }
 
     public static void escolherVideo(TextField campoUrl) {
+        escolherMidia(campoUrl, Arrays.asList("Vídeos", "*.mp4", "*.avi", "*.mov", "*.wmv", "*.flv", "*.mkv"));
+    }
+
+    public static void escolherMidia(TextField campoUrl, List<String> fm) {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("Abrir Arquivo");
         Stage stage = (Stage) campoUrl.getScene().getWindow();
         fileChooser.setInitialDirectory(new File(System.getProperty("user.home")));
         fileChooser.getExtensionFilters()
-                .add(new ExtensionFilter("Vídeos", "*.mp4", "*.avi", "*.mov", "*.wmv", "*.flv", "*.mkv"));
+                .add(new ExtensionFilter(fm.get(0), fm.get(1), fm.get(2), fm.get(3), fm.get(4), fm.get(5)));
         File selectedFile = fileChooser.showOpenDialog(stage);
         if (selectedFile != null) {
-            String absolutePath = selectedFile.getAbsolutePath();
-            campoUrl.setText(absolutePath);
+            Path pathAbsolute = selectedFile.toPath();
+            Path pathBase = selectedFile.getParentFile().toPath();
+            Path pathRelative = pathBase.relativize(pathAbsolute);
+            campoUrl.setText("src/main/resources/com/example/jogotecaintellij/view/midias/" + pathRelative.toString());
+            //file:///C:/Users/chris/Desktop/repo/Jogoteca/JogotecaIntelliJ/ O CAMINHO RELATIVO COMEÇA do root ao projeto
         }
     }
 }

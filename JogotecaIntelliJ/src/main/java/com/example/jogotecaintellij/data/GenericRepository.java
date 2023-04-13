@@ -11,7 +11,7 @@ import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 public class GenericRepository<T> implements IGenericRepository<T> {
     protected List<T> elements;
     private final String fileName;
-    private int id;
+    private int ultimoId;
 
     @SuppressWarnings("unchecked")
     public GenericRepository(String fileName) {
@@ -22,7 +22,7 @@ public class GenericRepository<T> implements IGenericRepository<T> {
         if (elementList instanceof List<?>) {
             this.elements = (List<T>) elementList;
         }
-        this.id = elements.size();
+        this.ultimoId = elements.size() + 1;
     }
 
     public void insert(T obj) throws ElementAlreadyExistsException {
@@ -30,10 +30,10 @@ public class GenericRepository<T> implements IGenericRepository<T> {
             try {
                 Field idField = obj.getClass().getDeclaredField("id");
                 idField.setAccessible(true);
-                idField.setInt(obj, ++id);
+                idField.setInt(obj, ultimoId++);
                 idField.setAccessible(false);
             } catch (Exception e) {
-                throw new IllegalArgumentException("ALGUM GÊNIO ESCREVEU O ATRIBUTO id ERRADO!!!");
+                throw new IllegalArgumentException("ALGUM ATRIBUTO id escrito ERRADO!!! - " + e);
             } finally {
                 this.elements.add(obj);
             }
@@ -59,7 +59,6 @@ public class GenericRepository<T> implements IGenericRepository<T> {
     public void delete(T obj) throws ElementDoesNotExistException {
         if (this.elements.contains(obj)) {
             this.elements.remove(this.elements.indexOf(obj));
-            id--;
         } else {
             throw new ElementDoesNotExistException(obj);
         }
