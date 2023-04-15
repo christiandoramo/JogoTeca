@@ -8,19 +8,20 @@ import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
-import com.example.jogotecaintellij.model.Game;
+import com.example.jogotecaintellij.model.Jogo;
 
 import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class JogoController {
-    private IGenericRepository<Game> gameRepository;
+    private IGenericRepository<Jogo> gameRepository;
 
     private static JogoController instance;
 
     private JogoController() {
         this.gameRepository = new GenericRepository<>("jogos.dat");
+        mostrarGameRepository();
     }
 
     public static JogoController getInstance() {
@@ -37,35 +38,35 @@ public class JogoController {
     //apenas para testes
     public void mostrarGameRepository() {
         if (!gameRepository.read().isEmpty())
-            for (Game game : gameRepository.read())
+            for (Jogo game : gameRepository.read())
                 System.out.println(game.getName());
     }
 //(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl, StatusJogo status
     public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-        Game novo = new Game( name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl, status);
+        Jogo novo = new Jogo( name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl, status);
         gameRepository.insert(novo);
         ItemJogoController gic = ItemJogoController.getInstance();
-        gic.insertGameItem(novo.getPrice(), novo);
+        gic.insertGameItem(novo);
     }
 
 
-    public Game searchGameById(int id) throws ElementDoesNotExistException {
+    public Jogo searchGameById(int id) throws ElementDoesNotExistException {
         return gameRepository.read().stream().filter(game -> game.getId() == id).findFirst().orElse(null);
     }
 
-    public Game searchGameByName(String name) throws ElementDoesNotExistException {
+    public Jogo searchGameByName(String name) throws ElementDoesNotExistException {
         return gameRepository.read().stream().filter(game -> game.getName().equals(name)).findFirst().orElse(null);
     }
 
-    public List<Game> searchAllGames() throws ElementsDoNotExistException {
+    public List<Jogo> searchAllGames() throws ElementsDoNotExistException {
         return gameRepository.read();
     }
 
-    public List<Game> searchGamesByGenre(Genre genre) throws ElementsDoNotExistException {
+    public List<Jogo> searchGamesByGenre(Genre genre) throws ElementsDoNotExistException {
         return gameRepository.read().stream().filter(game -> game.getGenre() == genre).collect(Collectors.toList());
     }
 
-    public void updateGame(Game game, String name, Genre genre, Double price, String description, String imageURL,
+    public void updateGame(Jogo game, String name, Genre genre, Double price, String description, String imageURL,
                            LocalDate releaseDate) throws ElementDoesNotExistException {
         if (game != null) {
             if (name != null && !name.equals(""))
@@ -85,15 +86,15 @@ public class JogoController {
     }
 
     public void updateGameById(int id, String name, Genre genre, Double price, String description, String imageURL,
-                               LocalDate releaseDate) throws ElementDoesNotExistException, ElementWithSameNameExistsException {
-        Game game = searchGameById(id);
+                               LocalDate releaseDate) throws ElementDoesNotExistException {
+        Jogo game = searchGameById(id);
         updateGame(game, name, genre, price, description, imageURL, releaseDate);
     }
 
     public void updateGameByName(String name, String newName, Genre genre, Double price, String description,
                                  String imageURL, LocalDate releaseDate)
             throws ElementWithSameNameExistsException, ElementDoesNotExistException {
-        Game game = searchGameByName(name);
+        Jogo game = searchGameByName(name);
         updateGame(game, newName, genre, price, description, imageURL, releaseDate);
     }
 

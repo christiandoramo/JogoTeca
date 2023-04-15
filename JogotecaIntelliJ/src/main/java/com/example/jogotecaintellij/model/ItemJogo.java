@@ -1,92 +1,90 @@
 package com.example.jogotecaintellij.model;
 
 
+import com.example.jogotecaintellij.enums.StatusJogo;
+
 import java.io.Serializable;
-import java.util.ArrayList;
 
 public class ItemJogo implements Serializable {
-	private static final long serialVersionUID = 1L;
-	private int id;
-	private double value;
-	private ArrayList<Game> games;
-	//////////////////////////////////////////////////////////////////////////////////
-	private Game game;
-	public Game getGame() {
-		return game;
-	}
+    private static final long serialVersionUID = 1L;
+    private int id;
+    private double value;
+    //////////////////////////////////////////////////////////////////////////////////
+    private Jogo game;
+    private StatusJogo status;
 
-	public void setGame(Game game) {
-		this.game = game;
-	}
+    public Jogo getGame() {
+        return game;
+    }
 
-	public ItemJogo( double value, Game game) {
-		super();
-		this.value = value;
-		this.game = game;
-	}
-	
-	
-	/////////////////////////////////////////////////////////////////////////////////
+    public void setGame(Jogo game) {
+        this.game = game;
+    }
 
-	public double calculateValue(ArrayList<Game> listToCalculate) {
-		double result = 0;
-		for (Game valor : listToCalculate) {
-			result += valor.getPrice();
-		}
-		return result;
-	}
+    public ItemJogo(double value, Jogo game) {
+        super();
+        this.value = value;
+        this.game = game;
+        status = StatusJogo.DISPONIVEL;
+    }
 
-	public ArrayList<Game> getGames() {
-		return games;
-	}
+    public ItemJogo(double value, Jogo game, StatusJogo status) {
+        this.value = value;
+        this.game = game;
+        this.status = status;
+    }
 
-	public void setGames(ArrayList<Game> games) {
-		this.games.clear();
-		this.games.addAll(games);
-	}
+    public ItemJogo(Jogo game) {
+        value = game.getPrice();
+        this.game = game;
+        status = StatusJogo.DISPONIVEL;
+    }
 
-	public double getValue() {
-		return value;
-	}
+    public StatusJogo getStatus() {
+        return status;
+    }
 
-	public void setValue(double value) {
-		this.value = value;
-	}
+    public void setStatus(StatusJogo status) {
+        this.status = status;
+    }
 
-	public int getId() {
-		return id;
-	}
+    public double getValue() {
+        return value;
+    }
 
-	public void setId(int id) {
-		this.id = id;
-	}
+    public void setValue(double value) {
+        this.value = value;
+    }
 
-	public ItemJogo(int id, double value, ArrayList<Game> games) {
-		this.id = id;
-		this.value = value;
-		this.games = games;
-	}
+    public int getId() {
+        return id;
+    }
 
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		ItemJogo other = (ItemJogo) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
+
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        ItemJogo other = (ItemJogo) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
 
 }

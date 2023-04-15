@@ -3,6 +3,7 @@ package com.example.jogotecaintellij.controller;
 import com.example.jogotecaintellij.data.GenericRepository;
 import com.example.jogotecaintellij.data.IGenericRepository;
 import com.example.jogotecaintellij.exception.CredenciaisIncorretasException;
+import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.*;
@@ -32,7 +33,7 @@ public class SessaoUsuarioController {
         uc = UsuarioController.getInstance();
     }
 
-    public static SessaoUsuarioController getInstance() {
+    public static SessaoUsuarioController getInstance() throws ElementDoesNotExistException {
         if (instance == null) {
             instance = new SessaoUsuarioController();
         }
@@ -41,9 +42,6 @@ public class SessaoUsuarioController {
 
 
     private SessaoUsuario sessao;
-    private LocalDateTime logon;
-    // usar no construtor do controlador
-    private LocalDateTime logoff;
     private Usuario usuarioCorrente;
     /*tela login -> tela do feed usuario
     tela login <- tela do feed usuario*/
@@ -134,36 +132,32 @@ public class SessaoUsuarioController {
         this.vendaCorrente = vendaCorrente;
     }
 
-    public boolean logarUsuario(String login, String senha) throws CredenciaisIncorretasException {
+    public boolean logarUsuario(String login, String senha) throws ElementAlreadyExistsException, ElementDoesNotExistException, CredenciaisIncorretasException {
         // validar usuário e senha, etc.
-        try {
-            Usuario usuario = uc.searchUserByLogin2(login);
-            // improvisando os logs, quando da exception aqui vai aponta usuario não registrado
-            if (usuario != null)
-                if (uc.checaLoginESenha2(login, senha)) {
-                    setUsuarioCorrente(usuario);
-                    sessao = new SessaoUsuario(getUsuarioCorrente());
-                    sessaoRepository.insert(new SessaoUsuario(getUsuarioCorrente()));
-                    // quando da exception aqui vai dar credenciais errada apos retornar false
-                }
-        } catch (Exception e) {
-            e.printStackTrace();
+        Usuario usuario = uc.searchUserByLogin2(login);
+        // improvisando os logs, quando da exception aqui vai aponta usuario não registrado
+        if (usuario != null) {
+            if (uc.checaLoginESenha2(login, senha)) {
+                usuarioCorrente = usuario;
+                sessao = new SessaoUsuario(usuarioCorrente);
+                sessaoRepository.insert(sessao);
+                return true;
+                // quando da exception aqui vai dar credenciais errada apos retornar false
+            }
         }
-        return usuarioLogado();
-    }
-
-    public boolean checaSeUmJogoJaFoiComprado(Usuario user, ItemJogo novoItem) throws ElementsDoNotExistException {
-        List<Pedido> pedidosDoUsuario = pc.buscarListaPedidosDoUsuario(getUsuarioCorrente());
-        List<ItemJogo> itensTotais = ijc.searchAllGameItem();
-        if (pedidosDoUsuario != null && !pedidosDoUsuario.isEmpty())
-            for (Pedido pedido : pedidosDoUsuario)
-                for (ItemJogo item : pedido.getItens())
-                    if (itensTotais.contains(item)) return true;
         return false;
     }
 
-    public boolean jogoJaAdicionadoAWishList( ItemJogo item) {
-        if(!usuarioCorrente.getWishlist().isEmpty())
+    public boolean checaSeOJogoJaFoiComprado(ItemJogo novoItem) throws ElementsDoNotExistException {
+        List<Venda> comprasDoUsuario = vc.searchAllVendas().stream().filter(x -> x.getPedido().getUser()
+                .equals(usuarioCorrente)).collect(Collectors.toList());
+        List<ItemJogo> itensAdquiridos = comprasDoUsuario.stream()
+                .flatMap(venda -> venda.getPedido().getItens().stream()).collect(Collectors.toList());
+        return itensAdquiridos.contains(getItemCorrente());
+    }
+
+    public boolean jogoJaAdicionadoAWishList(ItemJogo item) {
+        if (!usuarioCorrente.getWishlist().isEmpty())
             return usuarioCorrente.getWishlist().contains(item);
         return false;
     }
@@ -201,7 +195,12 @@ public class SessaoUsuarioController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        sessao = null;
         setUsuarioCorrente(null);
+        sessao = null;
+    }
+
+    public void atualizarWishlistPosCompra() throws ElementDoesNotExistException {
+        usuarioCorrente.getWishlist().removeIf(itemDaWishlist -> getItensCorrentes().contains(itemDaWishlist));
+        atualizarWishlist();
     }
 }

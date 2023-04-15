@@ -82,8 +82,7 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     }
 
     void desabilitarBotoes() throws ElementsDoNotExistException {
-        boolean jaComprado;
-        jaComprado = suc.checaSeUmJogoJaFoiComprado(suc.getUsuarioCorrente(), suc.getItemCorrente());
+        boolean jaComprado = suc.checaSeOJogoJaFoiComprado(suc.getItemCorrente());
         btnAdicionarWishlist.setDisable(jaComprado || suc.jogoJaAdicionadoAWishList(suc.getItemCorrente()));
         btnComprarAgora.setDisable(jaComprado);
     }
@@ -118,12 +117,14 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         btnAdicionarWishlist.setOnAction(eventoLambda -> {
             try {
-                if (!btnComprarAgora.isDisabled())
+                if (!btnComprarAgora.isDisabled()) {
+                    suc.atualizarWishlist();
                     if (btnAdicionarWishlist.isSelected()) {
                         suc.getUsuarioCorrente().getWishlist().add(suc.getItemCorrente());
-                    } else if (btnAdicionarWishlist.isSelected()) {
+                    } else if (!btnAdicionarWishlist.isSelected()) {
                         suc.getUsuarioCorrente().getWishlist().remove(suc.getItemCorrente());
                     }
+                }
                 suc.atualizarWishlist();
             } catch (Exception e) {
                 e.printStackTrace();

@@ -5,7 +5,7 @@ import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.enums.StatusJogo;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
-import com.example.jogotecaintellij.model.Game;
+import com.example.jogotecaintellij.model.Jogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,15 +56,13 @@ public class CRUDJogos extends ViewController implements Initializable {
     @FXML
     protected TextField urlImage;
     @FXML
-    protected ListView<Game> listaImagemJogo;
-    @FXML
     protected AnchorPane telaBuscar;
     @FXML
     protected TextField CampoBuscarId;
     @FXML
     protected TextField CampoBuscarNome;
     @FXML
-    protected ListView<Game> listaJogos;
+    protected ListView<Jogo> listaJogos;
     @FXML
     protected MenuButton CampoBuscarGenero;
 
@@ -77,7 +75,7 @@ public class CRUDJogos extends ViewController implements Initializable {
     @FXML
     protected TextField CampoTrocaNome;
     @FXML
-    protected ListView<Game> JogoAAtualizar;
+    protected ListView<Jogo> JogoAAtualizar;
     @FXML
     protected MenuButton CampoTrocaGenero;
     @FXML
@@ -96,7 +94,7 @@ public class CRUDJogos extends ViewController implements Initializable {
     @FXML
     protected TextField campoRemoverNome;
     @FXML
-    protected ListView<Game> listaRemover;
+    protected ListView<Jogo> listaRemover;
 
     @FXML
     protected Label createLog;
@@ -260,7 +258,7 @@ public class CRUDJogos extends ViewController implements Initializable {
         Genre genero = (Genre) CampoBuscarGenero.getUserData();
         if (genero != null) {
             try {
-                List<Game> gamesAchados = gc.searchGamesByGenre(genero);
+                List<Jogo> gamesAchados = gc.searchGamesByGenre(genero);
                 if (!gamesAchados.isEmpty()) {
                     ViewController.mostraGamesAchados(listaJogos, gamesAchados);
                     readLog.setVisible(false);
@@ -284,13 +282,15 @@ public class CRUDJogos extends ViewController implements Initializable {
     @FXML
     protected void searchTodos() {
         try {
-            List<Game> allGames = gc.searchAllGames();
+            List<Jogo> allGames = gc.searchAllGames();
             if (!allGames.isEmpty()) {
                 ViewController.mostraGamesAchados(listaJogos, allGames);
                 readLog.setVisible(false);
+                System.out.println("Tem jogos em gc");
             } else
                 throw new ElementsDoNotExistException(allGames);
         } catch (Exception e) {
+            System.out.println("NÃO tem jogos em gc");
             if (e instanceof ElementsDoNotExistException) {
                 readLog.setText("Erro: Nenhum Jogo encontrado");
             } else {

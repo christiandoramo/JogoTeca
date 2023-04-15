@@ -8,7 +8,6 @@ import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
-import com.example.jogotecaintellij.model.Game;
 import com.example.jogotecaintellij.model.ItemJogo;
 import com.example.jogotecaintellij.model.Pedido;
 import com.example.jogotecaintellij.model.Usuario;

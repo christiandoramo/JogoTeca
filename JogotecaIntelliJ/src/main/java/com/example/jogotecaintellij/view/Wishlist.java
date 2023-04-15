@@ -153,7 +153,6 @@ public class Wishlist extends ViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         carregarWishlist();
     }
 }

@@ -1,76 +1,79 @@
 package com.example.jogotecaintellij.controller;
 
-import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import com.example.jogotecaintellij.data.GenericRepository;
+import com.example.jogotecaintellij.enums.StatusJogo;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
-import com.example.jogotecaintellij.model.Game;
+import com.example.jogotecaintellij.model.Jogo;
 import com.example.jogotecaintellij.model.ItemJogo;
 
 public class ItemJogoController {
 
-	private ArrayList<ItemJogo> gameItemList;
+    private static ItemJogoController instance;
 
-	private static ItemJogoController instance;
+    public ItemJogoController() {
+        //////////////////////////////////////////////////////////////
+        this.gameItemRepository = new GenericRepository<>("itemJogos.dat");
+        //////////////////////////////////////////////////////////////
+    }
 
-	public ItemJogoController() {
-		this.gameItemList = new ArrayList<ItemJogo>();
-		//////////////////////////////////////////////////////////////
-		this.gameItemRepository = new GenericRepository<>("itemJogos.dat");
-		//////////////////////////////////////////////////////////////
-	}
+    private GenericRepository<ItemJogo> gameItemRepository;
 
-	public ArrayList<ItemJogo> showGameItemList() {
-		return this.gameItemList;
-	}
+    public static ItemJogoController getInstance() {
+        if (instance == null) {
+            instance = new ItemJogoController();
+        }
+        return instance;
+    }
 
-	public void addGameItem(ItemJogo gameItem) {
-		gameItemList.add(gameItem);
-	}
 
-	public void attGameItem(ItemJogo gameItem1, ItemJogo gameItem2) {
-		gameItemList.remove(gameItem1);
-		gameItemList.add(gameItem2);
-	}
+    public void insertGameItem(Jogo game) throws ElementAlreadyExistsException {
+        gameItemRepository.insert(new ItemJogo(game));
+    }
 
-	public void removeGameItem(ItemJogo gameItem) {
-		gameItemList.remove(gameItem);
-	}
+    public void insertGameItem(double value, Jogo game) throws ElementAlreadyExistsException {
+        ItemJogo gameItem = new ItemJogo(value, game);
+        gameItemRepository.insert(gameItem);
+    }
 
-	///////////////////////////////////////////////////////////////////////////////////////////////////
-	private GenericRepository<ItemJogo> gameItemRepository;
+    public void updateGameItem(Jogo game) throws ElementAlreadyExistsException {
+        Optional<ItemJogo> primeiroItemJogoDisponivel = gameItemRepository.read()
+                .stream()
+                .filter(i -> i.getStatus() == StatusJogo.DISPONIVEL
+                        && i.getGame().getId() == game.getId())
+                .findFirst();
+        if (primeiroItemJogoDisponivel.isPresent()) {
+            ItemJogo ultimoJogoIgual = primeiroItemJogoDisponivel.get();
+            insertGameItem(game);
+            try {
+                gameItemRepository.update(ultimoJogoIgual);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } else
+            System.out.println("Esse foi o primeiro " + game.getName() + " a ser registrado");
+    }
 
-	public static ItemJogoController getInstance() {
-		if (instance == null) {
-			instance = new ItemJogoController();
-		}
-		return instance;
-	}
+    public ItemJogo searchGameItemById(int id) throws ElementDoesNotExistException {
+        return gameItemRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+    }
 
-	public void insertGameItem(double value, Game game) throws ElementAlreadyExistsException {
-		ItemJogo gameItem = new ItemJogo( value, game);
-		gameItemRepository.insert(gameItem);
-	}
+    public List<ItemJogo> searchAllGameItem() throws ElementsDoNotExistException {
+        return gameItemRepository.read();
+    }
 
-	public ItemJogo searchGameItemById(int id) throws ElementDoesNotExistException {
-		return gameItemRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
-	}
+    public void destroyAllGameItem() throws ElementsDoNotExistException, ElementDoesNotExistException {
+        for (ItemJogo item : gameItemRepository.read())
+            gameItemRepository.delete(item);
+    }
 
-	public List<ItemJogo> searchAllGameItem() throws ElementsDoNotExistException {
-		return gameItemRepository.read();
-	}
-	
-	public void destroyAllGameItem() throws ElementsDoNotExistException, ElementDoesNotExistException {
-		for (ItemJogo item : gameItemRepository.read())
-			gameItemRepository.delete(item);
-	}
-
-	public void destroyGameItemById(int id) throws ElementDoesNotExistException{
-		ItemJogo item = gameItemRepository.read().stream().filter(x->x.getId()==id).findFirst().orElse(null);
-		gameItemRepository.delete(item);
-	}
-	///////////////////////////////////////////////////////////////////////////////////////////////////
+    public void destroyGameItemById(int id) throws ElementDoesNotExistException {
+        ItemJogo item = gameItemRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+        gameItemRepository.delete(item);
+    }
+    ///////////////////////////////////////////////////////////////////////////////////////////////////
 }

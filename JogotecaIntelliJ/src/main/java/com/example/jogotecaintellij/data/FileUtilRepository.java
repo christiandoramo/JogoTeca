@@ -21,7 +21,7 @@ public class FileUtilRepository {
             // Se alguma exceção ocorrer, um objeto NULL será retornado
             instanciaLocal = ois.readObject();
         } catch (Exception e) {
-            System.out.println("Não há arquivo com o nome '" + fileName + "' para ser processado. Um novo arquivo será criado");
+            System.out.println(fileName + " não existe. Um novo arquivo será criado");
         } finally {
             if (ois != null) {
                 try {

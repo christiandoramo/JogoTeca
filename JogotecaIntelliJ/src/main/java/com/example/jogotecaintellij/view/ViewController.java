@@ -4,7 +4,7 @@ import com.example.jogotecaintellij.controller.JogoController;
 import com.example.jogotecaintellij.controller.SessaoUsuarioController;
 import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
-import com.example.jogotecaintellij.model.Game;
+import com.example.jogotecaintellij.model.Jogo;
 import com.example.jogotecaintellij.model.ItemJogo;
 import com.example.jogotecaintellij.model.Usuario;
 import javafx.collections.FXCollections;
@@ -30,8 +30,6 @@ import javafx.util.converter.IntegerStringConverter;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.URI;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.time.LocalDate;
@@ -178,12 +176,12 @@ public class ViewController {
         }
     }
 
-    public static void searchGameByNome(JogoController gc, TextField campo, ListView<Game> lista, Label log) {
+    public static void searchGameByNome(JogoController gc, TextField campo, ListView<Jogo> lista, Label log) {
         String nome = campo.getText();
-        List<Game> gamesAchados = new ArrayList<>();
+        List<Jogo> gamesAchados = new ArrayList<>();
         if (nome != null) {
             try {
-                Game n = gc.searchGameByName(nome);
+                Jogo n = gc.searchGameByName(nome);
                 if (n != null) {
                     gamesAchados.add(n);
                     mostraGamesAchados(lista, gamesAchados);
@@ -199,12 +197,12 @@ public class ViewController {
     }
 
 
-    public static void searchGameById(JogoController gc, TextField campo, ListView<Game> lista, Label log) {
+    public static void searchGameById(JogoController gc, TextField campo, ListView<Jogo> lista, Label log) {
         int id = Integer.parseInt(campo.getText());
-        List<Game> gamesAchados = new ArrayList<>();
+        List<Jogo> gamesAchados = new ArrayList<>();
         if (id > 0) {
             try {
-                Game n = gc.searchGameById(id);
+                Jogo n = gc.searchGameById(id);
                 if (n != null) {
                     gamesAchados.add(n);
                     mostraGamesAchados(lista, gamesAchados);
@@ -260,16 +258,16 @@ public class ViewController {
     }
 
 
-    public static void mostraGamesAchados(ListView<Game> listaJogos, List<Game> gamesAchados) {
-        ObservableList<Game> data = FXCollections.observableArrayList();
+    public static void mostraGamesAchados(ListView<Jogo> listaJogos, List<Jogo> gamesAchados) {
+        ObservableList<Jogo> data = FXCollections.observableArrayList();
         data.addAll(gamesAchados);
 
-        listaJogos.setCellFactory(new Callback<ListView<Game>, ListCell<Game>>() {
+        listaJogos.setCellFactory(new Callback<ListView<Jogo>, ListCell<Jogo>>() {
             @Override
-            public ListCell<Game> call(ListView<Game> param) {
-                ListCell<Game> cell = new ListCell<Game>() {
+            public ListCell<Jogo> call(ListView<Jogo> param) {
+                ListCell<Jogo> cell = new ListCell<Jogo>() {
                     @Override
-                    protected void updateItem(Game achado, boolean btl) {
+                    protected void updateItem(Jogo achado, boolean btl) {
                         super.updateItem(achado, btl);
                         try {
                             if (achado != null) {

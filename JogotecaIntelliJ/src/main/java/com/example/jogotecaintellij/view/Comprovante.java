@@ -55,7 +55,7 @@ public class Comprovante extends ViewController implements Initializable {
 
     @FXML
     void imprimirComprovante(ActionEvent event) throws IOException {
-        String filePath = "comprovante.txt";
+        String filePath = "comprovante_"+suc.getVendaCorrente().getId() + ".txt";
         FileWriter writer = new FileWriter(filePath);
         for (String linha : linhasComprovante) {
             writer.write(linha + "\n");
