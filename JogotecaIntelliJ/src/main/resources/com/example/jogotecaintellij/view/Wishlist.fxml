@@ -3,15 +3,17 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" styleClass="tela" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.Wishlist">
+<AnchorPane fx:id="anchorpaneWishlist" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" styleClass="tela" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.Wishlist">
    <children>
       <Label layoutX="385.0" layoutY="29.0" styleClass="titulo" text="Wishlist" />
       <ListView fx:id="listaDeItens" layoutX="86.0" layoutY="112.0" prefHeight="450.0" prefWidth="353.0" />
-      <Button layoutX="557.0" layoutY="133.0" mnemonicParsing="false" onAction="#limparWishlist" text="Limpar Wishlist" />
-      <Button layoutX="552.0" layoutY="452.0" mnemonicParsing="false" onAction="#comprarSelecionados" text="Comprar Wishlist" />
+      <Button fx:id="btnLimparWishlist" layoutX="557.0" layoutY="133.0" mnemonicParsing="false" onAction="#limparWishlist" text="Limpar Wishlist" />
+      <Button fx:id="btnComprarSelecionados" layoutX="552.0" layoutY="452.0" mnemonicParsing="false" onAction="#comprarSelecionados" text="Comprar Wishlist" />
       <Button layoutX="31.0" layoutY="58.0" mnemonicParsing="false" onAction="#voltarAoMeuFeed" text="Voltar ao meu Feed" />
-      <Label styleClass="log" fx:id="wishlistLog" alignment="CENTER" layoutX="481.0" layoutY="537.0" prefHeight="25.0" prefWidth="250.0" text="Label" textAlignment="CENTER" visible="false" />
+      <Label fx:id="wishlistLog" alignment="CENTER" layoutX="481.0" layoutY="522.0" prefHeight="40.0" prefWidth="271.0" styleClass="log" text="Label" textAlignment="CENTER" visible="false" />
+      <ToggleButton fx:id="togbtnMarcarDesmarcar" layoutX="561.0" layoutY="288.0" mnemonicParsing="false" text="Marcar Todos" />
    </children>
 </AnchorPane>

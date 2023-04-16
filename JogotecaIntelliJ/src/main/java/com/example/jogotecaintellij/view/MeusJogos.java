@@ -25,7 +25,6 @@ public class MeusJogos extends ViewController implements Initializable {
         irParaPerfilDoUsuario(event);
     }
     protected void carregarListaDeJogos() {
-        ItemJogoController gic = ItemJogoController.getInstance();
         try {
             List<ItemJogo> jogosDoUsuario = suc.buscarListaItensJogosCompradosUsuarioAtual();
             meusJogosLog.setText(jogosDoUsuario.size() + " jogos encontrados");

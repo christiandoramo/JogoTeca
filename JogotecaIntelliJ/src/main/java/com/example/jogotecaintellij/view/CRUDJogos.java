@@ -2,7 +2,7 @@ package com.example.jogotecaintellij.view;
 
 import com.example.jogotecaintellij.controller.JogoController;
 import com.example.jogotecaintellij.enums.Genre;
-import com.example.jogotecaintellij.enums.StatusJogo;
+import com.example.jogotecaintellij.enums.StatusItemJogo;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.Jogo;
@@ -228,7 +228,7 @@ public class CRUDJogos extends ViewController implements Initializable {
             String pub = publicadora.getText();
             try {
                 if (!gc.contemNome(nome)) {
-                    gc.insertGame(nome, lancamento, genero, descricao, pub, dev, preco, imgUrl, videoUrl, StatusJogo.DISPONIVEL);
+                    gc.insertGame(nome, lancamento, genero, descricao, pub, dev, preco, imgUrl, videoUrl);
                     createLog.setText("Sucesso: Jogo inserido com sucesso");
                 } else
                     throw new ElementWithSameNameExistsException(nome);

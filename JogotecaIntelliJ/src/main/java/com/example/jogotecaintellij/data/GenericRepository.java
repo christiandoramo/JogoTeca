@@ -9,6 +9,7 @@ import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 
 public class GenericRepository<T> implements IGenericRepository<T> {
+    // ESSA É A CLASSE DE GERENCIAMENTO DOS DADOS
     protected List<T> elements;
     private final String fileName;
     private int ultimoId;

@@ -25,6 +25,6 @@
          <viewport>
             <Rectangle2D />
          </viewport></MediaView>
-      <ToggleButton fx:id="btnAdicionarWishlist" layoutX="540.0" layoutY="458.0" mnemonicParsing="false" onAction="#adicionarAMinhaWishlist" prefHeight="43.0" prefWidth="232.0" text="Adicionar à Wishlist" />
+      <ToggleButton fx:id="btnAdicionarWishlist" layoutX="540.0" layoutY="458.0" mnemonicParsing="false" prefHeight="43.0" prefWidth="232.0" text="Adicionar à Wishlist" />
    </children>
 </AnchorPane>

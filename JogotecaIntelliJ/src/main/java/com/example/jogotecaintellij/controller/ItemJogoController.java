@@ -2,9 +2,10 @@ package com.example.jogotecaintellij.controller;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.example.jogotecaintellij.data.GenericRepository;
-import com.example.jogotecaintellij.enums.StatusJogo;
+import com.example.jogotecaintellij.enums.StatusItemJogo;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
@@ -40,17 +41,43 @@ public class ItemJogoController {
         gameItemRepository.insert(gameItem);
     }
 
-    public void updateGameItem(Jogo game) throws ElementAlreadyExistsException {
+    public void atualizarItemJogo(Jogo jogo) throws ElementDoesNotExistException {
+        JogoController jc = JogoController.getInstance();
+        ItemJogo itemAntigo = searchGameItemByGameId(jogo.getId());
+        itemAntigo.setDescription(jogo.getDescription());
+        itemAntigo.setDesenvolvedora(jogo.getDesenvolvedora());
+        itemAntigo.setPublicadora(jogo.getPublicadora());
+        itemAntigo.setImageURL(jogo.getImageURL());
+        itemAntigo.setPrice(jogo.getPrice());
+        itemAntigo.setVideoUrl(jogo.getVideoUrl());
+        itemAntigo.setReleaseDate(jogo.getReleaseDate());
+        itemAntigo.setGenre(jogo.getGenre());
+        gameItemRepository.update(itemAntigo); // AGORA É ITEM ATUALIZADO
+    }
+
+    public void indisponibilizarAntigo(Jogo game) {
+        // TRATAMENTO DA ATUALIZAÇÃO DE JOGOS EM RELAÇÃO A JOGOS A VENDA AO ATUALIZAR
+        // UM JOGO UM NOVO ITEM É CRIADO, E O ANTIGO É INDISPONIBILIZADO PELO ENUM StatusItemJogo
         Optional<ItemJogo> primeiroItemJogoDisponivel = gameItemRepository.read()
                 .stream()
-                .filter(i -> i.getStatus() == StatusJogo.DISPONIVEL
+                .filter(i -> i.getStatus() == StatusItemJogo.DISPONIVEL
                         && i.getGame().getId() == game.getId())
                 .findFirst();
+        // OPTIONAL DE DO PRIMEIRO JOGO DISPONIVEL ACHADO
+        // NO CASO É TAMBÉM O ULTIMO QUE FOI REGISTRADO
         if (primeiroItemJogoDisponivel.isPresent()) {
-            ItemJogo ultimoJogoIgual = primeiroItemJogoDisponivel.get();
-            insertGameItem(game);
             try {
+                System.out.println("Entrou no 'if' em indisponibilizarAntigoCriaAtualizado");
+                ItemJogo ultimoJogoIgual = primeiroItemJogoDisponivel.get();
+                ultimoJogoIgual.setStatus(StatusItemJogo.INDISPONIVEL);
                 gameItemRepository.update(ultimoJogoIgual);
+                // ATUALIZANDO ITEM ANTIGO PARA STATUS = INDISPONIVEL
+                /* Não usado atualmente
+                insertGameItem(game);
+                // INSERINDO NOVO ITEM ATUALIZADO NA LOJA (ITENS JOGOS DISPONIVEIS)
+                */
+                System.out.println("acho que atualizou");
+                System.out.println(searchGameItemById(searchAllGameItem().size()).getGame());
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -58,8 +85,16 @@ public class ItemJogoController {
             System.out.println("Esse foi o primeiro " + game.getName() + " a ser registrado");
     }
 
+    public List<ItemJogo> searchAllItensJogosDisponiveis() throws ElementsDoNotExistException {
+        return searchAllGameItem().stream().filter(x -> x.getStatus().equals(StatusItemJogo.DISPONIVEL)).collect(Collectors.toList());
+    }
+
     public ItemJogo searchGameItemById(int id) throws ElementDoesNotExistException {
         return gameItemRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+    }
+
+    public ItemJogo searchGameItemByGameId(int id) throws ElementDoesNotExistException {
+        return gameItemRepository.read().stream().filter(x -> x.getIdJogo() == id).findFirst().orElse(null);
     }
 
     public List<ItemJogo> searchAllGameItem() throws ElementsDoNotExistException {
@@ -72,6 +107,11 @@ public class ItemJogoController {
     }
 
     public void destroyGameItemById(int id) throws ElementDoesNotExistException {
+        ItemJogo item = gameItemRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
+        gameItemRepository.delete(item);
+    }
+
+    public void destroyGameItemByGameId(int id) throws ElementDoesNotExistException {
         ItemJogo item = gameItemRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
         gameItemRepository.delete(item);
     }

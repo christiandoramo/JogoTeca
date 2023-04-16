@@ -9,9 +9,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.TextAlignment;
 import javafx.util.Callback;
@@ -26,25 +28,55 @@ import java.util.List;
 import java.util.ResourceBundle;
 
 public class Wishlist extends ViewController implements Initializable {
-
     @FXML
     private ListView<ItemJogo> listaDeItens;
     @FXML
     private Label wishlistLog;
+    @FXML
+    private ToggleButton togbtnMarcarDesmarcar;
+    @FXML
+    private Button btnLimparWishlist;
+    @FXML
+    private Button btnComprarSelecionados;
+    @FXML
+    private AnchorPane anchorpaneWishlist;
 
     @FXML
-    void comprarSelecionados(ActionEvent event) throws IOException {
-        if (!suc.getUsuarioCorrente().getWishlist().isEmpty()) {
-            suc.setItensCorrentes(suc.getUsuarioCorrente().getWishlist());
-            //suc.atualizarWishlist();só após o pagamento
-            irParaPagamento(event);
+    void comprarSelecionados(ActionEvent event) {
+        try {
+            if (suc.retornaWishlistDisponiveis().isEmpty()) {
+                wishlistLog.setVisible(true);
+                wishlistLog.setText("Nenhum jogo salvo na Wishlist");
+            } else if (suc.getItensCorrentes() == null) {
+                wishlistLog.setVisible(true);
+                wishlistLog.setText("Nenhum jogo foi selecionado");
+            } else if (suc.getItensCorrentes() != null && !suc.getItensCorrentes().isEmpty()) {
+                // os itens correntes podem ser vazios ou nulos, diferente da wishlist
+                // que é sempre não nula mas pode está vazia
+                wishlistLog.setVisible(false);
+                irParaPagamento(event);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
+
     }
 
-//    void selecionarItensDaWishlist(){
-//      É MELHOR REFAZER A SELEÇÃO DE ITENS A COMPRA E A REMOÇÃO DE ITENS DA WISHLIST
-    // USANDO O SLELECTION MODEL
-//    }
+    void desabilitarBotoes() throws ElementDoesNotExistException {
+        for (Node node : anchorpaneWishlist.getChildren())
+            if (node instanceof Button) {
+                Button btn = (Button) node;
+                if (btn.equals(btnComprarSelecionados) || btn.equals(btnLimparWishlist))
+                    btn.setDisable(suc.retornaWishlistDisponiveis().isEmpty());
+            } else if (node instanceof ToggleButton) {
+                ToggleButton togbtn = (ToggleButton) node;
+                if (togbtn.equals(togbtnMarcarDesmarcar))
+                    togbtn.setDisable(suc.retornaWishlistDisponiveis().isEmpty());
+            }
+        // se lista Vazia setaDisable recebe true senão recebe false
+        // ou seja desabilita se vazia e habilita se não vazia
+        // apenas os botoes: marcar desmarcar todos, comprar marcados e limpar wishlist
+    }
 
     @FXML
     void limparWishlist(ActionEvent event) throws IOException, ElementDoesNotExistException {
@@ -53,16 +85,18 @@ public class Wishlist extends ViewController implements Initializable {
         carregarWishlist();
     }
 
-    void carregarWishlist() {
+    void carregarWishlist() throws ElementDoesNotExistException {
         wishlistLog.setText("Nenhum jogo registrado");
-        if (!suc.getUsuarioCorrente().getWishlist().isEmpty())
+        if (!suc.retornaWishlistDisponiveis().isEmpty())
             wishlistLog.setVisible(false);
-        mostraGamesItensAchados(listaDeItens, suc.getUsuarioCorrente().getWishlist());
+        mostraGamesItensAchados(listaDeItens, suc.retornaWishlistDisponiveis());
+        desabilitarBotoes();
     }
 
     @FXML
     void voltarAoMeuFeed(ActionEvent event) throws IOException {
         irParaFeedUsuario(event);
+        suc.setItensCorrentes(null);
     }
 
     protected void mostraGamesItensAchados(ListView<ItemJogo> listaJogos, List<ItemJogo> gamesAchados) {
@@ -77,18 +111,15 @@ public class Wishlist extends ViewController implements Initializable {
                     protected void updateItem(ItemJogo achado, boolean btl) {
                         super.updateItem(achado, btl);
                         if (achado != null) {
-//                            File file = new File(achado.getGame().getImageURL());
-//                            String imagePath = file.toURI().toString();
-//                            Image img = new Image(imagePath);
-                            Path imagePath = Paths.get(achado.getGame().getImageURL()).toAbsolutePath();
+                            Path imagePath = Paths.get(achado.getImageURL()).toAbsolutePath();
                             Image img = new Image(imagePath.toUri().toString());
                             ImageView imgview = new ImageView(img);
                             imgview.setFitWidth(100);
                             imgview.setFitHeight(100);
                             String legenda = "";
-                            legenda = legenda.concat("Preço: " + achado.getGame().getPrice() + "\n");
-                            legenda = legenda.concat("Nome: " + achado.getGame().getName() + "\n");
-                            legenda = legenda.concat("Gênero: " + achado.getGame().getGenre().name().toLowerCase());
+                            legenda = legenda.concat("Preço: " + achado.getPrice() + "\n");
+                            legenda = legenda.concat("Nome: " + achado.getName() + "\n");
+                            legenda = legenda.concat("Gênero: " + achado.getGenre().name().toLowerCase());
                             setText(legenda);
                             setTextAlignment(TextAlignment.LEFT);
 
@@ -109,7 +140,7 @@ public class Wishlist extends ViewController implements Initializable {
                             Button btnRemover = new Button("Remover");
                             btnRemover.setOnAction(event -> {
                                 try {
-                                    suc.getUsuarioCorrente().getWishlist().remove(achado);
+                                    suc.retornaWishlistDisponiveis().remove(achado);
                                     suc.atualizarWishlist();
                                     carregarWishlist();
                                 } catch (Exception e) {
@@ -118,24 +149,24 @@ public class Wishlist extends ViewController implements Initializable {
                             });
                             hbox.getChildren().add(btnRemover);
 
-                            ToggleButton btnSelecionar = new ToggleButton("Selecionar");
-                            btnSelecionar.selectedProperty().addListener((obs, antigoValor, novoValor) -> {
-                                if (novoValor) {
-                                    // Botão foi selecionado
-                                    suc.getUsuarioCorrente().getWishlist().add(achado);
-                                } else {
-                                    // Botão foi desselecionado
-                                    suc.getUsuarioCorrente().getWishlist().remove(achado);
-                                }
+                            // TOGGLEBOTAO SELECIONAR DESSELECIONAR
+                            ToggleButton togbtnSelecionar = new ToggleButton("Selecionar");
+                            togbtnSelecionar.selectedProperty().addListener((obs, antigoValor, novoValor) -> {
                                 try {
-                                    suc.atualizarWishlist();
+                                    if (novoValor) {
+                                        // Botão foi selecionado
+                                        suc.getItensCorrentes().add(achado);
+                                        togbtnSelecionar.setText("Desselecionar");
+                                    } else {
+                                        // Botão foi desselecionado
+                                        suc.getItensCorrentes().remove(achado);
+                                        togbtnSelecionar.setText("Selecionar");
+                                    }
                                 } catch (Exception e) {
                                     e.printStackTrace();
                                 }
-
                             });
-                            hbox.getChildren().add(btnSelecionar);
-
+                            hbox.getChildren().add(togbtnSelecionar);
                             setGraphic(hbox);
                         }
                     }
@@ -148,11 +179,45 @@ public class Wishlist extends ViewController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        suc.setItensCorrentes(new ArrayList<>());
         try {
+            suc.getUsuarioCorrente().setWishlist(suc.retornaWishlistDisponiveis());
             suc.atualizarWishlist();
+            carregarWishlist();
         } catch (Exception e) {
             e.printStackTrace();
         }
-        carregarWishlist();
+        // selecionando e desselecionando itens da wishlist para serem compradas em itensCorrentes
+        togbtnMarcarDesmarcar.selectedProperty().addListener((obs, antigoValor, novoValor) -> {
+            if (novoValor) {
+                // Botão foi selecionado
+                for (Node node : anchorpaneWishlist.getChildren()) {
+                    if (node instanceof ToggleButton) {
+                        ToggleButton togbtn = (ToggleButton) node;
+                        String nome = togbtn.getText();
+                        if (nome.equals("Selecionar")) {
+                            togbtn.setSelected(true);
+                            // selecionando cada um dos itens da wishlist
+                        }
+                    }
+                }
+                togbtnMarcarDesmarcar.setText("Desmarcar Todos");
+                suc.setItensCorrentes(suc.getUsuarioCorrente().getWishlist());
+            } else {
+                // Botão foi desselecionado
+                for (Node node : anchorpaneWishlist.getChildren()) {
+                    if (node instanceof ToggleButton) {
+                        ToggleButton togbtn = (ToggleButton) node;
+                        String nome = togbtn.getText();
+                        if (nome.equals("Selecionar") || nome.equals("Desselecionar")) {
+                            togbtn.setSelected(false);
+                            // desselecionando cada um dos itens da wishlist
+                        }
+                    }
+                }
+                togbtnMarcarDesmarcar.setText("Marcar Todos");
+                suc.setItensCorrentes(null);
+            }
+        });
     }
 }

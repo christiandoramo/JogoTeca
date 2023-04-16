@@ -164,6 +164,7 @@ public class ViewController {
 
     // cria os menuItems baseados nos enums genre - FUNCIONANDO
     public static void preencheMenuGeneros(MenuButton mb) {
+        // com combobox seria mais facil - mas consegui reusar o codigo facilmente
         Genre _genres[] = Genre.values();
         for (Genre genre : _genres) {
             MenuItem item = new MenuItem(genre.name());
@@ -306,7 +307,7 @@ public class ViewController {
                         super.updateItem(achado, btl);
                         try {
                             if (achado != null) {
-                                String imageUrl = achado.getGame().getImageURL(); // caminho relativo da imagem, por exemplo: "midias/imagem.jpg"
+                                String imageUrl = achado.getImageURL(); // caminho relativo da imagem, por exemplo: "midias/imagem.jpg"
                                 Path absoluto = Paths.get(imageUrl).toAbsolutePath();
                                 Image img = new Image(absoluto.toString());
                                 ImageView imgview = new ImageView(img);
@@ -314,9 +315,9 @@ public class ViewController {
                                 imgview.setFitHeight(100);
                                 String legenda = "";
                                 if (mostrarPreco)
-                                    legenda = legenda.concat("Preço: " + achado.getGame().getPrice() + "\n");
-                                legenda = legenda.concat("Nome: " + achado.getGame().getName() + "\n");
-                                legenda = legenda.concat("Gênero: " + achado.getGame().getGenre().name().toLowerCase());
+                                    legenda = legenda.concat("Preço: " + achado.getPrice() + "\n");
+                                legenda = legenda.concat("Nome: " + achado.getName() + "\n");
+                                legenda = legenda.concat("Gênero: " + achado.getGenre().name().toLowerCase());
                                 setText(legenda);
                                 setTextAlignment(TextAlignment.LEFT);
 

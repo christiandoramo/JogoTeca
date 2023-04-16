@@ -1,7 +1,6 @@
 package com.example.jogotecaintellij.model;
 
 import com.example.jogotecaintellij.enums.Genre;
-import com.example.jogotecaintellij.enums.StatusJogo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
@@ -21,9 +20,8 @@ public class Jogo implements Serializable {
     private Double price;
     private String imageURL;
     private String videoUrl;
-    private StatusJogo status;
 
-    public Jogo(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) {
+    public Jogo(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.genre = genre;
@@ -33,7 +31,6 @@ public class Jogo implements Serializable {
         this.price = price;
         this.imageURL = imageURL;
         this.videoUrl = videoUrl;
-        this.status = status;
     }
 
     public String getVideoUrl() {
@@ -116,13 +113,6 @@ public class Jogo implements Serializable {
         this.price = price;
     }
 
-    public void setStatus(StatusJogo status) {
-        this.status = status;
-    }
-
-    public StatusJogo getStatus() {
-        return status;
-    }
 
     @Override
     public int hashCode() {
@@ -158,9 +148,8 @@ public class Jogo implements Serializable {
                         "\ndescription: " + description +
                         "\npublicadora: " + publicadora +
                         "\ndesenvolvedora: " + desenvolvedora +
-                        "\nprice: " + String.format("%.2f",price) +
-                        "\nimageURL: " + imageURL  +
-                        "\nvideoUrl: " + videoUrl +
-                        "\nstatus: " + status.name();
+                        "\nprice: " + String.format("%.2f", price) +
+                        "\nimageURL: " + imageURL +
+                        "\nvideoUrl: " + videoUrl;
     }
 }

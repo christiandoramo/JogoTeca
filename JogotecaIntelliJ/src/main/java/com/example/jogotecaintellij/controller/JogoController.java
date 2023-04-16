@@ -3,7 +3,7 @@ package com.example.jogotecaintellij.controller;
 import com.example.jogotecaintellij.data.GenericRepository;
 import com.example.jogotecaintellij.data.IGenericRepository;
 import com.example.jogotecaintellij.enums.Genre;
-import com.example.jogotecaintellij.enums.StatusJogo;
+import com.example.jogotecaintellij.enums.StatusItemJogo;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
@@ -41,9 +41,10 @@ public class JogoController {
             for (Jogo game : gameRepository.read())
                 System.out.println(game.getName());
     }
-//(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl, StatusJogo status
-    public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
-        Jogo novo = new Jogo( name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl, status);
+
+    //(int id, String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, List<String> imagesUrl, StatusJogo status
+    public void insertGame(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl) throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+        Jogo novo = new Jogo(name, releaseDate, genre, description, publicadora, desenvolvedora, price, imageURL, videoUrl);
         gameRepository.insert(novo);
         ItemJogoController gic = ItemJogoController.getInstance();
         gic.insertGameItem(novo);
@@ -83,6 +84,14 @@ public class JogoController {
                 game.setReleaseDate(releaseDate);
             gameRepository.update(game);
         }
+        ItemJogoController ijc = ItemJogoController.getInstance();
+        try {
+            ijc.atualizarItemJogo(game);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Falha na atualização de ItemJogo");
+        }
+
     }
 
     public void updateGameById(int id, String name, Genre genre, Double price, String description, String imageURL,
@@ -99,10 +108,34 @@ public class JogoController {
     }
 
     public void destroyGameById(int id) throws ElementDoesNotExistException {
-        gameRepository.delete(searchGameById(id));
+        // CRIAR SISTEMA DE CÓPIA DE DADOS DE JOGOS PARA ITENSJOGOS
+        // PARA NÃO PERDER OS DADOS APÓS A REMOÇÃO DE JOGOS DO PROGRAMA
+        Jogo jogo = searchGameById(id);
+
+        ItemJogoController ijc = ItemJogoController.getInstance();
+        try {
+            ijc.searchGameItemByGameId(jogo.getId()).setStatus(StatusItemJogo.INDISPONIVEL);
+            // itemJogo não é deletado apenas fica indisponivel porque o jogo não está presente
+            // indisponivel no sentido figurado, o jogo pode ser jogado - visto em meus jogos, meus pedidos
+            // consulta vendas, comprovante e perfil do Jogo.
+            // Mas NÃÃÃÃÃO pode ser visto na Wishlist, pedidoPagamento feed usuario.
+            // tudo isso através do enum  status: DISPONIVEL-INDISPONIVEL
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Falha na atualização de ItemJogo");
+        }
+        gameRepository.delete(jogo);
     }
 
     public void destroyGameByName(String name) throws ElementDoesNotExistException {
-        gameRepository.delete(searchGameByName(name));
+        Jogo jogo = searchGameByName(name);
+        ItemJogoController ijc = ItemJogoController.getInstance();
+        try {
+            ijc.searchGameItemByGameId(jogo.getId()).setStatus(StatusItemJogo.INDISPONIVEL);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println("Falha na atualização de ItemJogo");
+        }
+        gameRepository.delete(jogo);
     }
 }

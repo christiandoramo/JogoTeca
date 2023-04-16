@@ -1,5 +1,5 @@
 package com.example.jogotecaintellij.enums;
 
-public enum StatusJogo {
+public enum StatusItemJogo {
     DISPONIVEL, INDISPONIVEL
 }

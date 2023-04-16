@@ -8,6 +8,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 
 public class FileUtilRepository {
+	// ESSA É A CLASSE DE ACESSO AOS DADOS - DAO
 	public static Object ReadFromFile(String fileName) {
         Object instanciaLocal = null;
 
@@ -21,12 +22,13 @@ public class FileUtilRepository {
             // Se alguma exceção ocorrer, um objeto NULL será retornado
             instanciaLocal = ois.readObject();
         } catch (Exception e) {
-            System.out.println(fileName + " não existe. Um novo arquivo será criado");
+            System.out.println("\n\n"+fileName + " não existe. Um novo arquivo será criado\n\n");
         } finally {
             if (ois != null) {
                 try {
                     ois.close();
                 } catch (IOException e) {
+					e.printStackTrace();
                 }
             }
         }
@@ -40,7 +42,6 @@ public class FileUtilRepository {
 	        File out = new File(fileName);
 	        FileOutputStream fos = null;
 	        ObjectOutputStream oos = null;
-
 	        try {
 	            fos = new FileOutputStream(out);
 	            oos = new ObjectOutputStream(fos);

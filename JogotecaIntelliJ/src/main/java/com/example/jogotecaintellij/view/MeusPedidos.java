@@ -29,7 +29,6 @@ import java.util.ResourceBundle;
 import static java.lang.String.format;
 
 public class MeusPedidos extends ViewController implements Initializable {
-
     @FXML
     private TableView<Pedido> tabelaMeusPedidos;
     @FXML
@@ -44,7 +43,6 @@ public class MeusPedidos extends ViewController implements Initializable {
     private TableColumn<Pedido, String> colunaMetodo;
     @FXML
     private TableColumn<Pedido, String> colunaStatus;
-
     @FXML
     private Label meusPedidoLog;
 
@@ -69,9 +67,9 @@ public class MeusPedidos extends ViewController implements Initializable {
                 List<ItemJogo> itens = pedido.getItens();
                 StringBuilder nomes = new StringBuilder();
                 for (ItemJogo item : itens)
-                    nomes.append(item.getGame().getName()).append(", ");
+                    nomes.append(item.getName()).append(", ");
                 if (nomes.length() > 0)
-                    nomes.delete(nomes.length() - 2, nomes.length()); // remove a última vírgula e espaço, por isso o -2
+                    nomes.delete(nomes.length() - 2, nomes.length()); // remove a vírgula e espaço do final, por isso o -2
                 return new SimpleStringProperty(nomes.toString());
             });
             colunaVencimento.setCellValueFactory(cellData -> {
@@ -99,7 +97,6 @@ public class MeusPedidos extends ViewController implements Initializable {
             } else
                 e.printStackTrace();
         }
-
     }
 
     @Override

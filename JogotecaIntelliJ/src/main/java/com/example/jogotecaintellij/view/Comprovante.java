@@ -1,67 +1,77 @@
 
 package com.example.jogotecaintellij.view;
 
+import com.example.jogotecaintellij.model.ItemJogo;
 import com.example.jogotecaintellij.model.Venda;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
-import javafx.stage.Stage;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 import java.io.FileWriter;
 import java.io.IOException;
 import java.net.URL;
 import java.time.format.DateTimeFormatter;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Locale;
-import java.util.ResourceBundle;
-import java.util.stream.Collectors;
+import java.util.*;
 
 public class Comprovante extends ViewController implements Initializable {
     @FXML
-    protected Text cpf;
+    protected TableColumn<Venda, String> columncpf;
 
     @FXML
-    protected Text dados;
+    protected TableColumn<Venda, String> columndados;
 
     @FXML
-    protected Text idPedido;
+    protected TableColumn<Venda, String> columnidPedido;
 
     @FXML
-    protected Text idVenda;
+    protected TableColumn<Venda, String> columnidVenda;
 
     @FXML
-    protected Text metodoPagamento;
+    protected TableColumn<Venda, String> columnmetodoPagamento;
 
     @FXML
-    protected Text momento;
+    protected TableColumn<Venda, String> columnmomento;
 
     @FXML
-    protected Text nomeComprador;
+    protected TableColumn<Venda, String> columnnomeComprador;
 
     @FXML
-    protected Text nomeJogo;
+    protected TableColumn<Venda, String> columnnomesJogos;
 
     @FXML
-    protected Text valor;
+    protected TableColumn<Venda, String> columnvalor;
 
     @FXML
-    protected VBox comprovanteDeCompra;
+    protected TableView<Venda> tabelaComprovante;
 
+    @FXML
+    private Label comprovanteLog;
+    @FXML
+    private Button btnPerfilDojogo;
     private List<String> linhasComprovante;
 
+
     @FXML
-    void imprimirComprovante(ActionEvent event) throws IOException {
-        String filePath = "comprovante_"+suc.getVendaCorrente().getId() + ".txt";
-        FileWriter writer = new FileWriter(filePath);
-        for (String linha : linhasComprovante) {
-            writer.write(linha + "\n");
-        }
-        writer.close();
-        linhasComprovante = null;
+    void baixarComprovante(ActionEvent event) throws IOException {
+        if (linhasComprovante != null) {
+            String filePath = "comprovante_" + suc.getVendaCorrente().getId() + ".txt";
+            FileWriter writer = new FileWriter(filePath);
+            for (String linha : linhasComprovante) {
+                writer.write(linha + "\n");
+            }
+            writer.close();
+            linhasComprovante = null;
+            comprovanteLog.setText("O comprovante foi baixado");
+        } else
+            comprovanteLog.setText("Você já baixou o cromprovante");
+        comprovanteLog.setVisible(true);
     }
 
     @FXML
@@ -84,42 +94,81 @@ public class Comprovante extends ViewController implements Initializable {
         suc.setItensCorrentes(null);
     }
 
-    void carregarComprovante(Venda venda) {
-        String _idvenda = Integer.toString(venda.getId());
-        String _idpedido = Integer.toString(venda.getPedido().getId());
-        String _metodo = venda.getPedido().getMetodo().name();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss dd MMMM yyyy", new Locale("pt", "BR"));
-        String _momento = venda.getMomento().format(formatter);
-        List<String> _dados = venda.getDadosBancarios();
-        String _cpf = venda.getPedido().getUser().getCPF();
-        String _nomeComprador = venda.getPedido().getUser().getNome();
-        String _total = String.format("%.2f", venda.getPedido().totalValue());
-        List<String> _itens = venda.getPedido().getItens().stream().map(x -> x.getGame().getName())
-                .collect(Collectors.toList());
-        cpf.setText("CPF do Comprador: " + _cpf);
-        idPedido.setText("id do Pedido: " + _idpedido);
-        idVenda.setText("id da Venda: " + _idvenda);
-        metodoPagamento.setText("Forma de Pagamento: " + _metodo);
-        momento.setText("Momento da Compra: " + _momento);
-        String d = "Dados Bancários: ";
-        if (_dados != null && !_dados.isEmpty()){
-            d = _dados.stream().reduce((s1, s2) -> s1 + " | " + s2).orElse("");
+    private void carregarComprovante(Venda _venda) {
+        try {
+            ObservableList<Venda> observableListVenda = FXCollections.observableList(Collections.singletonList(suc.getVendaCorrente()));
+            tabelaComprovante.setItems(observableListVenda);
+            columnidVenda.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                linhasComprovante.add(Integer.toString(venda.getId()));
+                return new SimpleStringProperty(Integer.toString(venda.getId()));
+            });
+            columnidPedido.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                linhasComprovante.add(Integer.toString(venda.getPedido().getId()));
+                return new SimpleStringProperty(Integer.toString(venda.getPedido().getId()));
+            });
+            columnnomesJogos.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                List<ItemJogo> itens = venda.getPedido().getItens();
+                StringBuilder nomes = new StringBuilder();
+                for (ItemJogo item : itens)
+                    nomes.append(item.getName()).append("\n");
+                linhasComprovante.add(nomes.toString());
+                return new SimpleStringProperty(nomes.toString());
+            });
+            columnmomento.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("pt", "BR"));
+                linhasComprovante.add(venda.getPedido().getVencimento().format(formatter));
+                return new SimpleStringProperty(venda.getPedido().getVencimento().format(formatter));
+            });
+            columnvalor.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                linhasComprovante.add(String.format("%.2f", venda.getPedido().totalValue()));
+                return new SimpleStringProperty(String.format("%.2f", venda.getPedido().totalValue()));
+            });
+            columnmetodoPagamento.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                linhasComprovante.add(venda.getPedido().getMetodo().name());
+                return new SimpleStringProperty(venda.getPedido().getMetodo().name());
+            });
+            columncpf.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                linhasComprovante.add(venda.getPedido().getUser().getCPF());
+                return new SimpleStringProperty(venda.getPedido().getUser().getCPF());
+            });
+            columnnomeComprador.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                linhasComprovante.add(venda.getPedido().getMetodo().name());
+                return new SimpleStringProperty(venda.getPedido().getMetodo().name());
+            });
+            columndados.setCellValueFactory(cellData -> {
+                Venda venda = cellData.getValue();
+                List<String> listaDeDados = venda.getDadosBancarios();
+                StringBuilder builderDeDados = new StringBuilder();
+                builderDeDados.append("");
+                if (listaDeDados != null)
+                    for (String dado : listaDeDados)
+                        builderDeDados.append(dado).append("\n");
+                linhasComprovante.add(builderDeDados.toString());
+                return new SimpleStringProperty(builderDeDados.toString());
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        dados.setText("Dados Bancários: " + d);
-        String i = "Nome do Jogo: ";
-        if (_itens != null && !i.isEmpty()){
-            i = _itens.stream().reduce((s1, s2) -> s1 + " | " + s2).orElse("");
-        }
-        nomeJogo.setText("Nome do Jogo: " + i);
-        nomeComprador.setText("Nome do Comprador: " + _nomeComprador);
-        valor.setText("Valor da Compra: " + _total);
-        linhasComprovante = Arrays.asList(idVenda.getText(), idPedido.getText(), metodoPagamento.getText(),
-                    momento.getText(), dados.getText(), cpf.getText(), nomeComprador.getText(), valor.getText(),
-                    nomeJogo.getText());
+
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        if (suc.getItemCorrente() == null) {
+            btnPerfilDojogo.setVisible(false);
+        } else {
+            btnPerfilDojogo.setVisible(true);
+        }
+        linhasComprovante = new ArrayList<>();
+        comprovanteLog.setVisible(false);
         carregarComprovante(suc.getVendaCorrente());
     }
 }

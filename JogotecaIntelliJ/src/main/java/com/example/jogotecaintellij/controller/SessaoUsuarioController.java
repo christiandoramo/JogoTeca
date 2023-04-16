@@ -2,6 +2,7 @@ package com.example.jogotecaintellij.controller;
 
 import com.example.jogotecaintellij.data.GenericRepository;
 import com.example.jogotecaintellij.data.IGenericRepository;
+import com.example.jogotecaintellij.enums.StatusItemJogo;
 import com.example.jogotecaintellij.exception.CredenciaisIncorretasException;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
@@ -183,7 +184,7 @@ public class SessaoUsuarioController {
                 .filter(compra -> compra.getPedido().getUser().equals(usuarioCorrente))
                 .flatMap(x -> x.getPedido().getItens().stream())
                 .collect(Collectors.toList());
-        // retorna uma lista List<ItemJogo> e não uma lista List<List<ItemJogo>>
+        // flatMap retorna uma lista List<ItemJogo> e não uma lista List<List<ItemJogo>>
     }
 
     public void deslogarUsuario() {
@@ -197,6 +198,13 @@ public class SessaoUsuarioController {
         }
         setUsuarioCorrente(null);
         sessao = null;
+    }
+
+    public List<ItemJogo> retornaWishlistDisponiveis() throws ElementDoesNotExistException {
+        usuarioCorrente.getWishlist().removeIf(x -> x.getStatus() == StatusItemJogo.INDISPONIVEL);
+        // metodo aproveita e elimina da wishlist os itens Indisponiveis
+        atualizarWishlist();
+        return usuarioCorrente.getWishlist();
     }
 
     public void atualizarWishlistPosCompra() throws ElementDoesNotExistException {
