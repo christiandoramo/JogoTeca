@@ -47,20 +47,15 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     Media media;
     MediaPlayer mediaPlayer;
 
-    @FXML
-    protected void adicionarAMinhaWishlist(ActionEvent event) {
-
-    }
-
     protected void carregarImagem() {
-        String caminhoDaImagem = suc.getItemCorrente().getGame().getImageURL();
+        String caminhoDaImagem = suc.getItemCorrente().getImageURL();
         File arquivo = new File(caminhoDaImagem);
         Image imagem = new Image(arquivo.toURI().toString());
         imagemPerfil.setImage(imagem);
     }
 
     public void carregarVideo() {
-        String caminhoDoVideo = suc.getItemCorrente().getGame().getVideoUrl();
+        String caminhoDoVideo = suc.getItemCorrente().getVideoUrl();
         File arquivo = new File(caminhoDoVideo);
         media = new Media(arquivo.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
@@ -72,18 +67,17 @@ public class PerfilDoJogo extends ViewController implements Initializable {
 
     public void carregarTextos() {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMMM yyyy", new Locale("pt", "BR"));
-        descricao.setText("Descrição: " + suc.getItemCorrente().getGame().getDescription());
-        desenvolvedora.setText("Desenvolvedora: " + suc.getItemCorrente().getGame().getDesenvolvedora());
-        genero.setText("Gênero: " + suc.getItemCorrente().getGame().getGenre().name());
-        nome.setText("Nome: " + suc.getItemCorrente().getGame().getName());
-        publicadora.setText("Publicadora: " + suc.getItemCorrente().getGame().getPublicadora());
-        lancamento.setText("Data de Lançamento: " + suc.getItemCorrente().getGame().getReleaseDate().format(formatter));
-        preco.setText("Preço: " + String.format("%.2f", suc.getItemCorrente().getGame().getPrice()));
+        descricao.setText("Descrição: " + suc.getItemCorrente().getDescription());
+        desenvolvedora.setText("Desenvolvedora: " + suc.getItemCorrente().getDesenvolvedora());
+        genero.setText("Gênero: " + suc.getItemCorrente().getGenre().name());
+        nome.setText("Nome: " + suc.getItemCorrente().getName());
+        publicadora.setText("Publicadora: " + suc.getItemCorrente().getPublicadora());
+        lancamento.setText("Data de Lançamento: " + suc.getItemCorrente().getReleaseDate().format(formatter));
+        preco.setText("Preço: " + String.format("%.2f", suc.getItemCorrente().getPrice()));
     }
 
     void desabilitarBotoes() throws ElementsDoNotExistException {
-        boolean jaComprado;
-        jaComprado = suc.checaSeUmJogoJaFoiComprado(suc.getUsuarioCorrente(), suc.getItemCorrente());
+        boolean jaComprado = suc.checaSeOJogoJaFoiComprado(suc.getItemCorrente());
         btnAdicionarWishlist.setDisable(jaComprado || suc.jogoJaAdicionadoAWishList(suc.getItemCorrente()));
         btnComprarAgora.setDisable(jaComprado);
     }
@@ -118,12 +112,14 @@ public class PerfilDoJogo extends ViewController implements Initializable {
     public void initialize(URL arg0, ResourceBundle arg1) {
         btnAdicionarWishlist.setOnAction(eventoLambda -> {
             try {
-                if (!btnComprarAgora.isDisabled())
+                if (!btnComprarAgora.isDisabled()) {
+                    suc.atualizarWishlist();
                     if (btnAdicionarWishlist.isSelected()) {
                         suc.getUsuarioCorrente().getWishlist().add(suc.getItemCorrente());
-                    } else if (btnAdicionarWishlist.isSelected()) {
+                    } else if (!btnAdicionarWishlist.isSelected()) {
                         suc.getUsuarioCorrente().getWishlist().remove(suc.getItemCorrente());
                     }
+                }
                 suc.atualizarWishlist();
             } catch (Exception e) {
                 e.printStackTrace();
@@ -138,7 +134,6 @@ public class PerfilDoJogo extends ViewController implements Initializable {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
         carregarTela();
     }
 }

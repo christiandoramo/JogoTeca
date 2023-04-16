@@ -91,7 +91,7 @@ public class Pedido implements Serializable {
 
     public double totalValue() {
         if (itens != null)
-            return itens.stream().mapToDouble(ItemJogo::getValue).sum();
+            return itens.stream().mapToDouble(ItemJogo::getPrice).sum();
         return 0.0;
     }
 

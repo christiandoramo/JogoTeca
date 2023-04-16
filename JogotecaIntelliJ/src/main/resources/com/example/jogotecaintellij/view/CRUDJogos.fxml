@@ -26,7 +26,7 @@
             <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesDESTROY" text="Remover Jogo" />
         </items>
       </MenuButton>
-      <AnchorPane fx:id="telaInserir" layoutX="13.0" layoutY="92.0" minHeight="487.0" minWidth="764.0" prefHeight="504.0" prefWidth="764.0">
+      <AnchorPane fx:id="telaInserir" layoutX="13.0" layoutY="92.0" minHeight="487.0" minWidth="764.0" prefHeight="504.0" prefWidth="764.0" visible="false">
          <children>
             <MenuButton fx:id="genres" layoutX="408.0" layoutY="54.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="333.0" text="Selecione um Genero" />
             <TextField fx:id="name" layoutX="32.0" layoutY="55.0" prefHeight="25.0" prefWidth="326.0" promptText="insira o nome completo do jogo aqui" />
@@ -95,10 +95,10 @@
             <DatePicker fx:id="CampoTrocaReleaseDate" layoutX="20.0" layoutY="131.0" prefHeight="25.0" prefWidth="252.0" promptText="Trocar Data" />
             <Button layoutX="593.0" layoutY="386.0" mnemonicParsing="false" onAction="#atualizarJogo" text="Atualizar Jogo" />
             <Label fx:id="updateLog" alignment="CENTER" layoutX="549.0" layoutY="414.0" prefHeight="56.0" prefWidth="183.0" styleClass="log" text="updateLog" textAlignment="CENTER" textFill="RED" visible="false" wrapText="true" />
-            <TextField fx:id="CampoTrocaImage" layoutX="42.0" layoutY="374.0" prefHeight="25.0" prefWidth="91.0" promptText="Url da Imagem" visible="false" />
+            <TextField fx:id="CampoTrocaImage" layoutX="287.0" layoutY="444.0" prefHeight="25.0" prefWidth="207.0" promptText="Url da Imagem" />
             <Button layoutX="287.0" layoutY="419.0" mnemonicParsing="false" onAction="#selecionarImagemAtualizar" prefHeight="25.0" prefWidth="207.0" text="Mudar imagem de Perfil" textAlignment="CENTER" />
             <Label layoutX="522.0" layoutY="18.0" text="Jogo em Atualização" />
-            <TextField fx:id="CampoTrocaVideo" layoutX="43.0" layoutY="417.0" prefHeight="25.0" prefWidth="91.0" promptText="Url do video" visible="false" />
+            <TextField fx:id="CampoTrocaVideo" layoutX="25.0" layoutY="444.0" prefHeight="25.0" prefWidth="237.0" promptText="Url do video" />
             <Button layoutX="25.0" layoutY="419.0" mnemonicParsing="false" onAction="#selecionarVideoAtualizar" prefHeight="25.0" prefWidth="237.0" text="Mudar Video de Demo ou Trailer" textAlignment="CENTER" />
             <TextField fx:id="CampoTrocaDesenvolvedora" layoutX="19.0" layoutY="202.0" prefHeight="25.0" prefWidth="245.0" promptText="Trocar Desenvolvedora" />
             <TextField fx:id="CampoTrocaPublicadora" layoutX="16.0" layoutY="272.0" prefHeight="25.0" prefWidth="249.0" promptText="Trocar Publicadora" />

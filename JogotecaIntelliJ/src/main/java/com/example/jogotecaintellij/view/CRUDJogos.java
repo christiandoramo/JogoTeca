@@ -2,10 +2,10 @@ package com.example.jogotecaintellij.view;
 
 import com.example.jogotecaintellij.controller.JogoController;
 import com.example.jogotecaintellij.enums.Genre;
-import com.example.jogotecaintellij.enums.StatusJogo;
+import com.example.jogotecaintellij.enums.StatusItemJogo;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
-import com.example.jogotecaintellij.model.Game;
+import com.example.jogotecaintellij.model.Jogo;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -56,15 +56,13 @@ public class CRUDJogos extends ViewController implements Initializable {
     @FXML
     protected TextField urlImage;
     @FXML
-    protected ListView<Game> listaImagemJogo;
-    @FXML
     protected AnchorPane telaBuscar;
     @FXML
     protected TextField CampoBuscarId;
     @FXML
     protected TextField CampoBuscarNome;
     @FXML
-    protected ListView<Game> listaJogos;
+    protected ListView<Jogo> listaJogos;
     @FXML
     protected MenuButton CampoBuscarGenero;
 
@@ -77,7 +75,7 @@ public class CRUDJogos extends ViewController implements Initializable {
     @FXML
     protected TextField CampoTrocaNome;
     @FXML
-    protected ListView<Game> JogoAAtualizar;
+    protected ListView<Jogo> JogoAAtualizar;
     @FXML
     protected MenuButton CampoTrocaGenero;
     @FXML
@@ -96,7 +94,7 @@ public class CRUDJogos extends ViewController implements Initializable {
     @FXML
     protected TextField campoRemoverNome;
     @FXML
-    protected ListView<Game> listaRemover;
+    protected ListView<Jogo> listaRemover;
 
     @FXML
     protected Label createLog;
@@ -128,11 +126,13 @@ public class CRUDJogos extends ViewController implements Initializable {
     }
 
     protected void removerPorId() {
-        remover(Integer.parseInt(campoRemoverId.getText()),null);
+        remover(Integer.parseInt(campoRemoverId.getText()), null);
     }
+
     protected void removerPorName() {
-        remover(0,campoRemoverNome.getText());
+        remover(0, campoRemoverNome.getText());
     }
+
     protected void remover(int _id, String _name) {
         try {
             if (_id != 0) gc.destroyGameById(_id);
@@ -143,6 +143,7 @@ public class CRUDJogos extends ViewController implements Initializable {
             destroyLog.setVisible(true);
         }
     }
+
     @FXML
     protected void atualizarJogo() {
         if (preencheuAlgumaEntradaAtualizacao()) {
@@ -180,7 +181,7 @@ public class CRUDJogos extends ViewController implements Initializable {
         modoAtualizacao = "name";
     }
 
-    protected void atualizar(int id, String name) {
+    protected void atualizarPorId() {
         int _id = Integer.parseInt(CampoAtualizarPorId.getText());
         String _newName = CampoTrocaNome.getText();
         Genre _genero = (Genre) CampoTrocaGenero.getUserData();
@@ -190,11 +191,9 @@ public class CRUDJogos extends ViewController implements Initializable {
         String _image = CampoTrocaImage.getText();
         LocalDate _release = CampoTrocaReleaseDate.getValue();
         try {
-            if (!gc.contemNome(name)) {
-                if (id != 0)
+            if (!gc.contemNome(_newName)) {
+                if (_id != 0)
                     gc.updateGameById(_id, _newName, _genero, _price, _descricao, _image, _release);
-                if (name != null)
-                    gc.updateGameByName(name, _newName, _genero, _price, _descricao, _image, _release);
                 updateLog.setText("Sucesso: O Jogo foi Atualizado");
             } else
                 throw new ElementWithSameNameExistsException(_newName);
@@ -205,14 +204,27 @@ public class CRUDJogos extends ViewController implements Initializable {
         }
     }
 
-    protected void atualizarPorId() {
-        int _id = Integer.parseInt(CampoAtualizarPorId.getText());
-        atualizar(_id, null);
-    }
-
     protected void atualizarPorName() {
         String _name = CampoAtualizarPorNome.getText();
-        atualizar(0, _name);
+        String _newName = CampoTrocaNome.getText() != null ? CampoTrocaNome.getText() : "";
+        Genre _genero = (Genre) CampoTrocaGenero.getUserData();
+        String p = CampoTrocaPrice.getText();
+        Double _price = p == null || p.equals("") ? null : Double.parseDouble(p);
+        String _descricao = CampoTrocaDescricao.getText();
+        String _image = CampoTrocaImage.getText();
+        LocalDate _release = CampoTrocaReleaseDate.getValue();
+        try {
+            if (!gc.contemNome(_newName)) {
+                if (_newName != null)
+                    gc.updateGameByName(_name, _newName, _genero, _price, _descricao, _image, _release);
+                updateLog.setText("Sucesso: O Jogo foi Atualizado");
+            } else
+                throw new ElementWithSameNameExistsException(_newName);
+        } catch (Exception e) {
+            updateLog.setText(e.getMessage());
+        } finally {
+            updateLog.setVisible(true);
+        }
     }
 
     @FXML
@@ -230,7 +242,7 @@ public class CRUDJogos extends ViewController implements Initializable {
             String pub = publicadora.getText();
             try {
                 if (!gc.contemNome(nome)) {
-                    gc.insertGame(nome, lancamento, genero, descricao, pub, dev, preco, imgUrl, videoUrl, StatusJogo.DISPONIVEL);
+                    gc.insertGame(nome, lancamento, genero, descricao, pub, dev, preco, imgUrl, videoUrl);
                     createLog.setText("Sucesso: Jogo inserido com sucesso");
                 } else
                     throw new ElementWithSameNameExistsException(nome);
@@ -260,7 +272,7 @@ public class CRUDJogos extends ViewController implements Initializable {
         Genre genero = (Genre) CampoBuscarGenero.getUserData();
         if (genero != null) {
             try {
-                List<Game> gamesAchados = gc.searchGamesByGenre(genero);
+                List<Jogo> gamesAchados = gc.searchGamesByGenre(genero);
                 if (!gamesAchados.isEmpty()) {
                     ViewController.mostraGamesAchados(listaJogos, gamesAchados);
                     readLog.setVisible(false);
@@ -284,13 +296,15 @@ public class CRUDJogos extends ViewController implements Initializable {
     @FXML
     protected void searchTodos() {
         try {
-            List<Game> allGames = gc.searchAllGames();
+            List<Jogo> allGames = gc.searchAllGames();
             if (!allGames.isEmpty()) {
                 ViewController.mostraGamesAchados(listaJogos, allGames);
                 readLog.setVisible(false);
+                System.out.println("Tem jogos em gc");
             } else
                 throw new ElementsDoNotExistException(allGames);
         } catch (Exception e) {
+            System.out.println("NÃO tem jogos em gc");
             if (e instanceof ElementsDoNotExistException) {
                 readLog.setText("Erro: Nenhum Jogo encontrado");
             } else {

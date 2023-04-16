@@ -5,6 +5,7 @@ import com.example.jogotecaintellij.controller.VendaController;
 import com.example.jogotecaintellij.enums.Metodo;
 import com.example.jogotecaintellij.enums.OrderStatus;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
+import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameNameExistsException;
 import com.example.jogotecaintellij.model.Pedido;
 import com.example.jogotecaintellij.model.Venda;
@@ -73,13 +74,12 @@ public class PedidoPagamento extends ViewController implements Initializable {
     }
 
     @FXML
-    public void btnIrParaPerfilDoJogo(ActionEvent event)throws IOException {
+    public void btnIrParaPerfilDoJogo(ActionEvent event) throws IOException {
         irParaPerfilDoJogo(event);
     }
 
     @FXML
-    protected void butaoPagamento(ActionEvent event)
-            throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+    protected void butaoPagamento(ActionEvent event) {
         if (preencheuEntradasInsercao()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("confirmando");
@@ -98,9 +98,7 @@ public class PedidoPagamento extends ViewController implements Initializable {
                 Venda novaVenda = new Venda(novoPedido, nova);
                 vc.insertVenda(novaVenda);
                 suc.setVendaCorrente(novaVenda);
-//                suc.setItemCorrente(null);
-//                suc.setItensCorrentes(null);
-                setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
+                suc.atualizarWishlist();
                 irParaComprovante(event);
             } catch (Exception e) {
                 e.printStackTrace();
@@ -109,8 +107,7 @@ public class PedidoPagamento extends ViewController implements Initializable {
     }
 
     @FXML
-    protected void butaoPagamento2(ActionEvent event)
-            throws ElementAlreadyExistsException, ElementWithSameNameExistsException {
+    protected void butaoPagamento2(ActionEvent event) {
         if (preencheuEntradasInsercao2()) {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("confirmando");
@@ -129,8 +126,8 @@ public class PedidoPagamento extends ViewController implements Initializable {
                 Venda novaVenda = new Venda(novoPedido, nova);
                 vc.insertVenda(novaVenda);
                 suc.setVendaCorrente(novaVenda);
-//                suc.setItemCorrente(null);
-//                suc.setItensCorrentes(null);
+                suc.atualizarWishlist();
+                irParaComprovante(event);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -138,8 +135,7 @@ public class PedidoPagamento extends ViewController implements Initializable {
     }
 
     @FXML
-    protected void butaoPagamento3(ActionEvent event)
-            throws ElementAlreadyExistsException, ElementWithSameNameExistsException, IOException {
+    protected void butaoPagamento3(ActionEvent event) {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setTitle("confirmando");
         alert.setContentText("Pagamento confirmado!");
@@ -148,15 +144,15 @@ public class PedidoPagamento extends ViewController implements Initializable {
             Pedido novoPedido = new Pedido(pc.novoPrazo(1), suc.getUsuarioCorrente(), suc.getItensCorrentes(), OrderStatus.PAGO, Metodo.PIX);
             pc.adicionarPedido(novoPedido);
             suc.setPedidoCorrente(novoPedido);
+            nova.add(suc.getUsuarioCorrente().getCPF());// O cpf é um exemplo de dado de um pix
             Venda novaVenda = new Venda(novoPedido, nova);
             vc.insertVenda(novaVenda);
             suc.setVendaCorrente(novaVenda);
-//            suc.setItemCorrente(null);
-//            suc.setItensCorrentes(null);
+            suc.atualizarWishlistPosCompra();
+            irParaComprovante(event);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        irParaComprovante(event);
     }
 
     public boolean preencheuEntradasInsercao() {
@@ -246,6 +242,7 @@ public class PedidoPagamento extends ViewController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         // TODO Auto-generated method stub
 
+        nova = new ArrayList<>();
     }
 
 

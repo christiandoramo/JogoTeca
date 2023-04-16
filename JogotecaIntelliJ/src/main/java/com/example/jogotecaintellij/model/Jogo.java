@@ -1,15 +1,13 @@
 package com.example.jogotecaintellij.model;
 
 import com.example.jogotecaintellij.enums.Genre;
-import com.example.jogotecaintellij.enums.StatusJogo;
 
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Locale;
 
-public class Game implements Serializable {
+public class Jogo implements Serializable {
 
     private static final long serialVersionUID = 1L;
     private int id;
@@ -22,9 +20,8 @@ public class Game implements Serializable {
     private Double price;
     private String imageURL;
     private String videoUrl;
-    private StatusJogo status;
 
-    public Game(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl, StatusJogo status) {
+    public Jogo(String name, LocalDate releaseDate, Genre genre, String description, String publicadora, String desenvolvedora, Double price, String imageURL, String videoUrl) {
         this.name = name;
         this.releaseDate = releaseDate;
         this.genre = genre;
@@ -34,7 +31,6 @@ public class Game implements Serializable {
         this.price = price;
         this.imageURL = imageURL;
         this.videoUrl = videoUrl;
-        this.status = status;
     }
 
     public String getVideoUrl() {
@@ -117,13 +113,6 @@ public class Game implements Serializable {
         this.price = price;
     }
 
-    public void setStatus(StatusJogo status) {
-        this.status = status;
-    }
-
-    public StatusJogo getStatus() {
-        return status;
-    }
 
     @Override
     public int hashCode() {
@@ -141,7 +130,7 @@ public class Game implements Serializable {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Game other = (Game) obj;
+        Jogo other = (Jogo) obj;
         if (id != other.id)
             return false;
         return true;
@@ -159,9 +148,8 @@ public class Game implements Serializable {
                         "\ndescription: " + description +
                         "\npublicadora: " + publicadora +
                         "\ndesenvolvedora: " + desenvolvedora +
-                        "\nprice: " + String.format("%.2f",price) +
-                        "\nimageURL: " + imageURL  +
-                        "\nvideoUrl: " + videoUrl +
-                        "\nstatus: " + status.name();
+                        "\nprice: " + String.format("%.2f", price) +
+                        "\nimageURL: " + imageURL +
+                        "\nvideoUrl: " + videoUrl;
     }
 }

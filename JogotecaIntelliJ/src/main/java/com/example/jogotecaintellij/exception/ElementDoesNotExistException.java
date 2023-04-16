@@ -6,7 +6,7 @@ public class ElementDoesNotExistException extends Exception {
 	private Object element;
 
 	public ElementDoesNotExistException(Object obj) {
-		super("Erro: " + obj.getClass().getSimpleName() + " n�o foi encontrado");
+		super("Erro: " + obj.getClass().getSimpleName() + " nao foi encontrado");
 		this.element = obj;
 	}
 	public Object getElement() {

@@ -1,10 +1,13 @@
 package com.example.jogotecaintellij.view;
 
+import com.example.jogotecaintellij.controller.PedidoController;
+import com.example.jogotecaintellij.controller.VendaController;
 import com.example.jogotecaintellij.enums.Metodo;
 import com.example.jogotecaintellij.enums.OrderStatus;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.ItemJogo;
 import com.example.jogotecaintellij.model.Pedido;
+import com.example.jogotecaintellij.model.Venda;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
@@ -12,10 +15,9 @@ import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.util.Callback;
 
 import java.io.IOException;
 import java.net.URL;
@@ -29,7 +31,6 @@ import java.util.ResourceBundle;
 import static java.lang.String.format;
 
 public class MeusPedidos extends ViewController implements Initializable {
-
     @FXML
     private TableView<Pedido> tabelaMeusPedidos;
     @FXML
@@ -44,7 +45,8 @@ public class MeusPedidos extends ViewController implements Initializable {
     private TableColumn<Pedido, String> colunaMetodo;
     @FXML
     private TableColumn<Pedido, String> colunaStatus;
-
+    @FXML
+    private TableColumn<Pedido, Void> columnAcao;
     @FXML
     private Label meusPedidoLog;
 
@@ -69,9 +71,7 @@ public class MeusPedidos extends ViewController implements Initializable {
                 List<ItemJogo> itens = pedido.getItens();
                 StringBuilder nomes = new StringBuilder();
                 for (ItemJogo item : itens)
-                    nomes.append(item.getGame().getName()).append(", ");
-                if (nomes.length() > 0)
-                    nomes.delete(nomes.length() - 2, nomes.length()); // remove a última vírgula e espaço, por isso o -2
+                    nomes.append(item.getName()).append("\n");
                 return new SimpleStringProperty(nomes.toString());
             });
             colunaVencimento.setCellValueFactory(cellData -> {
@@ -99,11 +99,56 @@ public class MeusPedidos extends ViewController implements Initializable {
             } else
                 e.printStackTrace();
         }
-
     }
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         carregaMeusPedidos();
+        // o id de pedido ja fica pronto pra vizualizar o pedido ou o pagamento logo abaixo
+        // Caso nosso sistema permitisse pagamentos depois do pagamento usariamos a mesma função abaixo
+        // ou ate poderiamos mudar o botao que aparece e sua ação com base enum de pedido OrderStatus - PAGO-ESPERANDOPAGAMENTO
+        // se PAGO - O botão seria vizualizar compra. ESPERANDOPAGAMENTO - Pagar o pedido agora
+        columnAcao.setCellFactory(new Callback<TableColumn<Pedido, Void>, TableCell<Pedido, Void>>() {
+            @Override
+            public TableCell<Pedido, Void> call(TableColumn<Pedido, Void> param) {
+                final TableCell<Pedido, Void> cell = new TableCell<Pedido, Void>() {
+                    private final Button btn = new Button("Ver Compra");
+
+                    {
+                        btn.setOnAction((ActionEvent event) -> {
+                            try{
+                                PedidoController pc = PedidoController.getInstance();
+                                VendaController vc = VendaController.getInstance();
+                                // É o usado o id do pedido e não da venda pos caso o sistema permitisse
+                                // a compra de pedidos EsperandoPagamento, o Pedido ainda seria pago e criaria a venda
+                                int idDoPedido = Integer.parseInt(colunaId.getCellData(getIndex()));
+                                // justamente esse getIndex é o index da TableCell
+                                Pedido pedidoAtual = pc.buscarPeloId(idDoPedido);
+                                suc.setPedidoCorrente(pedidoAtual);
+                                Venda vendaAtual = vc.searchVendaByPedidoId(idDoPedido);
+                                suc.setVendaCorrente(vendaAtual);
+                                Pedido pedido = getTableView().getItems().get(getIndex());
+                                System.out.println("Botão em ver compra Funcionando ");
+                                irParaComprovante(event);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        });
+                    }
+
+                    @Override
+                    protected void updateItem(Void item, boolean empty) {
+                        super.updateItem(item, empty);
+                        if (empty) {
+                            setGraphic(null);
+                        } else {
+                            setGraphic(btn);
+                        }
+                    }
+                };
+                return cell;
+            }
+        });
+
     }
 }

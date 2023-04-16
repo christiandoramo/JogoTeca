@@ -54,9 +54,9 @@ public class FeedUsuario extends ViewController implements Initializable {
 
     @FXML
     protected void listarTodos() {
-        ItemJogoController gic = ItemJogoController.getInstance();
+        ItemJogoController ijc = ItemJogoController.getInstance();
         try {
-            List<ItemJogo> allGameItem = gic.searchAllGameItem();
+            List<ItemJogo> allGameItem = ijc.searchAllItensJogosDisponiveis();// APENAS DISPONIVEIS EM FEED USUARIO
             if (!allGameItem.isEmpty()) {
                 mostraGamesItensAchados(listaDeJogos, allGameItem, true, false);
                 readLog.setVisible(false);
@@ -75,15 +75,16 @@ public class FeedUsuario extends ViewController implements Initializable {
     @FXML
     protected void buscarPorGenero() {
         Genre genero = (Genre) campoBuscarGenero.getUserData();
-        ItemJogoController gic = ItemJogoController.getInstance();
+        ItemJogoController ijc = ItemJogoController.getInstance();
         try {
-            List<ItemJogo> gamesAchados = gic.searchAllGameItem().stream()
-                    .filter(x -> x.getGame().getGenre() == genero).collect(Collectors.toList());
+            List<ItemJogo> gamesAchados = ijc.searchAllItensJogosDisponiveis().stream()
+                    .filter(x -> x.getGenre() == genero).collect(Collectors.toList());
             if (!gamesAchados.isEmpty()) {
+                // ordem alfabetica funcionando - antes da criação de atributos Replicados em itemjogo
                 // Comparator<GameItem> nameComparator =
                 // Comparator.comparing(GameItem::getGame);
                 // gamesAchados.sort(nameComparator);
-                mostraGamesItensAchados(listaDeJogos, gamesAchados, true,false);
+                mostraGamesItensAchados(listaDeJogos, gamesAchados, true, false);
                 readLog.setVisible(false);
             } else
                 throw new ElementsDoNotExistException(gamesAchados);
@@ -97,20 +98,21 @@ public class FeedUsuario extends ViewController implements Initializable {
         }
     }
 
-    protected void searchGameItemByNome(JogoController gc, ItemJogoController gic, TextField campo, ListView<ItemJogo> lista, Label log) {
+    protected void searchGameItemByNome(TextField campo, ListView<ItemJogo> lista, Label log) {
+        ItemJogoController ijc = ItemJogoController.getInstance();
         String nome = campo.getText();
         List<ItemJogo> gamesAchados = new ArrayList<>();
         if (nome != null) {
             try {
-                ItemJogo n = gic.searchAllGameItem()
+                ItemJogo n = ijc.searchAllItensJogosDisponiveis()
                         .stream()
-                        .filter(x -> x.getGame().getName().equals(nome))
+                        .filter(x -> x.getName().equals(nome))
                         .findFirst()
                         .orElse(null);
                 if (n != null) {
                     gamesAchados.add(n);
-                    this.mostraGamesItensAchados(lista, gamesAchados, true,false);
-                    gamesAchados.forEach(action -> System.out.println(action.getGame().getName()));
+                    this.mostraGamesItensAchados(lista, gamesAchados, true, false);
+                    gamesAchados.forEach(action -> System.out.println(action.getName()));
                     log.setVisible(false);
                 } else
                     throw new ElementDoesNotExistException(n);
@@ -123,9 +125,7 @@ public class FeedUsuario extends ViewController implements Initializable {
 
     @FXML
     protected void buscarPorNome() {
-        ItemJogoController gic = ItemJogoController.getInstance();
-        JogoController gc = JogoController.getInstance();
-        this.searchGameItemByNome(gc, gic, campoBuscarNome, listaDeJogos, readLog);
+        this.searchGameItemByNome(campoBuscarNome, listaDeJogos, readLog);
     }
 
     @Override

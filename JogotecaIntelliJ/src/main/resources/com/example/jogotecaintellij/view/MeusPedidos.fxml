@@ -11,12 +11,13 @@
       <Label layoutX="365.0" layoutY="30.0" styleClass="titulo" text="Meus Pedidos" />
       <TableView fx:id="tabelaMeusPedidos" layoutX="22.0" layoutY="65.0" prefHeight="494.0" prefWidth="742.0" styleClass="tabela">
         <columns>
-          <TableColumn fx:id="colunaId" prefWidth="75.0" text="id" />
-          <TableColumn fx:id="colunaItensJogosNomes" prefWidth="75.0" text="nomes" />
+          <TableColumn fx:id="colunaId" prefWidth="40.0" text="id" />
+          <TableColumn fx:id="colunaItensJogosNomes" prefWidth="206.0" text="nomes" />
             <TableColumn fx:id="colunaPrecoPedido" prefWidth="75.0" text="valor" />
             <TableColumn fx:id="colunaVencimento" prefWidth="75.0" text="data de vencimento" />
             <TableColumn fx:id="colunaStatus" prefWidth="75.0" text="status" />
             <TableColumn fx:id="colunaMetodo" prefWidth="75.0" text="metodo" />
+            <TableColumn fx:id="columnAcao" prefWidth="40.0" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
