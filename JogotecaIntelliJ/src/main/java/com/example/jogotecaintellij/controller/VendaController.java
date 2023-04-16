@@ -44,6 +44,12 @@ public class VendaController {
         return vendasRepository.read().stream().filter(venda -> venda.getId() == id).findFirst().orElse(null);
     }
 
+    public Venda searchVendaByPedido(Pedido pedido) throws ElementDoesNotExistException {
+        return vendasRepository.read().stream().filter(pedid -> pedid.getPedido().equals(pedido)).findFirst().orElse(null);
+    }
+    public Venda searchVendaByNumero(String numero) throws ElementDoesNotExistException {
+        return vendasRepository.read().stream().filter(pedid -> pedid.getPedido().equals(numero)).findFirst().orElse(null);
+    }
     public List<Venda> searchAllVendas() throws ElementsDoNotExistException {
         return vendasRepository.read();
     }

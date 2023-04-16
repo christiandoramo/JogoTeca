@@ -7,6 +7,7 @@ import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.model.Game;
 import com.example.jogotecaintellij.model.ItemJogo;
 import com.example.jogotecaintellij.model.Usuario;
+import com.example.jogotecaintellij.model.Venda;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -101,14 +102,15 @@ public class ViewController {
     }
 
     @FXML
-    protected void irParaConsultaUsuarios(ActionEvent event) {
-        /*        irParaTela(event,"ConsultaUsuarios.fxml" );*/
+    protected void irParaConsultaUsuarios(ActionEvent event) throws IOException{
+               irParaTela(event,"ConsultaUsuario.fxml" );
     }
 
     @FXML
-    protected void irParaConsultaVendas(ActionEvent event) {
-        /*        irParaTela(event,"ConsultaVendas.fxml" );*/
+    void irParaConsultaVendas(ActionEvent event) throws IOException {
+        irParaTela(event,"ConsultaVendas.fxml");
     }
+
 
     @FXML
     protected void irParaMeusJogos(ActionEvent event) throws IOException {
@@ -390,4 +392,11 @@ public class ViewController {
             //file:///C:/Users/chris/Desktop/repo/Jogoteca/JogotecaIntelliJ/ O CAMINHO RELATIVO COMEÇA do root ao projeto
         }
     }
-}
+    public static void mostraVendasAchadas(ListView<Venda> listaVendas, List<Venda> usersAchados) {
+        ObservableList<Venda> data = FXCollections.observableArrayList();
+        data.addAll(usersAchados);
+        listaVendas.setItems(data);
+        }
+    }
+
+
