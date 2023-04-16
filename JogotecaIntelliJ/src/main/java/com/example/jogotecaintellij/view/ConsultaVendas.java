@@ -2,7 +2,8 @@ package com.example.jogotecaintellij.view;
 
 import com.example.jogotecaintellij.controller.VendaController;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
-import com.example.jogotecaintellij.model.Pedido;
+import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
+import com.example.jogotecaintellij.model.Usuario;
 import com.example.jogotecaintellij.model.Venda;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -45,6 +46,7 @@ public class ConsultaVendas extends ViewController implements Initializable {
                     logBusca.setVisible(false);
                     System.out.println(n.getDadosBancarios());
                 } else
+                    System.out.println("número de cartão não encontrado");
                     throw new ElementDoesNotExistException(n);
             } catch (Exception e) {
                 logBusca.setText("ERRROO");
@@ -62,9 +64,51 @@ public class ConsultaVendas extends ViewController implements Initializable {
     }
     @FXML
     void buscarPedido(ActionEvent event) {
-
+        int id = Integer.parseInt(textPedido.getText());
+        List<Venda> pedidosAchados = new ArrayList<>();
+        if (id > 0) {
+            try {
+                Venda n = vc.searchVendaById(id);
+                if (n != null) {
+                    pedidosAchados.add(n);
+                    ViewController.mostraVendasAchadas( ListViewVenda, pedidosAchados);
+                    logBusca.setVisible(false);
+                    System.out.println(n.getId());
+                } else {
+                    System.out.println("id nao achado");
+                    throw new ElementDoesNotExistException(n);
+                }
+            } catch (Exception e) {
+                if (e instanceof ElementDoesNotExistException) {
+                    logBusca.setText("Erro: Usuario não encontrado");
+                } else {
+                    logBusca.setText("Ocorreu um erro. Tente novamente.");
+                }
+                logBusca.setVisible(true);
+            }
+        } else {
+            logBusca.setText("Erro: Digite um ID válido");
+            logBusca.setVisible(true);
+        }
     }
-
+    @FXML
+    void searchTodos(ActionEvent event) {
+        try {
+            List<Venda> allVendas = vc.searchAllVendas();
+            if (!allVendas.isEmpty()) {
+                ViewController.mostraVendasAchadas( ListViewVenda, allVendas);
+                logBusca.setVisible(false);
+            } else
+                throw new ElementsDoNotExistException(allVendas);
+        } catch (Exception e) {
+            if (e instanceof ElementsDoNotExistException) {
+                logBusca.setText("Erro: Nenhuma Venda encontrada");
+            } else {
+                logBusca.setText("Ocorreu um erro. Tente novamente.");
+            }
+            logBusca.setVisible(true);
+        }
+    }
     @FXML
     void voltarAdmin(ActionEvent event) throws IOException {
         irParaTela(event, "MenuAdmin.fxml");

@@ -67,6 +67,10 @@ public class VendaController {
         }
     }
 
+    public List<Venda> searchAllUsers() throws ElementsDoNotExistException {
+        return vendasRepository.read();
+    }
+
     public void updateVendaById(int id, LocalDateTime dataNova, List<String> dadosBancarios) throws ElementDoesNotExistException, ElementWithSameNameExistsException {
         updateVenda(searchVendaById(id), dataNova, dadosBancarios);
     }
