@@ -91,7 +91,6 @@ public class JogoController {
             e.printStackTrace();
             System.out.println("Falha na atualização de ItemJogo");
         }
-
     }
 
     public void updateGameById(int id, String name, Genre genre, Double price, String description, String imageURL,

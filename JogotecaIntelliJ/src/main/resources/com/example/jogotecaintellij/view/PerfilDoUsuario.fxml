@@ -3,35 +3,45 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PerfilDoUsuario">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1200.0" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PerfilDoUsuario">
    <children>
-      <Button fx:id="meusJogosButton" layoutX="34.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleMeusJogos" text="Meus Jogos" />
-      <Button fx:id="meusPedidosButton" layoutX="147.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleMeusPedidos" text="Meus Pedidos" />
-      <Button fx:id="meuFeedButton" layoutX="266.0" layoutY="13.0" mnemonicParsing="false" onAction="#handleFeedUsuario" text="Meu Feed" />
-
-      <Label fx:id="nomeUsuarioLabel" layoutX="28.0" layoutY="75.0" prefHeight="100.0" prefWidth="200.0" style="-fx-font-size: 16px; -fx-font-weight: bold;" text="Nome do Usuário">
+      <Button layoutX="148.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleMeusJogos" prefHeight="25.0" prefWidth="88.0" text="Meus Jogos" />
+      <Button layoutX="26.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleMeusPedidos" text="Meus Pedidos" />
+      <Button layoutX="261.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleFeedUsuario" prefHeight="25.0" prefWidth="88.0" text="Meu Feed" />
+      <Label layoutX="497.0" layoutY="38.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" styleClass="titulo" text="Perfil do Usuário" />
+      <ImageView fx:id="imagePerfil" fitHeight="268.0" fitWidth="268.0" layoutX="805.0" layoutY="100.0" />
+      <Label layoutX="118.0" layoutY="333.0" text="Novo Nome Pessoal" AnchorPane.leftAnchor="118.0" />
+      <Label layoutX="135.0" layoutY="419.0" text="Nova Senha" AnchorPane.leftAnchor="135.0" />
+      <Label layoutX="481.0" layoutY="211.0" text="Novo Email" AnchorPane.leftAnchor="481.0" />
+      <TextField fx:id="senhaRepetidaTextField" layoutX="97.0" layoutY="471.0" prefHeight="25.0" prefWidth="208.0" promptText="repita a nova senha" AnchorPane.leftAnchor="97.0" />
+      <TextField fx:id="nomeTextField" layoutX="97.0" layoutY="356.0" prefHeight="25.0" prefWidth="208.0" promptText="insira seu nome personalizado" AnchorPane.leftAnchor="97.0" />
+      <TextField fx:id="emailTextField" layoutX="441.0" layoutY="234.0" prefHeight="25.0" prefWidth="208.0" AnchorPane.leftAnchor="441.0" />
+      <Button layoutX="51.0" layoutY="559.0" onAction="#handleConfirmarAlteracoes" text="Confirmar Alterações" AnchorPane.leftAnchor="51.0" />
+      <Label fx:id="nomeAtual" layoutX="823.0" layoutY="487.0" text="Nome Atual" />
+      <Label fx:id="emailAtual" layoutX="823.0" layoutY="454.0" text="Email Atual" />
+      <Label fx:id="logAlteracoes" layoutX="272.0" layoutY="563.0" text="logAlteracoes" />
+      <Label fx:id="logSenha" layoutX="142.0" layoutY="498.0" text="logSenha" />
+      <Label fx:id="logEmail" layoutX="488.0" layoutY="262.0" text="logEmail" />
+      <Label layoutX="117.0" layoutY="219.0" text="Novo Imagem de Perfil" />
+      <TextField fx:id="urlImage" layoutX="100.0" layoutY="242.0" prefHeight="25.0" prefWidth="208.0" promptText="url da imagem" />
+      <Button layoutX="120.0" layoutY="274.0" mnemonicParsing="false" onAction="#escolherPerfil" text="Selecionar Imagem" />
+      <Label fx:id="loginAtual" layoutX="825.0" layoutY="418.0" text="login" />
+      <Label layoutX="218.0" layoutY="154.0" text="Atualize suas informaçãoes aqui">
          <font>
-            <Font size="24.0" />
+            <Font name="System Italic" size="20.0" />
          </font>
       </Label>
-      <Label layoutX="28.0" layoutY="49.0" style="-fx-font-size: 20px; -fx-font-weight: bold;" text="Perfil do Usuário" />
-      <ImageView fx:id="imagePerfil" fitHeight="200.0" fitWidth="200.0" layoutX="376.0" layoutY="25.0">
-         <image>
-            <Image url="@midias/perfil-300x300.png" />
-         </image>
-      </ImageView>
-      <Label layoutX="51.0" layoutY="242.0" text="Nome:" AnchorPane.leftAnchor="50.0" />
-      <Label layoutX="53.0" layoutY="313.0" text="Senha" AnchorPane.leftAnchor="50.0" />
-      <Label layoutX="53.0" layoutY="276.0" text="Email:" AnchorPane.leftAnchor="50.0" />
-      <TextField fx:id="senhaTextField" layoutX="141.0" layoutY="309.0" AnchorPane.leftAnchor="141.0" />
-      <TextField fx:id="nomeTextField" layoutX="141.0" layoutY="238.0" AnchorPane.leftAnchor="141.0" />
-      <TextField fx:id="emailTextField" layoutX="141.0" layoutY="272.0" AnchorPane.leftAnchor="141.0" />
-      <Button fx:id="confirmaButton" layoutX="333.0" layoutY="309.0" onAction="#handleConfirmarAlteracoes" text="Confirmar Alterações" AnchorPane.leftAnchor="333.0" />
+      <TextField fx:id="senhaTextField" layoutX="97.0" layoutY="442.0" prefHeight="25.0" prefWidth="208.0" promptText="nova senha" />
+      <TextField fx:id="telefoneTextField" layoutX="434.0" layoutY="354.0" prefHeight="25.0" prefWidth="208.0" />
+      <Label layoutX="471.0" layoutY="332.0" text="Novo Telefone" />
+      <TextField fx:id="enderecoTextField" layoutX="431.0" layoutY="459.0" prefHeight="25.0" prefWidth="208.0" />
+      <Label layoutX="468.0" layoutY="437.0" text="Novo Endereço" />
+      <Label fx:id="telefoneAtual" layoutX="824.0" layoutY="519.0" text="Telefone Atual" />
+      <Label fx:id="enderecoAtual" layoutX="825.0" layoutY="556.0" text="Endereço Atual" />
 
    </children>
 </AnchorPane>

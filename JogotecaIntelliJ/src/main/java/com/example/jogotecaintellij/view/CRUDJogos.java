@@ -453,9 +453,21 @@ public class CRUDJogos extends ViewController implements Initializable {
         ViewController.preencheMenuGeneros(genres);
         ViewController.preencheMenuGeneros(CampoBuscarGenero);
         ViewController.preencheMenuGeneros(CampoTrocaGenero);
-        ViewController.controlaDouble(price);
-        ViewController.controlaInteiro(campoRemoverId);
-        ViewController.controlaInteiro(CampoBuscarId);
+        campoRemoverId.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                campoRemoverId.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        CampoBuscarId.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                CampoBuscarId.setText(newValue.replaceAll("[^\\d]", ""));
+            }
+        });
+        price.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*\\.?\\d*")) {
+                price.setText(oldValue);
+            }
+        });
     }
 
 }

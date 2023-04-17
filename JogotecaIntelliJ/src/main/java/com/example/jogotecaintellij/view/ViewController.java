@@ -100,13 +100,13 @@ public class ViewController {
     }
 
     @FXML
-    protected void irParaConsultaUsuarios(ActionEvent event) throws IOException{
-               irParaTela(event,"ConsultaUsuario.fxml" );
+    protected void irParaConsultaUsuarios(ActionEvent event) throws IOException {
+        irParaTela(event, "ConsultaUsuario.fxml");
     }
 
     @FXML
     void irParaConsultaVendas(ActionEvent event) throws IOException {
-        irParaTela(event,"ConsultaVendas.fxml");
+        irParaTela(event, "ConsultaVendas.fxml");
     }
 
 
@@ -234,20 +234,17 @@ public class ViewController {
                     protected void updateItem(Usuario achado, boolean btl) {
                         super.updateItem(achado, btl);
                         if (achado != null) {
-                            File file = new File(
-                                    "C:\\Users\\chris\\Desktop\\repo\\Projeto-IP2\\Versão Atual\\src\\br\\jogoteca\\system\\data\\images\\51EWX7C9B3L.jpg");// perfis
-                            // não
-                            // possuem
-                            // //
-                            // imagem
-                            String imagePath = file.toURI().toString();
-                            Image img = new Image(imagePath);
+                            // perfis vão possuir imagem ??
+                            String imageUrl = achado.getProfileUrl();
+                            // caminho relativo da imagem, por exemplo: "midias/imagem.jpg"
+                            Path absoluto = Paths.get(imageUrl).toAbsolutePath();
+                            Image img = new Image(absoluto.toString());
                             ImageView imgview = new ImageView(img);
                             imgview.setFitWidth(100);
                             imgview.setFitHeight(100);
                             setGraphic(imgview);
                             String legenda = "Id: " + achado.getId() + "\nNome: " + achado.getNome() + "\nCPF: "
-                                    + achado.getCPF();
+                                    + achado.getCpf();
                             setText(legenda);
                             setTextAlignment(TextAlignment.JUSTIFY);
                         }
@@ -391,11 +388,12 @@ public class ViewController {
             //file:///C:/Users/chris/Desktop/repo/Jogoteca/JogotecaIntelliJ/ O CAMINHO RELATIVO COMEÇA do root ao projeto
         }
     }
+
     public static void mostraVendasAchadas(ListView<Venda> listaVendas, List<Venda> usersAchados) {
         ObservableList<Venda> data = FXCollections.observableArrayList();
         data.addAll(usersAchados);
         listaVendas.setItems(data);
-        }
     }
+}
 
 

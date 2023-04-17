@@ -47,7 +47,7 @@ public class ConsultaUsuario  extends ViewController implements Initializable {
                     usersAchados.add(n);
                     ViewController.mostraUsuariosAchados(userListView, usersAchados);
                     logBuscas.setVisible(false);
-                    System.out.println(n.getCPF());
+                    System.out.println(n.getCpf());
                 } else
                     throw new ElementDoesNotExistException(n);
             } catch (Exception e) {
@@ -76,7 +76,7 @@ public class ConsultaUsuario  extends ViewController implements Initializable {
                     usersAchados.add(n);
                     ViewController.mostraUsuariosAchados(userListView, usersAchados);
                     logBuscas.setVisible(false);
-                    System.out.println(n.getCPF());
+                    System.out.println(n.getCpf());
                 } else {
                     System.out.println("id nao achado");
                     throw new ElementDoesNotExistException(n);
@@ -106,7 +106,7 @@ public class ConsultaUsuario  extends ViewController implements Initializable {
                     usersAchados.add(n);
                     ViewController.mostraUsuariosAchados(userListView, usersAchados);
                     logBuscas.setVisible(false);
-                    System.out.println(n.getCPF());
+                    System.out.println(n.getCpf());
                 } else
                     throw new ElementDoesNotExistException(n);
             } catch (Exception e) {

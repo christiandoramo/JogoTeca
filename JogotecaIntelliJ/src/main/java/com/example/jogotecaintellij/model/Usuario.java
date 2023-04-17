@@ -5,122 +5,162 @@ import java.util.List;
 
 public class Usuario implements Serializable {
 
-	private int id;
-	private String nome;
-	private String endereco;
-	private String telefone;
-	private String email;
-	private String login;
-	private String senha;
+    private int id;
+    private String nome;
+    private String endereco;
+    private String telefone;
+    private String email;
+    private String login;
+    private String senha;
+    private String profileUrl;
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////
-	private static final long serialVersionUID = 1L;
-	private String cpf;
-	private List<ItemJogo> wishlist;
-	
-	public String getCPF() {
-		return cpf;
-	}
+    public String getProfileUrl() {
+        return profileUrl;
+    }
 
-	public void setCPF(String cpf) {
-		this.cpf = cpf;
-	}
-	
-	public List<ItemJogo> getWishlist() {
-		return wishlist;
-	}
+    public void setProfileUrl(String profileUrl) {
+        this.profileUrl = profileUrl;
+    }
 
-	public void setWishlist(List<ItemJogo> wishlist) {
-		this.wishlist = wishlist;
-	}
+    /////////////////////////////////////////////////////////////////////////////////////////////////////
+    private static final long serialVersionUID = 1L;
+    private String cpf;
+    private List<ItemJogo> wishlist;
 
-	public Usuario(String cpf, String nome, String endereco, String telefone, String email, String login,
-				   String senha, List<ItemJogo> wishlist) {
-		super();
-		this.nome = nome;
-		this.endereco = endereco;
-		this.telefone = telefone;
-		this.email = email;
-		this.login = login;
-		this.senha = senha;
-		this.cpf = cpf;
-		this.wishlist = wishlist;
-	}
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public Usuario( String nome, String endereco, String telefone, String email, String login, String senha) {
-		this.nome = nome;
-		this.endereco = endereco;
-		this.telefone = telefone;
-		this.email = email;
-		this.login = login;
-		this.senha = senha;
-	}
+    public Usuario(String cpf, String nome, String endereco, String telefone, String email, String login,
+                   String senha, List<ItemJogo> wishlist) {
+        super();
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.email = email;
+        this.login = login;
+        this.senha = senha;
+        this.cpf = cpf;
+        this.wishlist = wishlist;
+        profileUrl = "src/main/resources/com/example/jogotecaintellij/view/midias/perfil300x300.png";
+    }
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public int getId() {
-		return this.id;
-	}
+    public Usuario(String nome, String endereco, String telefone, String email, String login, String senha) {
+        this.nome = nome;
+        this.endereco = endereco;
+        this.telefone = telefone;
+        this.email = email;
+        this.login = login;
+        this.senha = senha;
+        profileUrl = "src/main/resources/com/example/jogotecaintellij/view/midias/perfil300x300.png";
+    }
 
-	public String getNome() {
-		return this.nome;
-	}
+    @Override
+    public String toString() {
+        return "Usuario{" +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
+                ", endereco='" + endereco + '\'' +
+                ", telefone='" + telefone + '\'' +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", senha='" + senha + '\'' +
+                ", cpf='" + cpf + '\'' +
+                '}';
+    }
 
-	public String getEndereco() {
-		return this.endereco;
-	}
+    /////////////////////////////////////////////////////////////////////////////////////////////////////////
+    @Override
+    public int hashCode() {
+        final int prime = 31;
+        int result = 1;
+        result = prime * result + id;
+        return result;
+    }
 
-	public String getTelefone() {
-		return this.telefone;
-	}
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj)
+            return true;
+        if (obj == null)
+            return false;
+        if (getClass() != obj.getClass())
+            return false;
+        Usuario other = (Usuario) obj;
+        if (id != other.id)
+            return false;
+        return true;
+    }
+    ////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-	public String getEmail() {
-		return this.email;
-	}
 
-	public String getLogin() {
-		return this.login;
-	}
+    public int getId() {
+        return id;
+    }
 
-	public String getSenha() {
-		return this.senha;
-	}
+    public void setId(int id) {
+        this.id = id;
+    }
 
-	@Override
-	public String toString() {
-		return "Usuario{" +
-				"id=" + id +
-				", nome='" + nome + '\'' +
-				", endereco='" + endereco + '\'' +
-				", telefone='" + telefone + '\'' +
-				", email='" + email + '\'' +
-				", login='" + login + '\'' +
-				", senha='" + senha + '\'' +
-				", cpf='" + cpf + '\'' +
-				'}';
-	}
+    public String getNome() {
+        return nome;
+    }
 
-	/////////////////////////////////////////////////////////////////////////////////////////////////////////
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + id;
-		return result;
-	}
+    public void setNome(String nome) {
+        this.nome = nome;
+    }
 
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Usuario other = (Usuario) obj;
-		if (id != other.id)
-			return false;
-		return true;
-	}
-	////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    public String getEndereco() {
+        return endereco;
+    }
 
+    public void setEndereco(String endereco) {
+        this.endereco = endereco;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public void setTelefone(String telefone) {
+        this.telefone = telefone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getSenha() {
+        return senha;
+    }
+
+    public void setSenha(String senha) {
+        this.senha = senha;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public void setCpf(String cpf) {
+        this.cpf = cpf;
+    }
+
+    public List<ItemJogo> getWishlist() {
+        return wishlist;
+    }
+
+    public void setWishlist(List<ItemJogo> wishlist) {
+        this.wishlist = wishlist;
+    }
 }

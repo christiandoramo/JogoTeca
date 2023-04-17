@@ -24,7 +24,7 @@ public class CadastroService {
 	}
 
 	public static boolean cadastrar(Usuario user) {
-		if (users.stream().anyMatch(u -> u.getCPF().equals(user.getCPF()) || u.getLogin().equals(user.getLogin()))) {
+		if (users.stream().anyMatch(u -> u.getCpf().equals(user.getCpf()) || u.getLogin().equals(user.getLogin()))) {
 			System.out.println("Já existe um usuário cadastrado com o mesmo CPF ou login!");
 			return false;
 		}

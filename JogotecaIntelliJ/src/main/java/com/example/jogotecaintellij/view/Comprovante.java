@@ -136,8 +136,8 @@ public class Comprovante extends ViewController implements Initializable {
             });
             columncpf.setCellValueFactory(cellData -> {
                 linhasComprovante.add("\n");
-                linhasComprovante.add("CPF do usuário: " + _venda.getPedido().getUser().getCPF());
-                return new SimpleStringProperty(_venda.getPedido().getUser().getCPF());
+                linhasComprovante.add("CPF do usuário: " + _venda.getPedido().getUser().getCpf());
+                return new SimpleStringProperty(_venda.getPedido().getUser().getCpf());
             });
             columnnomeComprador.setCellValueFactory(cellData -> {
                 linhasComprovante.add("\n");

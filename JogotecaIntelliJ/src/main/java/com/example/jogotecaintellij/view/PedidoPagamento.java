@@ -144,7 +144,7 @@ public class PedidoPagamento extends ViewController implements Initializable {
             Pedido novoPedido = new Pedido(pc.novoPrazo(1), suc.getUsuarioCorrente(), suc.getItensCorrentes(), OrderStatus.PAGO, Metodo.PIX);
             pc.adicionarPedido(novoPedido);
             suc.setPedidoCorrente(novoPedido);
-            nova.add(suc.getUsuarioCorrente().getCPF());// O cpf é um exemplo de dado de um pix
+            nova.add(suc.getUsuarioCorrente().getCpf());// O cpf é um exemplo de dado de um pix
             Venda novaVenda = new Venda(novoPedido, nova);
             vc.insertVenda(novaVenda);
             suc.setVendaCorrente(novaVenda);

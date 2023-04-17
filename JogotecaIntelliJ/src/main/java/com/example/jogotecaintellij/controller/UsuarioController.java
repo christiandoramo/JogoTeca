@@ -1,13 +1,16 @@
 package com.example.jogotecaintellij.controller;
 
 import com.example.jogotecaintellij.data.GenericRepository;
+import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.exception.ElementAlreadyExistsException;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
 import com.example.jogotecaintellij.exception.ElementWithSameCPFExistsException;
 import com.example.jogotecaintellij.exception.ElementsDoNotExistException;
 import com.example.jogotecaintellij.model.ItemJogo;
+import com.example.jogotecaintellij.model.Jogo;
 import com.example.jogotecaintellij.model.Usuario;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +36,7 @@ public class UsuarioController {
     }
 
     //
+
     public void insertUser2(String cpf, String nome, String endereco, String telefone, String email, String login,
                             String senha) throws ElementAlreadyExistsException, ElementWithSameCPFExistsException {
         Usuario novo = new Usuario( cpf, nome, endereco, telefone, email, login, senha, new ArrayList<>());
@@ -40,18 +44,18 @@ public class UsuarioController {
     }
 
     public boolean contemCPF2(String cpf) {
-        return userRepository.read().stream().anyMatch(item -> item.getCPF().equals(cpf));
+        return userRepository.read().stream().anyMatch(item -> item.getCpf().equals(cpf));
     }
 
     public Usuario searchUserById2(int id) throws ElementDoesNotExistException {
         return userRepository.read().stream().filter(x -> x.getId() == id).findFirst().orElse(null);
     }
-    public void updateUser2(Usuario user) throws  ElementDoesNotExistException{
-         userRepository.update(user);
+    public void updateUser2(Usuario user) throws  ElementDoesNotExistException {
+        userRepository.update(user);
     }
 
     public Usuario searchUserByCPF2(String cpf) throws ElementDoesNotExistException {
-        return userRepository.read().stream().filter(x -> x.getCPF().equals(cpf)).findFirst().orElse(null);
+        return userRepository.read().stream().filter(x -> x.getCpf().equals(cpf)).findFirst().orElse(null);
     }
 
     public Usuario searchUserByLogin2(String login) throws ElementDoesNotExistException {
@@ -77,7 +81,7 @@ public class UsuarioController {
         return userRepository.read().stream().anyMatch(u -> u.getLogin().equals(login));
     }
     public boolean cpfJaRegistrado(String  cpf) {
-        return userRepository.read().stream().anyMatch(u -> u.getCPF().equals(cpf));
+        return userRepository.read().stream().anyMatch(u -> u.getCpf().equals(cpf));
     }
 
     public boolean checaLoginESenha2(String login, String senha) throws ElementDoesNotExistException {
