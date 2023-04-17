@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="720.0" minWidth="1200.0" prefHeight="720.0" prefWidth="1200.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PerfilDoUsuario">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="720.0" minWidth="1280.0" prefHeight="720.0" prefWidth="1280.0" styleClass="tela" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PerfilDoUsuario">
    <children>
       <Button layoutX="148.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleMeusJogos" prefHeight="25.0" prefWidth="88.0" text="Meus Jogos" />
       <Button layoutX="26.0" layoutY="17.0" mnemonicParsing="false" onAction="#handleMeusPedidos" text="Meus Pedidos" />

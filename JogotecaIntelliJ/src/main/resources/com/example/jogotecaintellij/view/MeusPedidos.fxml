@@ -6,10 +6,10 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="600.0" minWidth="800.0" prefHeight="600.0" prefWidth="800.0" styleClass="tela" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.MeusPedidos">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="800.0" prefHeight="720.0" prefWidth="1280.0" styleClass="tela" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.MeusPedidos">
    <children>
-      <Label layoutX="365.0" layoutY="30.0" styleClass="titulo" text="Meus Pedidos" />
-      <TableView fx:id="tabelaMeusPedidos" layoutX="22.0" layoutY="65.0" prefHeight="494.0" prefWidth="742.0" styleClass="tabela">
+      <Label layoutX="621.0" layoutY="38.0" styleClass="titulo" text="Meus Pedidos" />
+      <TableView fx:id="tabelaMeusPedidos" layoutX="290.0" layoutY="151.0" prefHeight="392.0" prefWidth="742.0" styleClass="tabela">
         <columns>
           <TableColumn fx:id="colunaId" prefWidth="40.0" text="id" />
           <TableColumn fx:id="colunaItensJogosNomes" prefWidth="206.0" text="nomes" />
@@ -23,7 +23,7 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <Button layoutX="34.0" layoutY="25.0" mnemonicParsing="false" onAction="#voltarAoMeuPerfil" text="Meu Perfil" />
-      <Label fx:id="meusPedidoLog" alignment="CENTER" contentDisplay="CENTER" layoutX="273.0" layoutY="565.0" prefHeight="26.0" prefWidth="264.0" styleClass="log" text="Label" visible="false" />
+      <Button layoutX="182.0" layoutY="63.0" mnemonicParsing="false" onAction="#voltarAoMeuPerfil" text="Meu Perfil" />
+      <Label fx:id="meusPedidoLog" alignment="CENTER" contentDisplay="CENTER" layoutX="535.0" layoutY="607.0" prefHeight="26.0" prefWidth="264.0" styleClass="log" text="Label" visible="false" />
    </children>
 </AnchorPane>

@@ -23,6 +23,8 @@ import java.util.ResourceBundle;
 
 public class PerfilDoJogo extends ViewController implements Initializable {
     @FXML
+    private ToggleButton btnPlayer;
+    @FXML
     private Text descricao;
     @FXML
     private Text desenvolvedora;
@@ -60,7 +62,7 @@ public class PerfilDoJogo extends ViewController implements Initializable {
         media = new Media(arquivo.toURI().toString());
         mediaPlayer = new MediaPlayer(media);
         mediaView.setMediaPlayer(mediaPlayer);
-        mediaView.setFitWidth(400);
+        //mediaView.setFitWidth(500);
         mediaPlayer.setMute(true);
         mediaPlayer.play();
     }
@@ -128,6 +130,17 @@ public class PerfilDoJogo extends ViewController implements Initializable {
         if (suc.jogoJaAdicionadoAWishList(suc.getItemCorrente())) {
             btnAdicionarWishlist.setDisable(true);
         }
+
+        btnPlayer.setOnAction(evento -> {
+            if (btnPlayer.isSelected()) {
+                mediaPlayer.pause();
+                btnPlayer.setText("Play");
+            } else if (!btnPlayer.isSelected()) {
+                mediaPlayer.play();
+                btnPlayer.setText("Pausar");
+            }
+        });
+
 
         try {
             desabilitarBotoes();

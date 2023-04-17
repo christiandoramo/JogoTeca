@@ -4,8 +4,8 @@ import com.example.jogotecaintellij.controller.JogoController;
 import com.example.jogotecaintellij.controller.SessaoUsuarioController;
 import com.example.jogotecaintellij.enums.Genre;
 import com.example.jogotecaintellij.exception.ElementDoesNotExistException;
-import com.example.jogotecaintellij.model.Jogo;
 import com.example.jogotecaintellij.model.ItemJogo;
+import com.example.jogotecaintellij.model.Jogo;
 import com.example.jogotecaintellij.model.Usuario;
 import com.example.jogotecaintellij.model.Venda;
 import javafx.collections.FXCollections;
@@ -21,13 +21,12 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.text.TextAlignment;
 import javafx.stage.FileChooser;
 import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Callback;
-import javafx.util.converter.DoubleStringConverter;
-import javafx.util.converter.IntegerStringConverter;
 
 import java.io.File;
 import java.io.IOException;
@@ -37,8 +36,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.function.UnaryOperator;
-import java.util.regex.Pattern;
+import java.util.Objects;
 
 public class ViewController {
     private Stage stage;
@@ -55,13 +53,10 @@ public class ViewController {
     }
 
     protected void irParaTela(ActionEvent event, String nomeArquivoFXML) throws IOException {
-        setStage((Stage) ((Node) event.getSource()).getScene().getWindow());
-        Parent root = FXMLLoader.load(getClass().getResource(nomeArquivoFXML));
-        Scene scene = new Scene(root);
-        String css = this.getClass().getResource("estilos/view.css").toExternalForm();
-        scene.getStylesheets().add(css);
-        stage.setScene(scene);
-        stage.show();
+        Scene cenaAtual = ((Node) event.getSource()).getScene();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(nomeArquivoFXML));
+        Parent novaCena = loader.load();
+        cenaAtual.setRoot(novaCena);
     }
 
     @FXML
@@ -133,38 +128,6 @@ public class ViewController {
         irParaTela(event, "Comprovante.fxml");
     }
 
-
-    ///////////////// ACESS AREA CONTROLLER PARA CRUD DE JOGOS //////////////////////////////
-
-    // apenas permite que sejam digitados doubles - FUNCIONANDO
-    public static void controlaDouble(TextField tf) {
-        Pattern validDoubleText = Pattern.compile("-?((\\d*)|(\\d+\\.\\d*))");
-        UnaryOperator<TextFormatter.Change> doubleFilter = change -> {
-            String newText = change.getControlNewText();
-            if (validDoubleText.matcher(newText).matches()) {
-                return change;
-            }
-            return null;
-        };
-        TextFormatter<Double> doubleFormatter = new TextFormatter<>(new DoubleStringConverter(), 0.0, doubleFilter);
-        tf.setTextFormatter(doubleFormatter);
-    }
-
-    // apenas permite que sejam digitados int - FUNCIONANDO
-    public static void controlaInteiro(TextField tf) {
-        Pattern validIntText = Pattern.compile("-?\\d+");
-        UnaryOperator<TextFormatter.Change> integerFilter = change -> {
-            String newText = change.getControlNewText();
-            if (validIntText.matcher(newText).matches()) {
-                return change;
-            }
-            return null;
-        };
-        TextFormatter<Integer> integerFormatter = new TextFormatter<>(new IntegerStringConverter(), 0, integerFilter);
-        tf.setTextFormatter(integerFormatter);
-    }
-
-    // cria os menuItems baseados nos enums genre - FUNCIONANDO
     public static void preencheMenuGeneros(MenuButton mb) {
         // com combobox seria mais facil - mas consegui reusar o codigo facilmente
         Genre _genres[] = Genre.values();
@@ -193,7 +156,7 @@ public class ViewController {
                 } else
                     throw new ElementDoesNotExistException(n);
             } catch (Exception e) {
-                log.setText(e.getMessage());
+                log.setText("Jogo não encontrado");
                 log.setVisible(true);
             }
         }
@@ -213,7 +176,7 @@ public class ViewController {
                 } else
                     throw new ElementDoesNotExistException(n);
             } catch (Exception e) {
-                log.setText(e.getMessage());
+                log.setText("Jogo não encontrado");
                 log.setVisible(true);
             }
         } else {

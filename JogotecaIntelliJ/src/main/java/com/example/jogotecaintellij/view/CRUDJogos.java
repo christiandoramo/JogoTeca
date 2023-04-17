@@ -107,6 +107,8 @@ public class CRUDJogos extends ViewController implements Initializable {
 
     JogoController gc = JogoController.getInstance();
 
+
+    //pequena gambiarra para facilitar se vai remover usando id ou nome
     String modoAtualizacao = "";
     String modoRemocao = "";
 
@@ -198,7 +200,7 @@ public class CRUDJogos extends ViewController implements Initializable {
             } else
                 throw new ElementWithSameNameExistsException(_newName);
         } catch (Exception e) {
-            updateLog.setText(e.getMessage());
+            updateLog.setText("Jogo com mesmo nome encontrado");
         } finally {
             updateLog.setVisible(true);
         }
@@ -221,7 +223,7 @@ public class CRUDJogos extends ViewController implements Initializable {
             } else
                 throw new ElementWithSameNameExistsException(_newName);
         } catch (Exception e) {
-            updateLog.setText(e.getMessage());
+            updateLog.setText("Jogo com mesmo nome encontrado");
         } finally {
             updateLog.setVisible(true);
         }
@@ -247,7 +249,7 @@ public class CRUDJogos extends ViewController implements Initializable {
                 } else
                     throw new ElementWithSameNameExistsException(nome);
             } catch (Exception e) {
-                createLog.setText(e.getMessage());
+                createLog.setText("Jogo com mesmo nome encontrado");
             }
             gc.mostrarGameRepository();
         } else {

@@ -21,9 +21,11 @@ public class Main extends Application {
             Scene scene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());
             String css = Objects.requireNonNull(this.getClass().getResource("estilos/view.css")).toExternalForm();
             scene.getStylesheets().add(css);
+            primaryStage.setTitle("Jogoteca");
             primaryStage.setScene(scene);
             primaryStage.show();
-
+            primaryStage.setResizable(false);
+            primaryStage.setMaximized(true);
         } catch (Exception e) {
             e.printStackTrace();
         }

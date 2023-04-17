@@ -6,14 +6,14 @@
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<AnchorPane maxHeight="600.0" minHeight="600.0" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.Comprovante">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" prefHeight="720.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.Comprovante">
    <children>
-      <Button layoutX="297.0" layoutY="25.0" mnemonicParsing="false" onAction="#sairParaMeusJogos" prefHeight="36.0" prefWidth="160.0" text="Meus Jogos" />
-      <Button layoutX="557.0" layoutY="25.0" mnemonicParsing="false" onAction="#sairParaMeusPedidos" prefHeight="36.0" prefWidth="174.0" text="Meus Pedidos" />
-      <Button layoutX="293.0" layoutY="426.0" mnemonicParsing="false" onAction="#baixarComprovante" prefHeight="36.0" prefWidth="167.0" text="Baixar Comprovante" />
-      <Button fx:id="btnPerfilDojogo" layoutX="38.0" layoutY="25.0" mnemonicParsing="false" onAction="#sairParaPerfilDoJogo" prefHeight="36.0" prefWidth="167.0" text="Voltar ao Perfil do Jogo" />
-      <Label fx:id="comprovanteLog" layoutX="361.0" layoutY="517.0" text="Label" />
-      <TableView fx:id="tabelaComprovante" layoutX="31.0" layoutY="172.0" prefHeight="164.0" prefWidth="715.0">
+      <Button layoutX="547.0" layoutY="91.0" mnemonicParsing="false" onAction="#sairParaMeusJogos" prefHeight="36.0" prefWidth="160.0" text="Meus Jogos" />
+      <Button layoutX="807.0" layoutY="91.0" mnemonicParsing="false" onAction="#sairParaMeusPedidos" prefHeight="36.0" prefWidth="174.0" text="Meus Pedidos" />
+      <Button layoutX="546.0" layoutY="506.0" mnemonicParsing="false" onAction="#baixarComprovante" prefHeight="36.0" prefWidth="167.0" text="Baixar Comprovante" />
+      <Button fx:id="btnPerfilDojogo" layoutX="288.0" layoutY="91.0" mnemonicParsing="false" onAction="#sairParaPerfilDoJogo" prefHeight="36.0" prefWidth="167.0" text="Voltar ao Perfil do Jogo" />
+      <Label fx:id="comprovanteLog" layoutX="616.0" layoutY="603.0" text="Label" />
+      <TableView fx:id="tabelaComprovante" layoutX="153.0" layoutY="238.0" prefHeight="224.0" prefWidth="976.0">
         <columns>
           <TableColumn fx:id="columnidVenda" prefWidth="57.0" text="id Venda" />
           <TableColumn fx:id="columnidPedido" prefWidth="62.0" text="id Pedido" />
@@ -25,7 +25,10 @@
             <TableColumn fx:id="columndados" prefWidth="61.0" text="Dados" />
             <TableColumn fx:id="columnvalor" prefWidth="59.0" text="Valor" />
         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
       </TableView>
-      <Label layoutX="334.0" layoutY="132.0" styleClass="titulo" text="Relatório da Compra" />
+      <Label layoutX="584.0" layoutY="198.0" styleClass="titulo" text="Relatório da Compra" />
    </children>
 </AnchorPane>
