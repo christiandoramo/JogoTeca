@@ -12,14 +12,14 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PedidoPagamento">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.jogotecaintellij.view.PedidoPagamento">
    <children>
       <Label layoutX="308.0" layoutY="18.0" text="Efetuar pagamento">
          <font>
             <Font size="20.0" />
          </font>
       </Label>
-      <MenuButton fx:id="menuPagamento" layoutX="255.0" layoutY="139.0" mnemonicParsing="false" text="Selecione uma forma de pagamento">
+      <MenuButton fx:id="menuPagamento" layoutX="252.0" layoutY="85.0" mnemonicParsing="false" text="Selecione uma forma de pagamento">
         <items>
           <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesDebito" text="Cartão de débito" />
           <MenuItem mnemonicParsing="false" onAction="#mostrarOpcoesCredito" text="Cartão de crédito" />
@@ -34,9 +34,9 @@
             <Font size="13.0" />
          </font>
       </Button>
-      <AnchorPane fx:id="telaDebito" layoutX="95.0" layoutY="197.0" prefHeight="243.0" prefWidth="609.0">
+      <AnchorPane fx:id="telaDebito" layoutX="95.0" layoutY="197.0" prefHeight="243.0" prefWidth="609.0" visible="false">
          <children>
-            <Text layoutX="192.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informações do cartão de débito">
+            <Text layoutX="192.0" layoutY="20.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informações do cartão de crédito">
                <font>
                   <Font size="15.0" />
                </font>
@@ -59,7 +59,7 @@
             <TextField fx:id="textValidadeDebito" layoutX="321.0" layoutY="111.0" prefHeight="25.0" prefWidth="122.0" />
             <TextField fx:id="textDataDebito" layoutX="138.0" layoutY="111.0" prefHeight="25.0" prefWidth="164.0" />
             <TextField fx:id="textNumeroDebito" layoutX="138.0" layoutY="62.0" prefHeight="25.0" prefWidth="302.0" />
-            <CheckBox layoutX="17.0" layoutY="151.0" mnemonicParsing="false" text="Se a cobrança de débito falhar,você nos autoriza a tentar o crédito(caso o seu cartão tenha esta opção)" />
+            <CheckBox layoutX="17.0" layoutY="151.0" mnemonicParsing="false" text="Se a cobrança de crédito falhar,você nos autoriza a tentar o débito(caso o seu cartão tenha esta opção)" />
             <Button layoutX="215.0" layoutY="184.0" mnemonicParsing="false" onAction="#butaoPagamento" text="Confimar o pagamento">
                <font>
                   <Font size="13.0" />
@@ -67,7 +67,7 @@
             </Button>
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="telaCredito" layoutX="-1.0" layoutY="111.0" prefHeight="231.0" prefWidth="600.0" visible="false">
+      <AnchorPane fx:id="telaCredito" layoutX="5.0" layoutY="119.0" prefHeight="231.0" prefWidth="600.0" visible="false">
          <children>
             <Text layoutX="95.0" layoutY="107.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Numero do cartão">
                <font>
@@ -87,7 +87,7 @@
             <TextField fx:id="textNumeroCredito" layoutX="221.0" layoutY="88.0" prefHeight="25.0" prefWidth="225.0" />
             <TextField fx:id="TextDataCredito" layoutX="221.0" layoutY="117.0" />
             <TextField fx:id="textValidadeCredito" layoutX="221.0" layoutY="150.0" />
-            <Text layoutX="172.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informações do cartão de crédito">
+            <Text layoutX="172.0" layoutY="36.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Informações do cartão de débito">
                <font>
                   <Font size="20.0" />
                </font>
@@ -95,7 +95,7 @@
             <Button layoutX="224.0" layoutY="192.0" mnemonicParsing="false" onAction="#butaoPagamento2" text="Confirmar o pagamento" />
          </children>
       </AnchorPane>
-      <AnchorPane fx:id="telaPix" layoutY="116.0" prefHeight="241.0" prefWidth="600.0" visible="false">
+      <AnchorPane fx:id="telaPix" layoutX="6.0" layoutY="124.0" prefHeight="241.0" prefWidth="600.0" visible="false">
          <children>
             <Text layoutX="137.0" layoutY="22.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Pix da empresa: jocoteca@gmail.com">
                <font>
