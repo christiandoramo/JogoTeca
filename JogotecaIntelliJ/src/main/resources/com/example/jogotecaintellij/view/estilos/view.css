@@ -1,96 +1,43 @@
-/*
-.root{
-    -fx-color: #FFFFFF;
+
+.tela{
+    -fx-background-color: #708090;
 }
 
-.tela {
-    -fx-background-color: #000000;
-}
 .label{
-    -fx-text-fill: #FFFFFF;
 }
-.log{
-    -fx-text-fill: #FF0000;
-}
+.list-view{
 
-.button {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #000000;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 12px;
-    -fx-padding: 6px 12px;
-    -fx-background-radius: 10px;
-     -fx-background-insets: 0;
-     -fx-transition: all 0.5s ease;
 }
+.table-view{
 
-.button:hover {
-    -fx-background-color: #000080;
-    -fx-text-fill: #FFFFFF;
-     -fx-cursor: hand;
 }
-
-.text-field {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #000000;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 12px;
-    -fx-prompt-text-fill: #808080;
+.button{
     -fx-background-radius: 10px;
 }
 
-.date-picker {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #000000;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 12px;
+#btnPlayer{
+}
+
+
+.toggle-button{
     -fx-background-radius: 10px;
 }
 
-.menu-button {
-    -fx-color: #000000;
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #000000;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 12px;
-    -fx-padding: 6px 12px;
-    -fx-background-radius: 10px;
-    -fx-background-insets: 0;
-    -fx-transition: all 0.5s ease;
-}
-.menu-button .label {
-     -fx-text-fill: #000000;
-}
-.menu-button:hover {
-   -fx-cursor: hand;
-    -fx-background-color: #0000BB;
-    -fx-text-fill: #FFFFFF;
-}
 
-.menu-item {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #000000;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 12px;
-    -fx-cursor: hand;
-    -fx-background-insets: 0;
-    -fx-transition: all 0.5s ease;
-}
-.menu-item .label {
-     -fx-text-fill: #000000;
-}
-
-.menu-item:hover {
-    -fx-background-color: #0000BB;
-    -fx-text-fill: #FFFFFF;
-}
-
-.text-area {
-    -fx-background-color: #FFFFFF;
-    -fx-text-fill: #000000;
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 12px;
+.menu-button{
     -fx-background-radius: 10px;
 }
+.menu-item{
+}
+.root{
+}
+.toggle-button:hover{
 
-*/
+}
+
+.button:hover{
+}
+
+#btnPlayer:hover{
+    -fx-opacity: 1.0;
+}

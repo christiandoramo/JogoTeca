@@ -17,7 +17,7 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Pane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("TelaDeTestes.fxml")));// ERROR
+            Pane root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Login.fxml")));
             Scene scene = new Scene(root, root.getPrefWidth(), root.getPrefHeight());
             String css = Objects.requireNonNull(this.getClass().getResource("estilos/view.css")).toExternalForm();
             scene.getStylesheets().add(css);
