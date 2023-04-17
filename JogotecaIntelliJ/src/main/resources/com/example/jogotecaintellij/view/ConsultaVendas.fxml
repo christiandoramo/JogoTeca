@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
-<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
@@ -15,12 +15,15 @@
          </font>
       </Label>
       <Button layoutX="61.0" layoutY="25.0" mnemonicParsing="false" onAction="#voltarAdmin" text="Voltar" />
-      <TextField fx:id="textPedido" layoutX="51.0" layoutY="92.0" />
-      <TextField fx:id="textNumero" layoutX="51.0" layoutY="175.0" />
-      <Button layoutX="62.0" layoutY="125.0" mnemonicParsing="false" onAction="#buscarPedido" text="Procurar pelo ID/pedido" />
-      <Button layoutX="33.0" layoutY="207.0" mnemonicParsing="false" onAction="#buscarCartao" text="Procurar pelo número do cartão" />
-      <ListView fx:id="ListViewVenda" layoutX="290.0" layoutY="80.0" prefHeight="279.0" prefWidth="271.0" />
       <Label fx:id="logBusca" layoutX="18.0" layoutY="253.0" prefHeight="52.0" prefWidth="217.0" text="Label" visible="false" />
-      <Button layoutX="85.0" layoutY="334.0" mnemonicParsing="false" onAction="#searchTodos" text="Ver todos" />
+      <TableView fx:id="tabelaMinahsVendas" layoutX="162.0" layoutY="87.0" prefHeight="227.0" prefWidth="353.0">
+        <columns>
+          <TableColumn fx:id="colunaId" prefWidth="75.0" text="Id" />
+          <TableColumn fx:id="colunaNomes" prefWidth="84.0" text="        nomes" />
+            <TableColumn fx:id="colunaValor" prefWidth="115.0" text="valor" />
+            <TableColumn fx:id="colunaMetodo" prefWidth="75.0" text="método" />
+        </columns>
+      </TableView>
+      <Label fx:id="logBuscas" layoutX="351.0" layoutY="338.0" prefHeight="39.0" prefWidth="145.0" text="Label" visible="false" />
    </children>
 </AnchorPane>
