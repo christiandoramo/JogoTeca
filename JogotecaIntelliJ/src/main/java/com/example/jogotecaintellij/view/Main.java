@@ -24,7 +24,7 @@ public class Main extends Application {
             primaryStage.setTitle("Jogoteca");
             primaryStage.setScene(scene);
             primaryStage.show();
-            primaryStage.setResizable(false);
+            //primaryStage.setResizable(false);
             primaryStage.setMaximized(true);
         } catch (Exception e) {
             e.printStackTrace();
@@ -39,6 +39,5 @@ public class Main extends Application {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 }

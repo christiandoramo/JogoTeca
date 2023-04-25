@@ -1,0 +1,46 @@
+Id da Venda: 1
+
+
+Id do Pedido: 1
+
+
+CPF do usuário: 12345678910
+
+
+Nome do usuário: Christian
+
+
+Nome do(s) jogo(s): Assassins creed 2 | 
+Momento da Compra: 24 abril 2023
+
+
+Método do Pagamento: CREDITO
+
+
+Dado(s) Bancário(s): 1234567891111111 | 1234567891111111 | 1234567891111111 | 
+
+
+Valor Total: 123,00
+Id da Venda: 1
+
+
+Id do Pedido: 1
+
+
+CPF do usuário: 12345678910
+
+
+Nome do usuário: Christian
+
+
+Nome do(s) jogo(s): Assassins creed 2 | 
+Momento da Compra: 24 abril 2023
+
+
+Método do Pagamento: CREDITO
+
+
+Dado(s) Bancário(s): 1234567891111111 | 1234567891111111 | 1234567891111111 | 
+
+
+Valor Total: 123,00

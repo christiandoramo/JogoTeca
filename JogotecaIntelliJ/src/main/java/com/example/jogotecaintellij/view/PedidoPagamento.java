@@ -113,9 +113,9 @@ public class PedidoPagamento extends ViewController implements Initializable {
             alert.setTitle("confirmando");
             alert.setContentText("Pagamento confirmado!");
             Optional<ButtonType> result = alert.showAndWait();
-            String numero1 = textNumeroDebito.getText();
-            String data1 = textNumeroDebito.getText();
-            String validade1 = textNumeroDebito.getText();
+            String numero1 = textNumeroCredito.getText();
+            String data1 = textNumeroCredito.getText();
+            String validade1 = textNumeroCredito.getText();
             nova.add(numero1);
             nova.add(data1);
             nova.add(validade1);

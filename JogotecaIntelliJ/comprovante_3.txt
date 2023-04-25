@@ -1,0 +1,46 @@
+Id da Venda: 3
+
+
+Id do Pedido: 3
+
+
+CPF do usuário: 12345678911
+
+
+Nome do usuário: pessoa1
+
+
+Nome do(s) jogo(s): Age of empires | Assassins creed 2 | 
+Momento da Compra: 24 abril 2023
+
+
+Método do Pagamento: CREDITO
+
+
+Dado(s) Bancário(s): null | null | null | 
+
+
+Valor Total: 246,00
+Id da Venda: 3
+
+
+Id do Pedido: 3
+
+
+CPF do usuário: 12345678911
+
+
+Nome do usuário: pessoa1
+
+
+Nome do(s) jogo(s): Age of empires | Assassins creed 2 | 
+Momento da Compra: 24 abril 2023
+
+
+Método do Pagamento: CREDITO
+
+
+Dado(s) Bancário(s): null | null | null | 
+
+
+Valor Total: 246,00
