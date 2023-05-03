@@ -1,9 +1,0 @@
-id da Venda: 1
-id do Pedido: 1
-Forma de Pagamento: PIX
-Momento da Compra: 13:26:37 10 Abril 2023
-Dados Bancários: 
-CPF do Comprador: 12345679012
-Nome do Comprador: nome
-Valor da Compra: 10,00
-
